@@ -5906,3 +5906,35 @@ body { font-family: 'Geist', sans-serif; letter-spacing: -0.005em; }
 .ww-plan-one > span { display: flex; flex-direction: column; gap: 2px; }
 .ww-plan-one small { font-size: 12px; color: var(--site-muted); }
 .ww-plan-price { font-family: 'Geist Mono', monospace; font-size: 15px; color: var(--lime) !important; }
+
+/* ===== Plans: grouped inclusions + AI training strip in the same section ===== */
+.pb-simple .pr-feats { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 22px; }
+.pb-simple .pr-feats > .pf-group { display: block; padding: 14px 16px; border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; background: rgba(255,255,255,0.025); }
+.pf-g { display: block; font-family: 'Geist Mono', monospace; font-size: 10.5px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--lime); margin-bottom: 10px; }
+.pf-group ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.pf-group ul li { display: flex; align-items: flex-start; gap: 9px; font-size: 14px; line-height: 1.35; color: var(--ink); }
+.pf-group ul li svg { width: 15px; height: 15px; margin-top: 2px; flex-shrink: 0; }
+#pricing .xs-head { margin: 22px 0 10px; }
+#pricing .xs-grid-1 { margin-top: 0; }
+#pricing .xs-wide { padding: 18px 24px; grid-template-columns: 1fr auto; gap: 24px; }
+#pricing .xs-wide .xs-title { font-size: 20px; margin-top: 8px; }
+#pricing .xs-wide .xs-copy { font-size: 13.5px; margin-top: 4px; }
+#pricing .xs-wide-r { display: flex; align-items: center; gap: 24px; }
+#pricing .xs-wide .xs-list { gap: 6px; }
+#pricing .xs-wide .xs-list li { font-size: 13px; }
+#pricing .xs-wide .xs-btns { margin-top: 0; }
+@media (max-width: 900px) {
+  .pb-simple .pr-feats { grid-template-columns: 1fr; gap: 10px; }
+  #pricing .xs-wide { grid-template-columns: 1fr; padding: 18px; }
+  #pricing .xs-wide-r { flex-direction: column; align-items: stretch; gap: 14px; }
+}
+#pricing .xs-wide-l { display: grid; grid-template-columns: auto 1fr; column-gap: 16px; align-items: center; }
+#pricing .xs-wide-l .xs-top { grid-row: span 2; display: block; }
+#pricing .xs-wide-l .xs-top .xs-tag { display: none; }
+#pricing .xs-wide .xs-title { margin-top: 0; display: flex; align-items: center; gap: 10px; }
+#pricing .xs-wide .xs-title::after { content: 'BY CALL ONLY'; font-family: 'Geist Mono', monospace; font-size: 10px; letter-spacing: 0.14em; color: var(--red); border: 1px solid rgba(226,85,72,0.5); border-radius: 99px; padding: 3px 9px; font-weight: 500; }
+@media (max-width: 900px) {
+  #pricing .xs-wide-l { display: block; }
+  #pricing .xs-wide-l .xs-top { display: none; }
+  #pricing .xs-wide .xs-title { flex-wrap: wrap; }
+}
