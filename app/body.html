@@ -134,65 +134,88 @@
   <div class="v4-head">
     <div>
       <div class="section-label">PRICING</div>
-      <h2 class="section-title">Three plans. <em>Everything included.</em></h2>
+      <h2 class="section-title">Pick a service. <em>Try it for a month.</em></h2>
     </div>
-    <p class="section-subtitle">Try any plan for a month with one payment. Like the results? Keep going monthly and cancel anytime.</p>
+    <p class="section-subtitle">One payment covers a full month of work. Want everything, every month? Take the retainer.</p>
   </div>
 
-  <div class="pr-shell pb pb-simple">
-    <div class="pr-controls">
-      <div class="pr-tabs" role="tablist" id="prTabs">
-        <span class="pr-ind" id="prInd"></span>
-        <button class="pr-tab active" data-plan="foundation" onclick="setPlan('foundation')"><span class="pt-n">Foundation</span><span class="pt-p" data-p="foundation"></span></button>
-        <button class="pr-tab" data-plan="growth" onclick="setPlan('growth')"><span class="pt-n">Growth</span><span class="pt-p" data-p="growth"></span></button>
-        <button class="pr-tab" data-plan="dominance" onclick="setPlan('dominance')"><span class="pt-n">Dominance</span><span class="pt-p" data-p="dominance"></span></button>
-      </div>
-      <div class="pb-bill" id="pbBill" role="radiogroup" aria-label="How you pay">
-        <span class="pb-bill-ind" id="pbBillInd"></span>
-        <button data-v="trial" role="radio" onclick="pbSetMode('trial')"><b>Try 1 month</b><small>One-time</small></button>
-        <button data-v="monthly" role="radio" onclick="pbSetMode('monthly')"><b>Monthly</b><small>Save 15%</small></button>
-      </div>
-    </div>
+  <div class="kp">
+    <div class="kp-tabs" id="kpTabs" role="tablist" aria-label="Services"></div>
 
-    <div class="pr-card">
-      <div class="pr-left">
-        <div class="pr-title-row">
-          <span class="pr-name" id="prName">Foundation</span>
-        </div>
-        <p class="pr-for" id="prFor"></p>
-        <div class="pr-inherit" id="prInherit"></div>
-        <ul class="pr-feats" id="prFeats"></ul>
+    <div class="kp-card" id="kpMain">
+      <div class="kp-left">
+        <div class="kp-head"><h3 class="kp-title" id="kpTitle"></h3><span class="pr-chip"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span id="kpTime"></span></span></div>
+        <p class="kp-for" id="kpFor"></p>
+        <div class="kp-opts" id="kpOpts"></div>
+        <div id="kpToggle"></div>
+        <ul class="pr-feats kp-feats" id="kpFeats"></ul>
       </div>
-
-      <div class="pr-right">
-        <div class="pr-stage" id="prStage">
+      <div class="kp-right">
+        <div class="pr-stage kp-stage" id="prStage">
           <div class="pr-metal" id="prMetal" data-tier="foundation">
-            <span class="pm-skin sk-foundation"></span><span class="pm-skin sk-growth"></span><span class="pm-skin sk-dominance"></span>
+            <span class="pm-skin sk-foundation"></span><span class="pm-skin sk-growth"></span><span class="pm-skin sk-dominance"></span><span class="pm-skin sk-retainer"></span>
             <span class="pr-light"></span>
             <div class="pm-top">
               <span class="pm-logo">RTG</span>
-              <span class="pr-pop" id="prPop">MOST POPULAR</span>
+              <span class="pr-pop" id="prPop"></span>
               <svg class="pm-nfc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8.5 7.5a6.5 6.5 0 0 1 0 9M12 5a10 10 0 0 1 0 14M15.5 2.5a13.5 13.5 0 0 1 0 19"/></svg>
             </div>
             <div class="pm-chip"><i></i><i></i><i></i></div>
             <div class="pm-bottom">
               <div>
-                <div class="pr-metal-label" id="prMetalLabel">FOUNDATION PLAN</div>
-                <div class="pr-price"><span id="prPrice">$0</span><small id="prPer">/mo</small></div>
+                <div class="pr-metal-label" id="prMetalLabel"></div>
+                <div class="pr-price"><span id="prPrice"></span><small id="prPer"></small></div>
                 <div class="pr-alt" id="prAlt"></div>
               </div>
-              <div class="pm-member">
-                <span>MEMBER SINCE</span>
-                <b id="prSince">12 / 26</b>
-              </div>
+              <div class="pm-member"><span>MEMBER SINCE</span><b class="pm-since">12 / 26</b></div>
             </div>
           </div>
         </div>
-        <div class="pr-btns">
-          <button class="gl-cta pr-go" id="pbGo" onclick="startPlan()"><span id="prGoName">Start Foundation</span> <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg></button>
-          <button class="gl-ghost pr-msg" onclick="openWW('message')">Send a message</button>
+        <div class="kp-btns">
+          <button class="gl-cta" id="kpGo" onclick="kpStart('main')"><span id="kpGoText">Start project</span> <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg></button>
+          <button class="gl-ghost" onclick="openWW('message')">Send a message</button>
         </div>
-        <p class="pr-note" id="prNote"></p>
+        <p class="kp-note" id="kpNote"></p>
+      </div>
+    </div>
+
+    <div class="kp-card kp-ret">
+      <div class="kp-left">
+        <div class="kp-head"><h3 class="kp-title">RTG Retainer</h3><span class="pr-chip kp-chip-lime">Monthly · cancel anytime</span></div>
+        <p class="kp-for">Every RTG service, every month. Pick how many tasks run at once.</p>
+        <div class="kp-row kp-stepper-row">
+          <span>Active tasks</span>
+          <span class="pb-qty"><button aria-label="Fewer tasks" onclick="kpTasks(-1)">−</button><b id="kpTasks">1</b><button aria-label="More tasks" onclick="kpTasks(1)">+</button></span>
+        </div>
+        <ul class="pr-feats kp-feats" id="kpRetFeats"></ul>
+        <div class="kp-tags" id="kpRetTags"></div>
+      </div>
+      <div class="kp-right">
+        <div class="pr-stage kp-stage" id="krStage">
+          <div class="pr-metal" id="krMetal" data-tier="retainer">
+            <span class="pm-skin sk-foundation"></span><span class="pm-skin sk-growth"></span><span class="pm-skin sk-dominance"></span><span class="pm-skin sk-retainer"></span>
+            <span class="pr-light"></span>
+            <div class="pm-top">
+              <span class="pm-logo">RTG</span>
+              <span class="pr-pop" id="krPop"></span>
+              <svg class="pm-nfc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8.5 7.5a6.5 6.5 0 0 1 0 9M12 5a10 10 0 0 1 0 14M15.5 2.5a13.5 13.5 0 0 1 0 19"/></svg>
+            </div>
+            <div class="pm-chip"><i></i><i></i><i></i></div>
+            <div class="pm-bottom">
+              <div>
+                <div class="pr-metal-label" id="krLabel"></div>
+                <div class="pr-price"><span id="krPrice"></span><small id="krPer"></small></div>
+                <div class="pr-alt" id="krAlt"></div>
+              </div>
+              <div class="pm-member"><span>MEMBER SINCE</span><b class="pm-since">12 / 26</b></div>
+            </div>
+          </div>
+        </div>
+        <div class="kp-btns">
+          <button class="gl-cta kp-go-lime" onclick="kpStart('retainer')">Start retainer <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg></button>
+          <button class="gl-ghost" onclick="openWW('message')">Send a message</button>
+        </div>
+        <p class="kp-note">Try a service first with a one-time month above. Move to the retainer when it works.</p>
       </div>
     </div>
   </div>

@@ -810,8 +810,9 @@ const faqs = [
   ['Who do you work with?', 'Restaurants, clinics, beauty, fitness, retail and gaming studios. Any business that needs its website to bring in customers.'],
   ["What if I don't have a brief?", 'Send a few lines or book a call. RTG turns it into a plan.'],
   ['How long does a build take?', 'Most sites go live within 48 hours of kickoff. Bigger builds take one to two weeks.'],
-  ['How much does it cost?', 'Foundation is $300, Growth $800 and Dominance $1,500. Try any plan for one month with a single payment, or go monthly for 15% less and cancel anytime.'],
-  ['What is in each plan?', 'Foundation is your website with SEO and AI search. Growth adds UGC videos, AI content, AI ads and Meta Ads. Dominance adds AI model shoots, a short film ad, Google Ads and AI tools training.'],
+  ['How much does it cost?', 'Websites start at $300, ads at $450 and content at $250, each for a one-time month. The RTG Retainer covers every service from $1,500 a month and you can cancel anytime.'],
+  ['What counts as ads?', 'Everything ad related: AI video ads, UGC ads, short film ads, plus running them on Meta, Google and TikTok. Your ad spend stays in your account.'],
+  ['Can you teach my team AI tools?', 'Yes. Open the AI Training tab in Pricing and book a call. Sessions are 1 to 1 and shaped around your work.'],
   ['Does my ad budget go to you?', 'No. Your ad spend stays in your own Meta or Google account. The plan covers RTG running it for you.'],
   ['Why do you show prices?', 'So you know before the first call. It saves both of us time and keeps the focus on your build.'],
   ['What happens after launch?', 'RTG keeps the site fast, ranked and updated, with a weekly report on what to fix next.']
@@ -851,46 +852,67 @@ function glHome() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ==================== PRICING: 3 PLANS ====================
-// Every price and inclusion lives here. Change a number, the page updates.
+// ==================== PRICING: SERVICE TABS + RETAINER ====================
+// Every price lives here. Change a number, the page updates.
 const NGN_RATE = 1600;
-const MONTHLY_DISCOUNT = 0.15; // monthly plans pay 15% less than the 1-month trial
-const PLAN_ORDER = ['foundation', 'growth', 'dominance'];
-const PLANS = {
-  foundation: {
-    name: 'Foundation', price: 300,
-    for: 'Get your business online and found on Google.',
-    inherit: null,
-    feats: ['Website, up to 5 pages', 'SEO + AI search (AIO)', 'Hosting, SSL and updates', 'Monthly results report']
+const KP_ORDER = ['web', 'ads', 'content', 'training'];
+const KP = {
+  web: {
+    tab: 'Websites', title: 'Website', time: '48hr delivery', tier: 'foundation',
+    for: 'A fast site built to rank on Google and get cited by AI.',
+    opts: [{ id: 'landing', label: 'Landing page', price: 300 }, { id: 'site', label: 'Website · 5 pages', price: 600 }],
+    toggle: { label: 'Add SEO + AI search', price: 150 },
+    feats: ['Desktop, tablet and mobile', 'Hosting and SSL for the month', 'Unlimited revisions', 'Updates every 48 hours']
   },
-  growth: {
-    name: 'Growth', price: 800, popular: true,
-    for: 'Your site plus the content and ads that bring people to it.',
-    inherit: 'Foundation',
-    feats: ['4 UGC videos a month', '12 AI content posts a month', '2 AI video ads a month', 'Meta Ads management']
+  ads: {
+    tab: 'Ads', title: 'Ads', time: '5 day delivery', tier: 'growth',
+    for: 'Every kind of ad, made and run for you. Your ad spend stays in your account.',
+    opts: [{ id: 'make', label: 'We make the ads', price: 450 }, { id: 'run', label: 'We make and run them', price: 800 }],
+    toggle: { label: 'Add a 2 min short film ad', price: 750 },
+    feats: ['AI video ads, 15 to 60 seconds', 'UGC creator-style ads', 'Meta, Google and TikTok ads', 'Weekly clicks and cost report']
   },
-  dominance: {
-    name: 'Dominance', price: 1500,
-    for: 'The full RTG team on your brand, every month.',
-    inherit: 'Growth',
-    feats: ['AI model photo and video shoot', '2 min short film ad', 'Google Ads management', 'AI tools training for your team', 'Direct line to the RTG founder']
+  content: {
+    tab: 'Content', title: 'Content', time: 'Weekly drops', tier: 'dominance',
+    for: 'Posts, videos and photos made with AI and checked by RTG.',
+    opts: [{ id: 'posts', label: '12 AI posts', price: 250 }, { id: 'shoot', label: 'Posts + AI model shoot', price: 520 }],
+    toggle: null,
+    feats: ['Content calendar for the month', 'AI model photos and video of your product', 'Captions written for your audience', 'Sized for Instagram and TikTok']
+  },
+  training: {
+    tab: 'AI Training', title: 'AI Tools Training', time: '1 to 1 sessions', tier: 'foundation', call: true,
+    for: 'Learn the AI tools RTG uses to build, write and market. Shaped around your team.',
+    opts: null, toggle: null,
+    feats: ['Pick the right AI tools for your business', 'Hands-on walkthroughs on your own work', 'Prompts and workflows your team keeps', 'Follow-up notes after every session']
   }
 };
-
-const pbState = { plan: 'growth', mode: 'trial', cur: 'usd' };
-const pricingState = pbState;
+const RETAINER = {
+  base: 1500, perTask: 1000, maxTasks: 5,
+  feats: ['Updates every 48 hours', 'Monthly results report', 'Direct line to the RTG founder', 'Cancel anytime'],
+  tags: ['Websites', 'SEO + AI search', 'AI video ads', 'UGC ads', 'Meta Ads', 'Google Ads', 'AI content', 'AI model shoots']
+};
+const kpState = { tab: 'web', opt: { web: 'site', ads: 'run', content: 'posts' }, tog: { web: true, ads: false }, tasks: 1, cur: 'usd', pick: 'main' };
+const pbState = kpState;
+const pricingState = kpState;
 
 function money(usd, cur) {
   return cur === 'ngn' ? '₦' + Math.round(usd * NGN_RATE).toLocaleString() : '$' + Math.round(usd).toLocaleString();
 }
-function planPrice(k, mode) {
-  const p = PLANS[k].price;
-  return (mode || pbState.mode) === 'monthly' ? Math.round(p * (1 - MONTHLY_DISCOUNT)) : p;
+function kpPrice(k) {
+  const S = KP[k];
+  if (!S.opts) return 0;
+  let p = S.opts.find(o => o.id === kpState.opt[k]).price;
+  if (S.toggle && kpState.tog[k]) p += S.toggle.price;
+  return p;
 }
-function setPlan(k) { if (PLANS[k]) { pbState.plan = k; renderPricing(true); } }
-function pbSetMode(m) { pbState.mode = m; renderPricing(); }
-function setCur(c) { pbState.cur = c; renderPricing(); }
-function setBilling(b) { pbSetMode(b === 'monthly' ? 'monthly' : 'trial'); }
+function kpRetPrice() { return RETAINER.base + RETAINER.perTask * (kpState.tasks - 1); }
+function kpTab(k) { kpState.tab = k; renderPricing(true); }
+function kpOpt(id) { kpState.opt[kpState.tab] = id; renderPricing(); }
+function kpTog(v) { kpState.tog[kpState.tab] = v; renderPricing(); }
+function kpTasks(d) { kpState.tasks = Math.max(1, Math.min(RETAINER.maxTasks, kpState.tasks + d)); renderPricing(); }
+function setCur(c) { kpState.cur = c; renderPricing(); }
+function setPlan() {}
+function setBilling() {}
+function pbSetMode() {}
 
 function countTo(el, from, to, fmt) {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || from === to) { el.textContent = fmt(to); return; }
@@ -904,51 +926,63 @@ function countTo(el, from, to, fmt) {
   };
   el._raf = requestAnimationFrame(tick);
 }
+function kpSetPrice(el, usd) {
+  const cur = kpState.cur;
+  const target = cur === 'ngn' ? usd * NGN_RATE : usd;
+  const from = el._val == null ? target : el._val;
+  el._val = target;
+  countTo(el, from, target, v => (cur === 'ngn' ? '₦' : '$') + Math.round(v).toLocaleString());
+}
 
 const PB_CHECK = '<svg viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
 function renderPricing(bump) {
-  const { plan, mode, cur } = pbState;
-  const P = PLANS[plan];
-  if (!document.getElementById('prTabs')) return;
-  const monthly = mode === 'monthly';
+  const tabs = document.getElementById('kpTabs');
+  if (!tabs) return;
+  const k = kpState.tab, S = KP[k], cur = kpState.cur, alt = cur === 'usd' ? 'ngn' : 'usd';
+  tabs.innerHTML = KP_ORDER.map(t => `<button class="kp-tab ${t === k ? 'on' : ''}" role="tab" aria-selected="${t === k}" onclick="kpTab('${t}')">${KP[t].tab}</button>`).join('');
 
-  document.querySelectorAll('.pr-tab').forEach(t => t.classList.toggle('active', t.dataset.plan === plan));
-  const ind = document.getElementById('prInd');
-  if (ind) ind.style.transform = `translateX(${PLAN_ORDER.indexOf(plan) * 100}%)`;
-  document.getElementById('prTabs').dataset.tier = plan;
-  document.querySelectorAll('.pt-p').forEach(el => { el.textContent = money(planPrice(el.dataset.p), cur) + (monthly ? '/mo' : ''); });
-  document.querySelectorAll('#pbBill button').forEach(b => {
-    const on = b.dataset.v === mode;
-    b.classList.toggle('on', on);
-    b.setAttribute('aria-checked', on);
-  });
-  const bi = document.getElementById('pbBillInd');
-  if (bi) bi.style.transform = monthly ? 'translateX(100%)' : 'translateX(0)';
-
-  document.getElementById('prName').textContent = P.name;
-  document.getElementById('prFor').textContent = P.for;
-  document.getElementById('prInherit').innerHTML = P.inherit ? `<span class="pr-plus">+</span>Everything in ${P.inherit}, plus` : '';
-  document.getElementById('prFeats').innerHTML = P.feats.map(f => `<li>${PB_CHECK}${f}</li>`).join('');
+  document.getElementById('kpTitle').textContent = S.title;
+  document.getElementById('kpTime').textContent = S.time;
+  document.getElementById('kpFor').textContent = S.for;
+  document.getElementById('kpOpts').innerHTML = S.opts ? S.opts.map(o => `
+    <button class="kp-opt ${o.id === kpState.opt[k] ? 'on' : ''}" onclick="kpOpt('${o.id}')"><b>${o.label}</b><span>${money(o.price, cur)}</span></button>`).join('') : '';
+  document.getElementById('kpOpts').hidden = !S.opts;
+  document.getElementById('kpToggle').innerHTML = S.toggle ? `
+    <label class="kp-row kp-switch ${kpState.tog[k] ? 'on' : ''}"><span>${S.toggle.label}<small>+${money(S.toggle.price, cur)}</small></span>
+      <input type="checkbox" ${kpState.tog[k] ? 'checked' : ''} onchange="kpTog(this.checked)" /><span class="pr-switch" aria-hidden="true"></span></label>` : '';
+  document.getElementById('kpFeats').innerHTML = S.feats.map(f => `<li>${PB_CHECK}${f}</li>`).join('');
 
   const card = document.getElementById('prMetal');
-  card.dataset.tier = plan;
-  document.getElementById('prPop').style.visibility = P.popular ? 'visible' : 'hidden';
-  document.getElementById('prMetalLabel').textContent = P.name.toUpperCase() + ' PLAN';
-  document.getElementById('prPer').textContent = monthly ? '/mo' : ' once';
-  const price = planPrice(plan);
-  const alt = cur === 'usd' ? 'ngn' : 'usd';
-  document.getElementById('prAlt').innerHTML = `<button class="pb-cur" onclick="setCur('${alt}')" aria-label="Show price in ${alt.toUpperCase()}">${money(price, alt)}</button> ${monthly ? 'per month' : 'for 1 month'}`;
+  card.dataset.tier = S.tier;
+  const pop = document.getElementById('prPop');
+  pop.textContent = S.call ? 'BY CALL ONLY' : '1-MONTH TRIAL';
+  document.getElementById('prMetalLabel').textContent = (S.opts ? S.opts.find(o => o.id === kpState.opt[k]).label : S.title).toUpperCase();
   const priceEl = document.getElementById('prPrice');
-  const target = cur === 'ngn' ? price * NGN_RATE : price;
-  const from = priceEl._val == null ? target : priceEl._val;
-  priceEl._val = target;
-  countTo(priceEl, from, target, v => (cur === 'ngn' ? '₦' : '$') + Math.round(v).toLocaleString());
+  if (S.call) {
+    cancelAnimationFrame(priceEl._raf); priceEl._val = null;
+    priceEl.textContent = 'By call';
+    document.getElementById('prPer').textContent = '';
+    document.getElementById('prAlt').textContent = 'Pricing set on your call';
+  } else {
+    kpSetPrice(priceEl, kpPrice(k));
+    document.getElementById('prPer').textContent = ' once';
+    document.getElementById('prAlt').innerHTML = `<button class="pb-cur" onclick="setCur('${alt}')">${money(kpPrice(k), alt)}</button> for 1 month`;
+  }
+  document.getElementById('kpGoText').textContent = S.call ? 'Book a call' : 'Start 1-month trial';
+  document.getElementById('kpNote').textContent = S.call ? 'Pick a time that suits you. 20 minutes.' : 'One payment, no renewal. Keep going on the retainer below.';
 
-  document.getElementById('prGoName').textContent = `${monthly ? 'Start' : 'Try'} ${P.name}`;
-  document.getElementById('prNote').innerHTML = monthly
-    ? 'Billed monthly. Cancel anytime. <a onclick="bookCall(\'website\')">Questions? Book a call.</a>'
-    : `One payment, no renewal. Stay on for ${money(planPrice(plan, 'monthly'), 'usd')}/mo. <a onclick="bookCall('website')">Book a call.</a>`;
+  // retainer
+  document.getElementById('kpTasks').textContent = kpState.tasks;
+  document.querySelectorAll('.kp-stepper-row button')[0].disabled = kpState.tasks <= 1;
+  document.querySelectorAll('.kp-stepper-row button')[1].disabled = kpState.tasks >= RETAINER.maxTasks;
+  document.getElementById('kpRetFeats').innerHTML = RETAINER.feats.map(f => `<li>${PB_CHECK}${f}</li>`).join('');
+  document.getElementById('kpRetTags').innerHTML = RETAINER.tags.map(t => `<span>${t}</span>`).join('');
+  document.getElementById('krPop').textContent = 'ALL SERVICES';
+  document.getElementById('krLabel').textContent = `RETAINER · ${kpState.tasks} TASK${kpState.tasks > 1 ? 'S' : ''}`;
+  kpSetPrice(document.getElementById('krPrice'), kpRetPrice());
+  document.getElementById('krPer').textContent = '/mo';
+  document.getElementById('krAlt').innerHTML = `<button class="pb-cur" onclick="setCur('${alt}')">${money(kpRetPrice(), alt)}</button> per month`;
 
   if (bump) { card.classList.remove('flip'); void card.offsetWidth; card.classList.add('flip'); }
   syncPlanNote();
@@ -956,45 +990,47 @@ function renderPricing(bump) {
 
 function initPricingCard() {
   const d = new Date(); d.setMonth(d.getMonth() + 1);
-  const since = document.getElementById('prSince');
-  if (since) since.textContent = String(d.getMonth() + 1).padStart(2, '0') + ' / ' + String(d.getFullYear()).slice(2);
-  const stage = document.getElementById('prStage');
-  const card = document.getElementById('prMetal');
-  if (!stage || !card) return;
+  const since = String(d.getMonth() + 1).padStart(2, '0') + ' / ' + String(d.getFullYear()).slice(2);
+  document.querySelectorAll('.pm-since').forEach(el => { el.textContent = since; });
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || window.matchMedia('(hover: none)').matches) return;
-  stage.addEventListener('pointermove', e => {
-    const r = stage.getBoundingClientRect();
-    const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
-    card.style.setProperty('--rx', ((0.5 - y) * 10).toFixed(2) + 'deg');
-    card.style.setProperty('--ry', ((x - 0.5) * 14).toFixed(2) + 'deg');
-    card.style.setProperty('--mx', (x * 100).toFixed(1) + '%');
-    card.style.setProperty('--my', (y * 100).toFixed(1) + '%');
-    card.classList.add('tilting');
-  });
-  stage.addEventListener('pointerleave', () => {
-    card.style.setProperty('--rx', '0deg');
-    card.style.setProperty('--ry', '0deg');
-    card.classList.remove('tilting');
+  document.querySelectorAll('.kp-stage').forEach(stage => {
+    const card = stage.querySelector('.pr-metal');
+    stage.addEventListener('pointermove', e => {
+      const r = stage.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      card.style.setProperty('--rx', ((0.5 - y) * 10).toFixed(2) + 'deg');
+      card.style.setProperty('--ry', ((x - 0.5) * 14).toFixed(2) + 'deg');
+      card.style.setProperty('--mx', (x * 100).toFixed(1) + '%');
+      card.style.setProperty('--my', (y * 100).toFixed(1) + '%');
+      card.classList.add('tilting');
+    });
+    stage.addEventListener('pointerleave', () => {
+      card.style.setProperty('--rx', '0deg');
+      card.style.setProperty('--ry', '0deg');
+      card.classList.remove('tilting');
+    });
   });
 }
 
 // summary used by the form and the admin inbox
 function pbSummary() {
-  const P = PLANS[pbState.plan];
-  const price = planPrice(pbState.plan);
-  const monthly = Math.round(P.price * (1 - MONTHLY_DISCOUNT));
-  return {
-    mode: pbState.mode,
-    plan: pbState.plan,
-    lines: [{ key: pbState.plan, name: P.name + ' plan', detail: (P.inherit ? 'Everything in ' + P.inherit + ' + ' : '') + P.feats.join(', '), addons: [], price }],
-    trial: P.price,
-    monthly,
-    due: price,
-    text: `${P.name} plan · ${pbState.mode === 'monthly' ? money(monthly, 'usd') + '/mo' : money(P.price, 'usd') + ' 1-month trial'}`
-  };
+  if (kpState.pick === 'retainer') {
+    const p = kpRetPrice();
+    return { mode: 'monthly', plan: 'dominance', lines: [{ key: 'retainer', name: 'RTG Retainer', detail: `${kpState.tasks} active task${kpState.tasks > 1 ? 's' : ''}, all services`, addons: [], price: p }], trial: p, monthly: p, due: p, text: `RTG Retainer · ${money(p, 'usd')}/mo` };
+  }
+  const k = kpState.tab, S = KP[k], p = kpPrice(k);
+  const opt = S.opts ? S.opts.find(o => o.id === kpState.opt[k]).label : 'Book a call';
+  const adds = S.toggle && kpState.tog[k] ? [S.toggle.label.replace(/^Add /, '')] : [];
+  return { mode: 'trial', plan: k === 'ads' ? 'growth' : k === 'content' ? 'dominance' : 'foundation', lines: [{ key: k, name: S.title, detail: opt, addons: adds, price: p }], trial: p, monthly: 0, due: p, text: `${S.title} · ${opt} · ${money(p, 'usd')} 1-month trial` };
+}
+function kpStart(which) {
+  if (which === 'main' && KP[kpState.tab].call) { bookCall('training'); return; }
+  kpState.pick = which === 'retainer' ? 'retainer' : 'main';
+  openWW('project');
+  syncPlanNote();
 }
 
-const topicNames = { website: 'Website plan', ads: 'Ads & growth', training: 'AI tools training', unsure: 'Not sure yet' };
+const topicNames = { website: 'Website plan', ads: 'Ads', training: 'AI tools training', unsure: 'Not sure yet' };
 const svcState = new Set();
 function toggleSvc() {}
 function renderSvcs() {}
@@ -1004,18 +1040,13 @@ function bookCall(topic) {
   const sel = document.querySelector('.ww-panel[data-panel="call"] [name="topic"]');
   if (sel) sel.value = topic || 'website';
 }
-function startPlan() {
-  openWW('project');
-  syncPlanNote();
-}
+function startPlan() { kpStart('main'); }
 function syncPlanNote() {
   const box = document.getElementById('wwPlan');
   const t = document.getElementById('wwCommitText');
-  const P = PLANS[pbState.plan];
-  const price = planPrice(pbState.plan);
-  const monthly = pbState.mode === 'monthly';
-  if (box) box.innerHTML = `<div class="ww-plan-line ww-plan-one"><span><b>${P.name} plan</b><small>${monthly ? 'Monthly, cancel anytime' : '1-month trial, one payment'}</small></span><b class="ww-plan-price">${money(price, 'usd')}${monthly ? '/mo' : ''}</b></div>`;
-  if (t) t.textContent = monthly ? `I'm ready to start at ${money(price, 'usd')} a month.` : `I'm ready to pay ${money(price, 'usd')} for a 1-month trial.`;
+  const sm = pbSummary(), l = sm.lines[0], monthly = sm.mode === 'monthly';
+  if (box) box.innerHTML = `<div class="ww-plan-line ww-plan-one"><span><b>${esc(l.name)}</b><small>${esc(l.detail)}${l.addons.length ? ' + ' + esc(l.addons.join(', ')) : ''} · ${monthly ? 'monthly, cancel anytime' : '1-month trial'}</small></span><b class="ww-plan-price">${money(sm.due, 'usd')}${monthly ? '/mo' : ''}</b></div>`;
+  if (t) t.textContent = monthly ? `I'm ready to start at ${money(sm.due, 'usd')} a month.` : `I'm ready to pay ${money(sm.due, 'usd')} for the 1-month trial.`;
 }
 
 // ==================== TEAM ====================
