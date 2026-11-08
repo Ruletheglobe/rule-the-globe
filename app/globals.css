@@ -4753,11 +4753,14 @@ body { font-family: 'Geist', sans-serif; letter-spacing: -0.005em; }
   .hero .hero-right { padding: 0 !important; overflow: visible; align-self: stretch; }
   .hero .hero-right .v4-globe {
     position: absolute !important;
-    width: 150% !important;
+    height: 167%;
+    width: auto !important;
     aspect-ratio: 1;
-    top: calc(50% + 70px) !important;
-    right: -46% !important;
-    margin: -75% 0 0 0;
+    left: 50% !important;
+    right: auto !important;
+    top: 72% !important;
+    margin: 0;
+    translate: -50% -50%;
   }
   .hero .hero-location-pill { z-index: 2; }
 }
