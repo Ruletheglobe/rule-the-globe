@@ -6078,3 +6078,11 @@ body { font-family: 'Geist', sans-serif; letter-spacing: -0.005em; }
 .sys-art-wrap { transform: translate(98px, 30px) scale(0.56); }
 @media (max-width: 1100px) { .sys-art-wrap { transform: translate(60px, 24px) scale(0.6); } }
 @media (max-width: 900px) { .sys-art-wrap, .sys-panel.open .sys-art-wrap { transform: none; } }
+/* bigger magnifying glass */
+.sys-panel:nth-child(1) .sys-art-wrap { width: 350px; height: 350px; margin-top: -175px; right: 10px; transform: translate(122px, 34px) scale(0.6); }
+.sys-panel:nth-child(1).open .sys-art-wrap { transform: none; }
+@media (max-width: 1100px) { .sys-panel:nth-child(1) .sys-art-wrap { width: 260px; height: 260px; margin-top: -130px; transform: translate(80px, 26px) scale(0.64); } }
+@media (max-width: 900px) { .sys-panel:nth-child(1) .sys-art-wrap { width: 230px; height: 230px; margin-top: 64px; transform: none; } }
+.sys-panel:nth-child(1):not(.open) .sys-art-wrap { transform: translate(100px, 30px) scale(0.6); }
+@media (max-width: 1100px) { .sys-panel:nth-child(1):not(.open) .sys-art-wrap { transform: translate(64px, 24px) scale(0.64); } }
+@media (max-width: 900px) { .sys-panel:nth-child(1):not(.open) .sys-art-wrap { transform: none; } }
