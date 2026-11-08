@@ -4755,7 +4755,7 @@ body { font-family: 'Geist', sans-serif; letter-spacing: -0.005em; }
     position: absolute !important;
     width: 150% !important;
     aspect-ratio: 1;
-    top: 50% !important;
+    top: calc(50% + 70px) !important;
     right: -46% !important;
     margin: -75% 0 0 0;
   }
