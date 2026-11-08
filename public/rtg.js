@@ -851,53 +851,149 @@ function glHome() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ==================== PRICING ====================
+// ==================== PRICING: SERVICE BUILDER ====================
+// Every price on the pricing section lives here. Change a number, the page updates.
 const NGN_RATE = 1600;
-const SETUP_FEE = 250;
-const planOrder = ['foundation', 'growth', 'dominance'];
-const plans = {
-  foundation: {
-    name: 'Foundation', monthly: 300, annual: 3000, delivery: '48hr delivery', support: 'Email support',
-    for: 'For one location that needs to get found and start converting.',
-    inherit: null,
-    feats: ['Custom AI-built website', 'Full SEO foundation', 'AI search optimization (AIO)', 'Visitor intelligence dashboard', 'Weekly AI insight report']
+const MONTHLY_DISCOUNT = 0.15; // monthly plans pay 15% less than the 1-month trial
+const SVC_ORDER = ['web', 'ugc', 'models', 'content', 'aiads'];
+const SERVICES = {
+  web: {
+    name: 'Web Development', short: 'WEB', delivery: '48hr delivery',
+    icon: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01"/>',
+    desc: 'A fast site built to rank on Google, get cited by AI and turn visitors into customers.',
+    choiceLabel: 'What you need',
+    choices: [
+      { id: 'landing', label: 'Landing page', note: 'One page, one offer', price: 300 },
+      { id: 'site', label: 'Website', note: 'Up to 5 pages', price: 600 },
+      { id: 'store', label: 'Website + bookings', note: 'Or a small store', price: 1000 }
+    ],
+    addons: [
+      { id: 'seo', label: 'SEO + AI search (AIO)', price: 150, on: true },
+      { id: 'pages', label: 'Extra pages', price: 60, unit: '/page', qty: true },
+      { id: 'report', label: 'Weekly growth report', price: 80 }
+    ],
+    feats: ['Desktop, tablet and mobile', 'Hosting and SSL included', 'Unlimited revisions', 'Updates every 48 hours']
   },
-  growth: {
-    name: 'Growth', monthly: 600, annual: 6000, delivery: '48hr delivery', support: 'Priority support', popular: true,
-    for: 'For brands ready to personalize every visit and grow every month.',
-    inherit: 'Foundation',
-    feats: ['Personalization engine', 'Monthly deep-dive growth report', 'Quarterly content refresh', 'Business profile feed']
+  ugc: {
+    name: 'UGC Videos', short: 'UGC', delivery: '7 day delivery',
+    icon: '<rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M10.5 9.5v5l4-2.5z"/>',
+    desc: 'Creator-style videos that sell your product the way real customers talk about it.',
+    choiceLabel: 'Video length',
+    choices: [
+      { id: 's', label: '15 to 30 seconds', note: 'Hooks and quick demos', price: 90 },
+      { id: 'l', label: '60 seconds', note: 'Reviews and unboxings', price: 150 }
+    ],
+    qty: { label: 'Videos this month', min: 1, max: 30, def: 4 },
+    addons: [
+      { id: 'hooks', label: '3 extra hooks per video', price: 25, unit: '/video', perQty: true },
+      { id: 'raw', label: 'Raw footage files', price: 40 }
+    ],
+    feats: ['Script and brief written for you', 'Vertical 9:16 for TikTok, Reels and Shorts', 'Captions on every video', '2 revision rounds']
   },
-  dominance: {
-    name: 'Dominance', monthly: 1000, annual: 10000, delivery: '48hr delivery', support: 'Direct access to the RTG founder',
-    for: 'For multi-location brands that want to own their category.',
-    inherit: 'Growth',
-    feats: ['Multi-location and multi-page', 'Custom monthly AIO strategy', 'Competitor gap analysis', 'White-glove onboarding']
+  models: {
+    name: 'AI Model Shoots', short: 'AI SHOOT', delivery: '5 day delivery',
+    icon: '<circle cx="12" cy="8" r="3.5"/><path d="M5 20c1-4 4-6 7-6s6 2 7 6"/><path d="M18.5 3.5l.6 1.4 1.4.6-1.4.6-.6 1.4-.6-1.4-1.4-.6 1.4-.6z"/>',
+    desc: 'Photo and video shoots with AI models wearing or holding your product. No studio, no booking.',
+    choiceLabel: 'Shoot type',
+    choices: [
+      { id: 'photo', label: 'Photo set', note: '10 images', price: 180 },
+      { id: 'video', label: 'Video shoot', note: '3 clips', price: 350 },
+      { id: 'both', label: 'Photo + video', note: '10 images, 3 clips', price: 480 }
+    ],
+    addons: [
+      { id: 'looks', label: 'Extra model or look', price: 60, unit: '/look', qty: true },
+      { id: 'scenes', label: 'Lifestyle scenes (city, beach, studio)', price: 80 }
+    ],
+    feats: ['Your product in any setting', 'The same model across every shoot', 'Sizes for web, ads and social', 'Full commercial rights']
+  },
+  content: {
+    name: 'AI Content Creation', short: 'CONTENT', delivery: 'Weekly drops',
+    icon: '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 17.5h7M17.5 14v7"/>',
+    desc: 'A month of posts, carousels and captions made with AI and checked by RTG before they go out.',
+    choiceLabel: 'Posts per month',
+    choices: [
+      { id: 'c12', label: '12 posts', note: '3 a week', price: 200 },
+      { id: 'c20', label: '20 posts', note: '5 a week', price: 320 },
+      { id: 'c30', label: '30 posts', note: 'Every day', price: 450 }
+    ],
+    addons: [
+      { id: 'reels', label: 'Reels editing (4 a month)', price: 150 },
+      { id: 'post', label: 'Scheduling and posting for you', price: 80 }
+    ],
+    feats: ['Content calendar for the month', 'Captions written for your audience', 'Carousels and single posts', 'Monthly performance recap']
+  },
+  aiads: {
+    name: 'AI Ads', short: 'AI ADS', delivery: '5 day delivery',
+    icon: '<rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M10 9.5v5l4.5-2.5z"/><path d="M2.5 9h19" opacity=".35"/>',
+    desc: 'Video ads made with AI, from 15 second hooks to 2 minute short film ads.',
+    choiceLabel: 'Ad length',
+    choices: [
+      { id: 'a15', label: '15 seconds', note: 'Scroll stopper', price: 120 },
+      { id: 'a30', label: '30 seconds', note: 'Product story', price: 200 },
+      { id: 'a60', label: '60 seconds', note: 'Full pitch', price: 350 },
+      { id: 'film', label: '2 min short film', note: 'Cinematic brand ad', price: 750 }
+    ],
+    qty: { label: 'Ads this month', min: 1, max: 20, def: 2 },
+    addons: [
+      { id: 'vo', label: 'AI voiceover', price: 50 },
+      { id: 'sizes', label: 'All sizes (9:16, 1:1, 16:9)', price: 40 },
+      { id: 'meta', label: 'Meta Ads management', price: 250, note: 'Ad spend stays in your account' },
+      { id: 'google', label: 'Google Ads management', price: 250, note: 'Ad spend stays in your account' }
+    ],
+    feats: ['Script and storyboard', 'Music and sound design', 'Captions on every ad', '2 revision rounds']
   }
 };
-const compareRows = [
-  ['Custom AI-built website', 1, 1, 1],
-  ['Full SEO foundation', 1, 1, 1],
-  ['AI search optimization (AIO)', 1, 1, 1],
-  ['Visitor intelligence dashboard', 1, 1, 1],
-  ['Weekly AI insight report', 1, 1, 1],
-  ['Personalization engine', 0, 1, 1],
-  ['Monthly deep-dive growth report', 0, 1, 1],
-  ['Quarterly content refresh', 0, 1, 1],
-  ['Business profile feed', 0, 1, 1],
-  ['Multi-location and multi-page', 0, 0, 1],
-  ['Custom monthly AIO strategy', 0, 0, 1],
-  ['Competitor gap analysis', 0, 0, 1],
-  ['White-glove onboarding', 0, 0, 1]
-];
-const pricingState = { plan: 'foundation', billing: 'monthly', cur: 'usd', shown: 300 };
+
+const pbState = { mode: 'trial', cur: 'usd', tab: 'web', cart: {} };
+SVC_ORDER.forEach(k => {
+  const S = SERVICES[k];
+  const add = {};
+  S.addons.forEach(a => { add[a.id] = a.qty ? 0 : !!a.on; });
+  pbState.cart[k] = { on: k === 'web', choice: S.choices[S.choices.length > 2 ? 1 : 0].id, qty: S.qty ? S.qty.def : 1, add };
+});
+const pricingState = pbState; // older code reads pricingState
 
 function money(usd, cur) {
   return cur === 'ngn' ? '₦' + Math.round(usd * NGN_RATE).toLocaleString() : '$' + Math.round(usd).toLocaleString();
 }
-function setPlan(p) { pricingState.plan = p; renderPricing(true); }
-function setBilling(b) { pricingState.billing = b; renderPricing(); }
-function setCur(c) { pricingState.cur = c; renderPricing(); }
+function svcPrice(k) {
+  const S = SERVICES[k], c = pbState.cart[k];
+  const ch = S.choices.find(x => x.id === c.choice) || S.choices[0];
+  const q = S.qty ? c.qty : 1;
+  let p = ch.price * q;
+  S.addons.forEach(a => {
+    const v = c.add[a.id];
+    if (a.qty) p += a.price * (v || 0);
+    else if (v) p += a.price * (a.perQty ? q : 1);
+  });
+  return p;
+}
+function pbTotals() {
+  const on = SVC_ORDER.filter(k => pbState.cart[k].on);
+  const base = on.reduce((t, k) => t + svcPrice(k), 0);
+  const monthly = Math.round(base * (1 - MONTHLY_DISCOUNT));
+  return { on, base, monthly, due: pbState.mode === 'monthly' ? monthly : base };
+}
+function pbSetMode(m) { pbState.mode = m; renderPricing(); }
+function pbTab(k) { pbState.tab = k; renderPricing(); }
+function pbToggleSvc(k, v) { pbState.cart[k].on = v == null ? !pbState.cart[k].on : v; renderPricing(true); }
+function pbChoose(k, id) { pbState.cart[k].choice = id; pbState.cart[k].on = true; renderPricing(true); }
+function pbQty(k, d) {
+  const S = SERVICES[k], c = pbState.cart[k];
+  c.qty = Math.max(S.qty.min, Math.min(S.qty.max, c.qty + d));
+  c.on = true;
+  renderPricing();
+}
+function pbAddon(k, id, v) {
+  const a = SERVICES[k].addons.find(x => x.id === id), c = pbState.cart[k];
+  if (a.qty) c.add[id] = Math.max(0, Math.min(20, (c.add[id] || 0) + v));
+  else c.add[id] = v;
+  c.on = true;
+  renderPricing();
+}
+function setCur(c) { pbState.cur = c; renderPricing(); }
+function setPlan() {}
+function setBilling(b) { pbSetMode(b === 'monthly' ? 'monthly' : 'trial'); }
 
 function countTo(el, from, to, fmt) {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || from === to) { el.textContent = fmt(to); return; }
@@ -912,84 +1008,103 @@ function countTo(el, from, to, fmt) {
   el._raf = requestAnimationFrame(tick);
 }
 
+const PB_CHECK = '<svg viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
 function renderPricing(bump) {
-  const { plan, billing, cur } = pricingState;
-  const P = plans[plan];
-  const yearly = billing === 'annual';
-  document.querySelectorAll('.pr-tab').forEach(t => t.classList.toggle('active', t.dataset.plan === plan));
-  const ind = document.getElementById('prInd');
-  if (ind) ind.style.transform = `translateX(${planOrder.indexOf(plan) * 100}%)`;
-  document.querySelectorAll('#prCur button').forEach(b => b.classList.toggle('on', b.dataset.v === cur));
-  document.querySelectorAll('.pt-p').forEach(el => {
-    const Q = plans[el.dataset.p];
-    el.textContent = money(yearly ? Q.annual / 12 : Q.monthly, cur) + '/mo';
+  const { mode, cur, tab, cart } = pbState;
+  const tabsEl = document.getElementById('pbTabs');
+  if (!tabsEl) return;
+  const T = pbTotals();
+  const per = mode === 'monthly' ? '/mo' : '';
+
+  // billing toggle
+  document.querySelectorAll('#pbBill button').forEach(b => {
+    const on = b.dataset.v === mode;
+    b.classList.toggle('on', on);
+    b.setAttribute('aria-checked', on);
   });
-  document.getElementById('prYearly').checked = yearly;
+  const bi = document.getElementById('pbBillInd');
+  if (bi) bi.style.transform = mode === 'monthly' ? 'translateX(100%)' : 'translateX(0)';
+  document.querySelectorAll('#prCur button').forEach(b => b.classList.toggle('on', b.dataset.v === cur));
 
-  const usd = yearly ? P.annual : P.monthly;
+  // service tabs
+  tabsEl.innerHTML = SVC_ORDER.map(k => {
+    const S = SERVICES[k];
+    const from = Math.min(...S.choices.map(c => c.price));
+    return `<button class="pb-tab ${k === tab ? 'active' : ''} ${cart[k].on ? 'in' : ''}" role="tab" aria-selected="${k === tab}" onclick="pbTab('${k}')">
+      <span class="pb-tab-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${S.icon}</svg></span>
+      <span class="pb-tab-t"><b>${S.name}</b><small>${cart[k].on ? money(svcPrice(k), cur) + ' in plan' : 'from ' + money(from, cur)}</small></span>
+      <i class="pb-tab-dot"></i>
+    </button>`;
+  }).join('');
+
+  // left: the open service
+  const S = SERVICES[tab], c = cart[tab];
+  const q = S.qty ? c.qty : 1;
+  document.getElementById('pbLeft').innerHTML = `
+    <div class="pr-title-row">
+      <span class="pr-name">${S.name}</span>
+      <span class="pr-chip"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>${S.delivery}</span></span>
+    </div>
+    <p class="pr-for">${S.desc}</p>
+    <label class="pr-row pr-row-switch pb-include ${c.on ? 'is-on' : ''}">
+      <span><b>${c.on ? 'In your plan' : 'Add to your plan'}</b><em class="pr-save-tag">${money(svcPrice(tab), cur)}</em></span>
+      <input type="checkbox" ${c.on ? 'checked' : ''} onchange="pbToggleSvc('${tab}', this.checked)" />
+      <span class="pr-switch" aria-hidden="true"></span>
+    </label>
+    <div class="pb-sub">${S.choiceLabel}</div>
+    <div class="pb-opts" style="--n:${Math.min(S.choices.length, 4)}">${S.choices.map(ch => `
+      <button class="pb-opt ${ch.id === c.choice ? 'on' : ''}" onclick="pbChoose('${tab}','${ch.id}')">
+        <b>${ch.label}</b><small>${ch.note}</small><span>${money(ch.price, cur)}${S.qty ? '<i> each</i>' : ''}</span>
+      </button>`).join('')}
+    </div>
+    ${S.qty ? `<div class="pr-row pb-qty-row"><span>${S.qty.label}</span>
+      <span class="pb-qty"><button aria-label="Fewer" onclick="pbQty('${tab}',-1)" ${c.qty <= S.qty.min ? 'disabled' : ''}>−</button><b>${c.qty}</b><button aria-label="More" onclick="pbQty('${tab}',1)" ${c.qty >= S.qty.max ? 'disabled' : ''}>+</button></span></div>` : ''}
+    <div class="pb-sub">Add-ons</div>
+    <div class="pr-rows pb-addons">${S.addons.map(a => {
+      const v = c.add[a.id];
+      if (a.qty) return `<div class="pr-row pb-qty-row"><span>${a.label}<small class="pb-price">+${money(a.price, cur)}${a.unit || ''}</small></span>
+        <span class="pb-qty"><button aria-label="Fewer" onclick="pbAddon('${tab}','${a.id}',-1)" ${!v ? 'disabled' : ''}>−</button><b>${v || 0}</b><button aria-label="More" onclick="pbAddon('${tab}','${a.id}',1)">+</button></span></div>`;
+      return `<label class="pr-row pr-row-switch ${v ? 'is-on' : ''}"><span>${a.label}<small class="pb-price">+${money(a.price * (a.perQty ? q : 1), cur)}${a.perQty ? ' for ' + q : ''}${a.note ? ' · ' + a.note : ''}</small></span>
+        <input type="checkbox" ${v ? 'checked' : ''} onchange="pbAddon('${tab}','${a.id}', this.checked)" /><span class="pr-switch" aria-hidden="true"></span></label>`;
+    }).join('')}</div>
+    <ul class="pr-feats">${S.feats.map(f => `<li>${PB_CHECK}${f}</li>`).join('')}</ul>`;
+
+  // right: card + summary
+  const n = T.on.length;
+  const tier = n >= 3 ? 'dominance' : n === 2 ? 'growth' : 'foundation';
+  const card = document.getElementById('prMetal');
+  if (card) card.dataset.tier = tier;
+  document.getElementById('prPop').textContent = n >= 3 ? 'FULL STACK' : n === 2 ? 'BUNDLE' : 'STARTER';
+  document.getElementById('prPop').style.visibility = n ? 'visible' : 'hidden';
+  document.getElementById('prMetalLabel').textContent = n ? T.on.map(k => SERVICES[k].short).join(' + ') : 'PICK A SERVICE';
+  document.getElementById('prPer').textContent = mode === 'monthly' ? '/mo' : ' once';
   const alt = cur === 'usd' ? 'ngn' : 'usd';
-  const saved = P.monthly * 12 - P.annual;
-  document.getElementById('prName').textContent = P.name;
-  document.getElementById('prGoName').textContent = P.name;
-  document.getElementById('prDelivery').textContent = P.delivery;
-  document.getElementById('prFor').textContent = P.for;
-  document.getElementById('prSetup').textContent = money(SETUP_FEE, cur);
-  document.getElementById('prSupport').textContent = P.support;
-  document.getElementById('prSaveTag').textContent = 'Save ' + money(saved, cur);
-  document.getElementById('prMetalLabel').textContent = P.name.toUpperCase() + ' PLAN';
-  document.getElementById('prPer').textContent = yearly ? '/yr' : '/mo';
-  document.getElementById('prAlt').textContent = `${money(usd, alt)} ${yearly ? 'per year' : 'per month'}`;
-  document.getElementById('prPop').style.visibility = P.popular ? 'visible' : 'hidden';
-  document.getElementById('prTotal').innerHTML =
-    `<span>Due at kickoff</span><b>${money(SETUP_FEE, cur)} setup + ${money(usd, cur)} ${yearly ? 'first year' : 'first month'} = ${money(SETUP_FEE + usd, cur)}</b>`;
-
+  document.getElementById('prAlt').textContent = n ? `${money(T.due, alt)} ${mode === 'monthly' ? 'per month' : 'for 1 month'}` : 'Switch on a service to start';
   const priceEl = document.getElementById('prPrice');
-  const target = cur === 'ngn' ? usd * NGN_RATE : usd;
+  const target = cur === 'ngn' ? T.due * NGN_RATE : T.due;
   const from = priceEl._val == null ? target : priceEl._val;
   priceEl._val = target;
   countTo(priceEl, from, target, v => (cur === 'ngn' ? '₦' : '$') + Math.round(v).toLocaleString());
 
-  document.getElementById('prInherit').innerHTML = P.inherit
-    ? `<span class="pr-plus">+</span>Everything in ${P.inherit}, plus`
-    : '';
-  document.getElementById('prFeats').innerHTML = P.feats.map(f =>
-    `<li><svg viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>${f}</li>`).join('');
+  document.getElementById('pbLines').innerHTML = n ? T.on.map(k => {
+    const ch = SERVICES[k].choices.find(x => x.id === cart[k].choice);
+    const lp = mode === 'monthly' ? svcPrice(k) * (1 - MONTHLY_DISCOUNT) : svcPrice(k);
+    return `<div class="pb-line ${k === tab ? 'cur' : ''}">
+      <button class="pb-line-name" onclick="pbTab('${k}')"><b>${SERVICES[k].name}</b><small>${ch.label}${SERVICES[k].qty ? ' × ' + cart[k].qty : ''}</small></button>
+      <span>${money(lp, cur)}${per}</span>
+      <button class="pb-x" aria-label="Remove ${SERVICES[k].name}" onclick="pbToggleSvc('${k}', false)">×</button>
+    </div>`;
+  }).join('') : '<div class="pb-empty">Switch on any service to build your plan.</div>';
 
-  const idx = planOrder.indexOf(plan);
-  // Marketing-style comparison: Growth is the featured column, rows are grouped
-  const pitch = { foundation: 'Get found', growth: 'Grow every month', dominance: 'Own your category' };
-  const groups = [
-    ['The essentials', 0, 5],
-    ['Growth engine', 5, 9],
-    ['Category leadership', 9, 13]
-  ];
-  const colCls = i => [i === idx ? 'on' : '', plans[planOrder[i]].popular ? 'feat' : ''].join(' ').trim();
-  const cell = (v, i) => `<td class="${colCls(i)}">${v ? '<i class="yes"></i>' : '<i class="no"></i>'}</td>`;
-  document.getElementById('prTable').innerHTML = `
-    <thead><tr><th class="pc-corner"><span>Every plan includes the build, hosting, SEO and AIO.</span></th>${planOrder.map((k, i) => `
-      <th class="${colCls(i)}" onclick="setPlan('${k}')">
-        ${plans[k].popular ? '<span class="pc-badge">Most popular</span>' : ''}
-        <span class="pc-name">${plans[k].name}</span>
-        <span class="pc-pitch">${pitch[k]}</span>
-        <small>${money(yearly ? plans[k].annual : plans[k].monthly, cur)}${yearly ? '/yr' : '/mo'}</small>
-      </th>`).join('')}</tr></thead>
-    <tbody>${groups.map(([label, a, b]) => `
-      <tr class="pc-group"><td><span>${label}</span></td>${[0, 1, 2].map(i => `<td class="${colCls(i)}"></td>`).join('')}</tr>
-      ${compareRows.slice(a, b).map(r => `<tr><td>${r[0]}</td>${[1, 2, 3].map(c => cell(r[c], c - 1)).join('')}</tr>`).join('')}`).join('')}
-      <tr class="pc-group"><td><span>Support</span></td>${[0, 1, 2].map(i => `<td class="${colCls(i)}"></td>`).join('')}</tr>
-      <tr><td>How you reach us</td>${planOrder.map((k, i) => `<td class="${colCls(i)} txt">${plans[k].support.replace('Direct access to the RTG founder', 'Founder direct')}</td>`).join('')}</tr>
-    </tbody>
-    <tfoot><tr><td></td>${planOrder.map((k, i) => `
-      <td class="${colCls(i)}"><button class="${plans[k].popular ? 'btn-primary' : 'btn-secondary'} pc-cta" onclick="setPlan('${k}');openWW('project')">${plans[k].popular ? 'Choose ' + plans[k].name : 'Start with ' + plans[k].name}</button></td>`).join('')}</tr></tfoot>`;
+  document.getElementById('prTotal').innerHTML = !n ? '' : mode === 'monthly'
+    ? `<span>Monthly · cancel anytime</span><b>${money(T.monthly, cur)}/mo <s>${money(T.base, cur)}</s></b>`
+    : `<span>1-month trial · one-time</span><b>${money(T.base, cur)} <em>or ${money(T.monthly, cur)}/mo monthly</em></b>`;
+  document.getElementById('prGoName').textContent = mode === 'monthly' ? 'Start monthly plan' : 'Start 1-month trial';
+  document.getElementById('pbGo').disabled = !n;
 
-  const cardEl = document.getElementById('prMetal');
-  if (cardEl) cardEl.dataset.tier = plan;
-  const tabsEl = document.getElementById('prTabs');
-  if (tabsEl) tabsEl.dataset.tier = plan;
-  if (bump) {
-    const m = document.getElementById('prMetal');
-    m.classList.remove('flip'); void m.offsetWidth; m.classList.add('flip');
-  }
+  if (bump && card) { card.classList.remove('flip'); void card.offsetWidth; card.classList.add('flip'); }
+  syncPlanNote();
 }
 
 function initPricingCard() {
@@ -1016,51 +1131,91 @@ function initPricingCard() {
   });
 }
 
+// plain-text summary of the plan, used by the form and the inbox
+function pbSummary() {
+  const T = pbTotals(), cur = 'usd';
+  return {
+    mode: pbState.mode,
+    lines: T.on.map(k => {
+      const S = SERVICES[k], c = pbState.cart[k];
+      const ch = S.choices.find(x => x.id === c.choice);
+      const adds = S.addons.filter(a => a.qty ? c.add[a.id] > 0 : c.add[a.id]).map(a => a.qty ? `${a.label} × ${c.add[a.id]}` : a.label);
+      return { key: k, name: S.name, detail: ch.label + (S.qty ? ' × ' + c.qty : ''), addons: adds, price: Math.round(pbState.mode === 'monthly' ? svcPrice(k) * (1 - MONTHLY_DISCOUNT) : svcPrice(k)) };
+    }),
+    trial: T.base,
+    monthly: T.monthly,
+    due: T.due,
+    text: T.on.length ? `${T.on.map(k => SERVICES[k].name).join(' + ')} · ${pbState.mode === 'monthly' ? money(T.monthly, cur) + '/mo' : money(T.base, cur) + ' 1-month trial'}` : 'No services picked yet'
+  };
+}
+
 const topicNames = { website: 'Website plan', ads: 'Ads & growth', training: 'AI tools training', unsure: 'Not sure yet' };
-const SVCS = ['AI UGC', 'Meta Ads', 'Google Ads', 'SEO Optimisation'];
-const svcState = new Set(['AI UGC', 'Meta Ads']);
-function toggleSvc(btn) {
-  const k = btn.dataset.svc;
-  if (svcState.has(k)) { if (svcState.size > 1) svcState.delete(k); } else svcState.add(k);
-  renderSvcs();
-}
-function renderSvcs() {
-  document.querySelectorAll('.xs-svc').forEach(b => {
-    const on = svcState.has(b.dataset.svc);
-    b.classList.toggle('on', on);
-    b.setAttribute('aria-pressed', on);
-  });
-  const go = document.getElementById('xsGo');
-  if (go) go.textContent = svcState.size === 1 ? `Start ${[...svcState][0]}` : `Start with ${svcState.size} services`;
-  const pills = document.getElementById('wwSvcPills');
-  if (pills) pills.innerHTML = SVCS.map(k => `<button type="button" class="ww-pill ${svcState.has(k) ? 'on' : ''}" onclick="svcState.has('${k}') ? (svcState.size > 1 && svcState.delete('${k}')) : svcState.add('${k}'); renderSvcs()">${k}</button>`).join('');
-}
-function startService(key) {
-  openWW('project');
-  const sel = document.querySelector('.ww-panel[data-panel="project"] [name="plan"]');
-  if (sel) { sel.value = key; syncPlanNote(); }
-}
+const svcState = new Set();
+function toggleSvc() {}
+function renderSvcs() {}
+function startService(key) { if (SERVICES[key]) { pbToggleSvc(key, true); pbTab(key); } scrollToEl('pricing'); }
 function bookCall(topic) {
   openWW('call');
   const sel = document.querySelector('.ww-panel[data-panel="call"] [name="topic"]');
   if (sel) sel.value = topic || 'website';
 }
-
 function startPlan() {
   openWW('project');
-  const sel = document.querySelector('.ww-panel[data-panel="project"] [name="plan"]');
-  if (sel) { sel.value = pricingState.plan; syncPlanNote(); }
+  syncPlanNote();
 }
 function syncPlanNote() {
-  const sel = document.querySelector('.ww-panel[data-panel="project"] [name="plan"]');
+  const box = document.getElementById('wwPlan');
   const t = document.getElementById('wwCommitText');
-  if (!sel || !t) return;
-  const P = plans[sel.value];
-  const sf = document.getElementById('wwSvcField');
-  if (sf) sf.hidden = sel.value !== 'ads';
-  t.textContent = P
-    ? `I'm ready to start at ${money(P.monthly, 'usd')}/mo plus the ${money(SETUP_FEE, 'usd')} setup.`
-    : 'I have an ad budget ready to fund from my own account.';
+  const sm = pbSummary();
+  if (box) box.innerHTML = sm.lines.length
+    ? sm.lines.map(l => `<div class="ww-plan-line"><span><b>${esc(l.name)}</b> ${esc(l.detail)}</span><span>${money(l.price, 'usd')}</span></div>`).join('') +
+      `<div class="ww-plan-total"><span>${pbState.mode === 'monthly' ? 'Monthly · cancel anytime' : '1-month trial · one-time'}</span><b>${money(sm.due, 'usd')}${pbState.mode === 'monthly' ? '/mo' : ''}</b></div>`
+    : '<div class="ww-plan-empty">No services picked yet. RTG will help you choose on a call.</div>';
+  if (t) t.textContent = sm.lines.length
+    ? (pbState.mode === 'monthly' ? `I'm ready to start at ${money(sm.monthly, 'usd')} a month.` : `I'm ready to pay ${money(sm.trial, 'usd')} for a 1-month trial.`)
+    : "I'm ready to invest once we agree on a plan.";
+}
+
+// ==================== TEAM ====================
+// Add a person: { name, role, photo: 'team/name.jpg' (in /public/team), tag: 'Short fun fact' }
+// Without a photo the card shows their initials on the brand gradient.
+const TEAM = [
+  { name: 'RTG', role: 'Founder', photo: '', tag: '' }
+];
+function renderTeam() {
+  const t = document.getElementById('teamTrack');
+  if (!t) return;
+  t.innerHTML = TEAM.map(m => {
+    const ini = m.name.split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase();
+    return `<article class="team-card">
+      ${m.photo ? `<img class="team-photo" src="${esc(m.photo)}" alt="${esc(m.name)}" loading="lazy" draggable="false" />` : `<span class="team-initials" aria-hidden="true">${esc(ini)}</span>`}
+      <div class="team-meta"><div class="team-name">${esc(m.name)}</div><div class="team-role">${esc(m.role)}</div></div>
+      ${m.tag ? `<span class="team-tag">${esc(m.tag)}</span>` : ''}
+    </article>`;
+  }).join('');
+  // drag to scroll with mouse
+  let down = false, sx = 0, sl = 0, moved = false;
+  t.addEventListener('pointerdown', e => { if (e.pointerType !== 'mouse') return; down = true; moved = false; sx = e.clientX; sl = t.scrollLeft; });
+  window.addEventListener('pointermove', e => {
+    if (!down) return;
+    const dx = e.clientX - sx;
+    if (Math.abs(dx) > 4) { moved = true; t.classList.add('dragging'); }
+    t.scrollLeft = sl - dx;
+  });
+  window.addEventListener('pointerup', () => { if (!down) return; down = false; t.classList.remove('dragging'); });
+}
+function teamScroll(dir) {
+  const t = document.getElementById('teamTrack');
+  const c = t && t.querySelector('.team-card');
+  if (c) t.scrollBy({ left: dir * (c.offsetWidth + 20), behavior: 'smooth' });
+}
+
+// ==================== LOGO ====================
+function logoSpin(e) {
+  if (e) e.preventDefault();
+  const el = e && e.currentTarget;
+  if (el) { el.classList.remove('spin'); void el.offsetWidth; el.classList.add('spin'); }
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // ==================== WORK WITH US MODAL ====================
@@ -1179,17 +1334,18 @@ async function submitProject() {
   const btn = f.querySelector('.ww-send');
   btn.disabled = true; btn.textContent = 'Sending';
   const get = n => f.querySelector(`[name="${n}"]`).value.trim();
-  const plan = get('plan');
+  const sm = pbSummary();
   const payload = {
     id: 's' + Date.now(), type: 'project',
     businessName: get('brand'), fullName: '', email: get('email'),
-    plan, committed: true, services: plan === 'ads' ? [...svcState] : undefined, billing: pricingState.billing === 'annual' ? 'Annual' : 'Monthly',
+    plan: 'custom', committed: true, order: sm,
+    billing: sm.mode === 'monthly' ? 'Monthly' : 'Trial',
     message: get('message'), submittedAt: new Date().toISOString()
   };
   await deliver(payload);
   btn.disabled = false; btn.textContent = 'Send message';
   f.reset(); syncPlanNote();
-  wwSuccess(plan === 'ads' ? 'Brief received.' : 'Project received.', `${plans[plan] ? plans[plan].name + ' plan' : [...svcState].join(', ')}. RTG replies to ${payload.email} within 24 hours with your next steps.`);
+  wwSuccess('Project received.', `${sm.text}. RTG replies to ${payload.email} within 24 hours with your payment link and kickoff steps.`);
 }
 
 async function submitCall() {
@@ -1484,17 +1640,17 @@ function renderSubmissions(view) {
     <div class="submission-card">
       <div class="submission-head">
         <div>
-          <div class="submission-biz"><span class="sub-type">${isCall ? 'Call' : 'Project'}</span>${esc(who)}${s.plan ? ` <span class="tier-badge tier-${esc(s.plan)}" style="margin-left:8px">${esc(s.plan === 'ads' ? 'Ads & growth' : s.plan)}</span>` : ''}${s.topic === 'training' ? ' <span class="tier-badge tier-dominance" style="margin-left:8px">AI training</span>' : ''}${s.committed ? ' <span class="live-pill" style="margin-left:6px">BUDGET OK</span>' : ''}</div>
+          <div class="submission-biz"><span class="sub-type">${isCall ? 'Call' : 'Project'}</span>${esc(who)}${s.order ? ` <span class="tier-badge tier-growth" style="margin-left:8px">${s.order.mode === 'monthly' ? 'Monthly' : 'Trial'}</span>` : ''}${s.topic === 'training' ? ' <span class="tier-badge tier-dominance" style="margin-left:8px">AI training</span>' : ''}${s.committed ? ' <span class="live-pill" style="margin-left:6px">BUDGET OK</span>' : ''}</div>
           <div class="submission-meta"><a href="mailto:${esc(s.email)}" style="color:var(--white-80)">${esc(s.email)}</a></div>
         </div>
         <div class="submission-meta">${new Date(s.submittedAt).toLocaleString()}</div>
       </div>
       ${isCall
         ? `<div class="submission-grid"><div><div class="submission-field-label">Requested slot</div><div class="submission-field-val">${esc(s.callSlot)}</div></div><div><div class="submission-field-label">About</div><div class="submission-field-val">${esc(topicNames[s.topic] || 'Not set')}</div></div></div>`
-        : `${s.services ? `<div style="margin-bottom:12px"><div class="submission-field-label">Services</div><div class="submission-field-val">${s.services.map(x => `<span class="tier-badge tier-growth" style="margin:4px 6px 0 0">${esc(x)}</span>`).join('')}</div></div>` : ''}<div><div class="submission-field-label">Message</div><div class="submission-field-val" style="white-space:pre-wrap">${esc(s.message)}</div></div>`}
+        : `${s.order && s.order.lines ? `<div class="sub-order"><div class="submission-field-label">Plan · ${s.order.mode === 'monthly' ? 'Monthly' : '1-month trial'} · ${money(s.order.due, 'usd')}${s.order.mode === 'monthly' ? '/mo' : ''}</div>${s.order.lines.map(l => `<div class="sub-order-line"><span><b>${esc(l.name)}</b> ${esc(l.detail)}${l.addons.length ? ' · ' + esc(l.addons.join(', ')) : ''}</span><span>${money(l.price, 'usd')}</span></div>`).join('')}</div>` : ''}${s.services ? `<div style="margin-bottom:12px"><div class="submission-field-label">Services</div><div class="submission-field-val">${s.services.map(x => `<span class="tier-badge tier-growth" style="margin:4px 6px 0 0">${esc(x)}</span>`).join('')}</div></div>` : ''}<div><div class="submission-field-label">Message</div><div class="submission-field-val" style="white-space:pre-wrap">${esc(s.message)}</div></div>`}
       <div class="submission-actions">
         <a class="btn-accept" href="mailto:${esc(s.email)}?subject=${encodeURIComponent('RTG · ' + (isCall ? 'Your call ' + s.callSlot : who))}" style="text-decoration:none;display:inline-flex;align-items:center">Reply</a>
-        <button class="btn-accept" onclick="acceptSubmission('${s.id}')">${isCall || s.plan === 'ads' ? 'Move to Leads' : 'Accept as client'}</button>
+        <button class="btn-accept" onclick="acceptSubmission('${s.id}')">${isCall ? 'Move to Leads' : 'Accept as client'}</button>
         <button class="btn-ghost" onclick="archiveSub('${s.id}')">Archive</button>
       </div>
     </div>`;
@@ -1505,11 +1661,11 @@ function acceptSubmission(id) {
   const idx = submissions.findIndex(s => s.id === id);
   if (idx < 0) return;
   const s = submissions[idx];
-  if (s.type === 'project' && s.plan && plans[s.plan]) {
+  if (s.type === 'project') {
     clientDatabase.unshift({
       id: 'c' + Date.now(),
       businessName: s.businessName, fullName: s.fullName || s.businessName, email: s.email, phone: '',
-      niche: '', location: '', plan: s.plan, mrr: plans[s.plan].monthly,
+      niche: s.order ? s.order.lines.map(l => l.name).join(', ') : '', location: '', plan: (s.order && s.order.lines.length >= 3) ? 'dominance' : (s.order && s.order.lines.length === 2) ? 'growth' : 'foundation', mrr: s.order ? s.order.monthly : 0,
       status: 'onboarding', billing: s.billing || 'Monthly', startDate: new Date().toISOString().slice(0, 10),
       audience: '', goals: s.message || '', keywords: '', differentiator: '',
       notes: 'Accepted from Work with us.'
@@ -1716,6 +1872,7 @@ function animateCounters(container) {
   initRotatingWord();
   renderWork();
   renderFAQ();
+  renderTeam();
   renderPricing();
   (function(){ const h = document.getElementById('heroGlobeImg'), c = document.getElementById('ctaGlobeImg'); if (h && c) c.src = h.src; })();
   renderSvcs();
