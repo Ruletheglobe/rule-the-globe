@@ -5940,3 +5940,12 @@ body { font-family: 'Geist', sans-serif; letter-spacing: -0.005em; }
 }
 .pf-group ul li.pf-bonus { align-items: center; color: var(--lime); }
 .pf-bonus span { font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.12em; color: #0b0b0b; background: var(--lime); border-radius: 99px; padding: 2px 7px; flex-shrink: 0; }
+
+/* ===== Footer contact rows ===== */
+.footer-contact { display: flex; flex-direction: column; gap: 10px; }
+.footer-contact .fc-loc { color: var(--white-60, rgba(255,255,255,0.6)); }
+.footer-contact .fc-row { display: inline-flex; align-items: center; gap: 10px; width: fit-content; transition: color .2s, transform .2s; }
+.footer-contact .fc-row svg { width: 17px; height: 17px; flex-shrink: 0; opacity: .8; transition: color .2s, opacity .2s; }
+.footer-contact .fc-row:hover { color: var(--lime); transform: translateX(2px); }
+.footer-contact .fc-row:hover svg { opacity: 1; }
+.footer-contact .fc-ig:hover svg { color: var(--red); }
