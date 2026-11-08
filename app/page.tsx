@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <>
       <div dangerouslySetInnerHTML={{ __html: html }} style={{ display: "contents" }} />
-      <Script src="/rtg.js" strategy="afterInteractive" />
+      <Script src={`${process.env.NEXT_PUBLIC_BASE_PATH || ""}/rtg.js`} strategy="afterInteractive" />
     </>
   );
 }
