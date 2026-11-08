@@ -530,6 +530,8 @@ function updateReviewBadge() {
 // message in your inbox. Left empty, messages save to the admin inbox only.
 const RTG_CONFIG = {
   email: 'hello@rtg.studio',
+  // Review links point at wherever the site is open (rtg.studio, GitHub Pages or Netlify)
+  siteUrl: () => location.origin + location.pathname.replace(/index\.html$/, ''),
   formEndpoint: ''
 };
 
@@ -1644,7 +1646,7 @@ function openClientDetail(id) {
     <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--white-06);">
       <div class="detail-key" style="margin-bottom: 10px;">Review Invite Link</div>
       <div style="display: flex; gap: 8px; align-items: center;">
-        <input class="form-input" readonly id="reviewLinkInput" value="https://ruletheglobe.com/?review=rtg_${c.id}#reviews" style="font-size: 11px; font-family: 'Geist', sans-serif; color: var(--white-60);" />
+        <input class="form-input" readonly id="reviewLinkInput" value="${RTG_CONFIG.siteUrl()}?review=rtg_${c.id}#reviews" style="font-size: 11px; font-family: 'Geist', sans-serif; color: var(--white-60);" />
         <button class="btn-ghost" onclick="copyReviewLink()" style="padding: 12px 18px; white-space: nowrap;">Copy</button>
       </div>
       <div style="font-family: 'Geist', sans-serif; font-size: 11px; color: var(--white-30); margin-top: 8px; line-height: 1.5;">Send this to ${c.fullName.split(' ')[0]} over WhatsApp or email. It pre-fills their verification.</div>
