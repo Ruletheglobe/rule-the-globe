@@ -5938,3 +5938,5 @@ body { font-family: 'Geist', sans-serif; letter-spacing: -0.005em; }
   #pricing .xs-wide-l .xs-top { display: none; }
   #pricing .xs-wide .xs-title { flex-wrap: wrap; }
 }
+.pf-group ul li.pf-bonus { align-items: center; color: var(--lime); }
+.pf-bonus span { font-family: 'Geist Mono', monospace; font-size: 9.5px; letter-spacing: 0.12em; color: #0b0b0b; background: var(--lime); border-radius: 99px; padding: 2px 7px; flex-shrink: 0; }

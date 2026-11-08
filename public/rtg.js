@@ -811,7 +811,7 @@ const faqs = [
   ["What if I don't have a brief?", 'Send a few lines or book a call. RTG turns it into a plan.'],
   ['How long does a build take?', 'Most sites go live within 48 hours of kickoff. Bigger builds take one to two weeks.'],
   ['How much does it cost?', 'Foundation is $300, Growth $800 and Dominance $1,500. Try any plan for one month with a single payment, or go monthly for 15% less and cancel anytime.'],
-  ['What is in each plan?', 'Foundation is your website with SEO and AI search. Growth adds UGC videos, AI content and Ads (Meta, Google and AI video ads). Dominance adds AI model shoots, a short film ad and AI tools training. Anyone can book an AI training call on its own.'],
+  ['What is in each plan?', 'Foundation is your website with SEO and AI search. Growth adds UGC videos, AI content and Ads (Meta, Google and AI video ads). Dominance adds AI model shoots, film ads and AI tools training. Anyone can book an AI training call on its own.'],
   ['Does my ad budget go to you?', 'No. Your ad spend stays in your own Meta or Google account. The plan covers RTG running it for you.'],
   ['Why do you show prices?', 'So you know before the first call. It saves both of us time and keeps the focus on your build.'],
   ['What happens after launch?', 'RTG keeps the site fast, ranked and updated, with a weekly report on what to fix next.']
@@ -861,7 +861,7 @@ const PLANS = {
     name: 'Foundation', price: 300,
     for: 'Get your business online and found on Google.',
     inherit: null,
-    feats: [['Website', ['Website, up to 5 pages', 'Hosting, SSL and updates']], ['Search', ['SEO + AI search (AIO)', 'Monthly results report']]]
+    feats: [['Website', ['Website, up to 5 pages', 'Hosting, SSL and updates']], ['Search', ['SEO + AI search (AIO)', 'Monthly results report']], ['Ads', ['Static ads for your socials', '+ Video ad on your trial']]]
   },
   growth: {
     name: 'Growth', price: 800, popular: true,
@@ -873,7 +873,7 @@ const PLANS = {
     name: 'Dominance', price: 1500,
     for: 'The full RTG team on your brand, every month.',
     inherit: 'Growth',
-    feats: [['Content', ['AI model photo and video shoot']], ['Ads', ['2 min short film ad']], ['Team', ['AI tools training for your team', 'Direct line to the RTG founder']]]
+    feats: [['Content', ['AI model photo and video shoot']], ['Ads', ['Film ads']], ['Team', ['AI tools training for your team', 'Direct line to the RTG founder']]]
   }
 };
 
@@ -930,7 +930,7 @@ function renderPricing(bump) {
   document.getElementById('prFor').textContent = P.for;
   document.getElementById('prInherit').innerHTML = P.inherit ? `<span class="pr-plus">+</span>Everything in ${P.inherit}, plus` : '';
   document.getElementById('prFeats').innerHTML = P.feats.map(([g, items]) =>
-    `<li class="pf-group"><span class="pf-g">${g}</span><ul>${items.map(f => `<li>${PB_CHECK}${f}</li>`).join('')}</ul></li>`).join('');
+    `<li class="pf-group"><span class="pf-g">${g}</span><ul>${items.map(f => f.startsWith('+ ') ? `<li class="pf-bonus"><span>PLUS</span>${f.slice(2)}</li>` : `<li>${PB_CHECK}${f}</li>`).join('')}</ul></li>`).join('');
 
   const card = document.getElementById('prMetal');
   card.dataset.tier = plan;
