@@ -6086,3 +6086,4 @@ body { font-family: 'Geist', sans-serif; letter-spacing: -0.005em; }
 .sys-panel:nth-child(1):not(.open) .sys-art-wrap { transform: translate(100px, 30px) scale(0.6); }
 @media (max-width: 1100px) { .sys-panel:nth-child(1):not(.open) .sys-art-wrap { transform: translate(64px, 24px) scale(0.64); } }
 @media (max-width: 900px) { .sys-panel:nth-child(1):not(.open) .sys-art-wrap { transform: none; } }
+.sys-text .how-title { margin-top: 0; }
