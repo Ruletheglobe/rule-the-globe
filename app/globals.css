@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Inter+Tight:wght@500..800&family=Instrument+Serif:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Google+Sans:wght@400..700&family=Instrument+Serif:ital@0;1&display=swap');
 
 :root {
   --bg-void: #030303;
@@ -160,7 +160,7 @@ input, select, textarea { font-family: inherit; outline: none; }
 }
 .nav-left { display: flex; align-items: center; flex: 1; }
 .nav-logo {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-size: 22px;
   background: var(--gradient-white);
   -webkit-background-clip: text;
@@ -298,7 +298,7 @@ input, select, textarea { font-family: inherit; outline: none; }
   text-transform: uppercase;
 }
 .hero-headline {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-size: 72px;
   line-height: 1.04;
   letter-spacing: -2.5px;
@@ -482,7 +482,7 @@ input, select, textarea { font-family: inherit; outline: none; }
   z-index: 2;
 }
 .section-title {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-size: 52px;
   line-height: 1.08;
   letter-spacing: -1.5px;
@@ -566,7 +566,7 @@ input, select, textarea { font-family: inherit; outline: none; }
   letter-spacing: 1px;
 }
 .how-title {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-size: 26px;
   line-height: 1.2;
   letter-spacing: -0.5px;
@@ -645,7 +645,7 @@ input, select, textarea { font-family: inherit; outline: none; }
   color: var(--white-40);
 }
 .proof-metric-title {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-size: 22px;
   color: var(--white-100);
   margin-top: 6px;
@@ -992,7 +992,7 @@ input, select, textarea { font-family: inherit; outline: none; }
 .star-on { color: var(--white-100); }
 .star-off { color: var(--white-20); }
 .review-quote {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-style: italic;
   font-size: 18px;
   color: var(--white-90);
@@ -1111,7 +1111,7 @@ input, select, textarea { font-family: inherit; outline: none; }
 }
 .review-modal-header { position: relative; margin-bottom: 24px; }
 .review-modal h3 {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-size: 28px;
   color: var(--white-100);
   letter-spacing: -0.8px;
@@ -1345,7 +1345,7 @@ input, select, textarea { font-family: inherit; outline: none; }
   box-shadow: 0 0 16px rgba(255,255,255,0.15);
 }
 .form-stage-title {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-size: 26px;
   color: var(--white-100);
   letter-spacing: -0.5px;
@@ -1587,7 +1587,7 @@ input, select, textarea { font-family: inherit; outline: none; }
   box-shadow: 0 0 40px rgba(255,255,255,0.2);
 }
 .success-title {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-size: 40px;
   letter-spacing: -1px;
   background: var(--gradient-white);
@@ -1631,7 +1631,7 @@ input, select, textarea { font-family: inherit; outline: none; }
   margin-bottom: 18px;
 }
 .footer-wordmark {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-size: 26px;
   background: var(--gradient-white);
   -webkit-background-clip: text;
@@ -1728,7 +1728,7 @@ input, select, textarea { font-family: inherit; outline: none; }
   margin-bottom: 24px;
 }
 .admin-logo {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-size: 24px;
   background: var(--gradient-white);
   -webkit-background-clip: text;
@@ -1830,7 +1830,7 @@ input, select, textarea { font-family: inherit; outline: none; }
   z-index: 10;
 }
 .admin-section-title {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-size: 20px;
   color: var(--white-100);
   letter-spacing: -0.3px;
@@ -2024,7 +2024,7 @@ input, select, textarea { font-family: inherit; outline: none; }
 }
 .client-panel-close:hover { color: var(--white-100); background: var(--bg-glass-hover); }
 .client-panel-name {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-size: 26px;
   color: var(--white-100);
   letter-spacing: -0.5px;
@@ -2070,7 +2070,7 @@ input, select, textarea { font-family: inherit; outline: none; }
 }
 .submission-head { display: flex; justify-content: space-between; align-items: start; margin-bottom: 14px; }
 .submission-biz {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-size: 20px;
   color: var(--white-100);
   letter-spacing: -0.3px;
@@ -2313,7 +2313,7 @@ body {
 
 /* Portfolio type system: Fraunces display, JetBrains Mono body */
 .hero-headline {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-weight: 900;
   font-size: clamp(48px, 6.6vw, 92px);
   line-height: 0.94;
@@ -2331,7 +2331,7 @@ body {
   letter-spacing: -0.04em;
 }
 .section-title, .cta-band-title {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: -0.035em;
@@ -2353,7 +2353,7 @@ body {
   text-shadow: 0 0 10px rgba(255,255,255,0.35), 0 0 28px rgba(255,255,255,0.15);
 }
 .how-title, .svc-name, .proof-metric-title, .review-quote, .ww-success h4, .success-title, .footer-wordmark, .nav-logo {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Google Sans', sans-serif;
 }
 .how-title, .svc-name { font-weight: 600; letter-spacing: -0.02em; }
 .review-quote { font-weight: 400; font-size: 17px; }
@@ -2400,7 +2400,7 @@ body {
 
 /* Platinum-shine numbers, lifted from the portfolio stat counters */
 .result-value, .proof-value.after, .metric-value, .sidebar-mrr-value, .price-value {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-weight: 900;
   letter-spacing: -0.035em;
   background: var(--plat-num);
@@ -2592,8 +2592,8 @@ body {
   -webkit-text-fill-color: transparent;
   opacity: 0.85;
 }
-.mq.serif { font-family: 'Inter Tight', sans-serif; font-size: 25px; font-style: italic; }
-.mq.syne { font-family: 'Inter Tight', sans-serif; font-weight: 900; letter-spacing: -0.04em; text-transform: uppercase; }
+.mq.serif { font-family: 'Google Sans', sans-serif; font-size: 25px; font-style: italic; }
+.mq.syne { font-family: 'Google Sans', sans-serif; font-weight: 900; letter-spacing: -0.04em; text-transform: uppercase; }
 .mq.mono { font-family: 'Geist', sans-serif; font-weight: 500; font-size: 18px; letter-spacing: -0.5px; }
 
 /* Services */
@@ -2624,7 +2624,7 @@ body {
   color: var(--plat-100);
 }
 .svc-name {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-size: 26px;
   letter-spacing: -0.5px;
   margin-top: 22px;
@@ -2743,7 +2743,7 @@ body {
   overflow: hidden;
 }
 .cta-band-title {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-size: clamp(40px, 5vw, 72px);
   line-height: 0.95;
   letter-spacing: -0.04em;
@@ -3056,7 +3056,7 @@ body {
 .ww-success.show { display: block; animation: wwIn 360ms ease; }
 .ww-success .success-circle { width: 60px; height: 60px; margin-bottom: 22px; }
 .ww-success h4 {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-size: 32px;
   font-weight: 400;
   letter-spacing: -0.8px;
@@ -3140,7 +3140,7 @@ body {
 .work-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
 .work-idx { font-size: 10px; letter-spacing: 0.2em; color: var(--site-muted); }
 .work-name {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-weight: 900;
   font-size: clamp(26px, 2.4vw, 34px);
   letter-spacing: -0.035em;
@@ -3155,7 +3155,7 @@ body {
 .work-meta { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--site-muted); margin-top: 10px; }
 .work-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 28px; }
 .work-num {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-weight: 900;
   font-size: 30px;
   letter-spacing: -0.03em;
@@ -3331,7 +3331,7 @@ body {
 .gl-right::-webkit-scrollbar-thumb { background: rgba(242,242,242,0.2); border-radius: 8px; }
 .gl-block { padding-bottom: 72px; scroll-margin-top: 20px; }
 .gl-h2 {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-weight: 900;
   text-transform: uppercase;
   letter-spacing: -0.03em;
@@ -3429,7 +3429,7 @@ body {
   overflow: hidden;
 }
 .mock-h {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-weight: 900;
   font-size: clamp(13px, 1.65vw, 28px);
   line-height: 1;
@@ -3478,7 +3478,7 @@ body {
 .gl-work-stats { display: flex; gap: 22px; margin-top: 14px; }
 .gl-work-stats div { display: flex; flex-direction: column; }
 .gl-work-stats strong {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-weight: 900;
   font-size: 22px;
   letter-spacing: -0.03em;
@@ -3500,9 +3500,9 @@ body {
   background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
   border: 1px solid rgba(242,242,242,0.06);
 }
-.gl-quote-mark { font-family: 'Inter Tight', sans-serif; font-size: 40px; line-height: 0.5; color: var(--site-muted); }
+.gl-quote-mark { font-family: 'Google Sans', sans-serif; font-size: 40px; line-height: 0.5; color: var(--site-muted); }
 .gl-quote {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-size: clamp(19px, 1.7vw, 25px);
   font-weight: 400;
   line-height: 1.35;
@@ -3520,7 +3520,7 @@ body {
   margin: 22px auto 0;
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-weight: 900;
   font-size: 17px;
   background: linear-gradient(145deg, #3a3a3a, #161616);
@@ -3571,12 +3571,12 @@ body {
 .rot-word.out, .rot-word.in-start { transform: none !important; opacity: 0; filter: blur(10px); }
 
 /* =====================================================
-   TYPE SYSTEM v3: Inter Tight + Instrument Serif + Geist
+   TYPE SYSTEM v3: Google Sans + Instrument Serif + Geist
    ===================================================== */
 body { font-family: 'Geist', sans-serif; letter-spacing: -0.005em; }
 .hero-headline, .gl-h1, .gl-h2, .section-title, .cta-band-title, .work-name, .gl-work-name,
 .nav-logo, .footer-wordmark, .admin-logo, .mock-h {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   text-transform: none;
 }
 .gl-h1 {
@@ -3599,10 +3599,10 @@ body { font-family: 'Geist', sans-serif; letter-spacing: -0.005em; }
 }
 .gl-h1 .it, .gl-h1 .rot-word { font-size: 1.1em; line-height: 0.9; }
 .gl-quote { font-style: normal; font-size: clamp(22px, 1.9vw, 30px); letter-spacing: -0.005em; }
-.mq.syne { font-family: 'Inter Tight', sans-serif; font-weight: 800; text-transform: none; letter-spacing: -0.05em; }
+.mq.syne { font-family: 'Google Sans', sans-serif; font-weight: 800; text-transform: none; letter-spacing: -0.05em; }
 .mq.mono { font-family: 'Geist Mono', monospace; }
 .gl-work-stats strong, .work-num, .result-value, .metric-value, .sidebar-mrr-value, .mock-stats strong, .rev-chart-stat-val {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-weight: 700;
   letter-spacing: -0.04em;
 }
@@ -3901,7 +3901,7 @@ body { font-family: 'Geist', sans-serif; letter-spacing: -0.005em; }
 .pr-left { padding: 8px 6px; }
 .pr-title-row { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .pr-name {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-weight: 700;
   font-size: 30px;
   letter-spacing: -0.04em;
@@ -3969,7 +3969,7 @@ body { font-family: 'Geist', sans-serif; letter-spacing: -0.005em; }
 .pr-wm {
   position: absolute;
   top: -14px; left: 18px;
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-weight: 800;
   font-size: 120px;
   letter-spacing: -0.06em;
@@ -3990,7 +3990,7 @@ body { font-family: 'Geist', sans-serif; letter-spacing: -0.005em; }
 .pr-metal-label { font-family: 'Geist Mono', monospace; font-size: 11px; letter-spacing: 0.2em; color: rgba(0,0,0,0.55); position: relative; }
 .pr-price { display: flex; align-items: baseline; gap: 6px; margin-top: 6px; position: relative; }
 .pr-price span {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-weight: 700;
   font-size: clamp(44px, 4.6vw, 68px);
   letter-spacing: -0.05em;
@@ -4274,7 +4274,7 @@ body { font-family: 'Geist', sans-serif; letter-spacing: -0.005em; }
 }
 .pm-top { display: flex; align-items: center; gap: 12px; position: relative; }
 .pm-logo {
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-weight: 800;
   font-size: 30px;
   letter-spacing: -0.06em;
@@ -4333,7 +4333,7 @@ body { font-family: 'Geist', sans-serif; letter-spacing: -0.005em; }
 .pr-step { padding: 20px 22px; position: relative; }
 .pr-step + .pr-step { border-left: 1px solid rgba(242,242,242,0.07); }
 .pr-step span { font-family: 'Geist Mono', monospace; font-size: 11px; color: var(--red); letter-spacing: 0.1em; }
-.pr-step b { display: block; margin-top: 10px; font-family: 'Inter Tight', sans-serif; font-size: 16px; font-weight: 600; letter-spacing: -0.02em; }
+.pr-step b { display: block; margin-top: 10px; font-family: 'Google Sans', sans-serif; font-size: 16px; font-weight: 600; letter-spacing: -0.02em; }
 .pr-step p { margin-top: 4px; font-size: 13px; color: var(--site-muted); line-height: 1.5; }
 
 /* compare */
@@ -4355,7 +4355,7 @@ body { font-family: 'Geist', sans-serif; letter-spacing: -0.005em; }
 .pr-table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 560px; }
 .pr-table th, .pr-table td { padding: 12px 14px; text-align: center; border-bottom: 1px solid rgba(242,242,242,0.06); }
 .pr-table th:first-child, .pr-table td:first-child { text-align: left; color: var(--silver); }
-.pr-table th { font-family: 'Inter Tight', sans-serif; font-weight: 600; font-size: 15px; cursor: pointer; }
+.pr-table th { font-family: 'Google Sans', sans-serif; font-weight: 600; font-size: 15px; cursor: pointer; }
 .pr-table th small { display: block; font-family: 'Geist Mono', monospace; font-weight: 400; font-size: 11px; color: var(--site-muted); margin-top: 2px; }
 .pr-table .on { background: rgba(255,255,255,0.04); }
 .pr-table th.on { box-shadow: inset 0 2px 0 var(--red); }
@@ -4430,7 +4430,7 @@ body { font-family: 'Geist', sans-serif; letter-spacing: -0.005em; }
 .xs-tag-red { color: var(--red); border-color: rgba(255,45,61,0.4); background: var(--red-dim); }
 .xs-title {
   margin-top: 22px;
-  font-family: 'Inter Tight', sans-serif;
+  font-family: 'Google Sans', sans-serif;
   font-weight: 700;
   font-size: 26px;
   letter-spacing: -0.04em;
@@ -4493,7 +4493,7 @@ body { font-family: 'Geist', sans-serif; letter-spacing: -0.005em; }
 }
 .xs-svc.on .xs-svc-ic { background: linear-gradient(145deg, #f4f5f7, #b9bdc4); color: #0b0b0c; }
 .xs-svc-ic svg { width: 18px; height: 18px; }
-.xs-svc b { font-family: 'Inter Tight', sans-serif; font-size: 15px; font-weight: 600; letter-spacing: -0.02em; color: var(--ink); }
+.xs-svc b { font-family: 'Google Sans', sans-serif; font-size: 15px; font-weight: 600; letter-spacing: -0.02em; color: var(--ink); }
 .xs-svc small { font-size: 12px; color: var(--site-muted); line-height: 1.35; }
 .xs-svc-tick {
   position: absolute;

@@ -1150,7 +1150,7 @@ function renderDashboard(view) {
     <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 14px;">
       <div class="admin-table-wrap">
         <div style="padding: 20px 24px; border-bottom: 1px solid var(--border-glass);">
-          <div style="font-family: 'Inter Tight', sans-serif; font-size: 18px; color: var(--white-100);">Recent Activity</div>
+          <div style="font-family: 'Google Sans', sans-serif; font-size: 18px; color: var(--white-100);">Recent Activity</div>
         </div>
         <table class="admin-table">
           <thead><tr><th>Client</th><th>Plan</th><th>Status</th><th>MRR</th></tr></thead>
@@ -1168,7 +1168,7 @@ function renderDashboard(view) {
       </div>
       <div class="chart-wrap">
         <div style="font-family: 'Geist', sans-serif; font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--white-40);">This Week</div>
-        <div style="font-family: 'Inter Tight', sans-serif; font-size: 32px; color: var(--white-100); margin-top: 8px;">3 actions</div>
+        <div style="font-family: 'Google Sans', sans-serif; font-size: 32px; color: var(--white-100); margin-top: 8px;">3 actions</div>
         <div style="margin-top: 20px;" class="checklist">
           <div class="checklist-item done"><div class="checklist-check"><svg width="9" height="9" viewBox="0 0 9 9" fill="none"><path d="M1 4.5l2.5 2.5L8 1.5" stroke="#0A0A0A" stroke-width="1.5"/></svg></div><span>Follow up on Chop Life overdue payment</span></div>
           <div class="checklist-item"><div class="checklist-check"></div><span>Send Nomad Fitness week 2 check-in</span></div>
@@ -1234,7 +1234,7 @@ function renderOnboarding(view) {
         <div class="metric-card">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px;">
             <div>
-              <div style="font-family: 'Inter Tight', sans-serif; font-size: 20px; color: var(--white-100);">${c.businessName}</div>
+              <div style="font-family: 'Google Sans', sans-serif; font-size: 20px; color: var(--white-100);">${c.businessName}</div>
               <div style="font-family: 'Geist', sans-serif; font-size: 11px; color: var(--white-40); margin-top: 4px;">${c.plan.toUpperCase()} · Started ${c.startDate}</div>
             </div>
             <div style="font-family: 'Geist', sans-serif; font-size: 18px; color: var(--white-100);">60%</div>
@@ -1307,7 +1307,7 @@ function renderRevenue(view) {
 function renderSubmissions(view) {
   if (submissions.length === 0) {
     view.innerHTML = `<div class="metric-card" style="text-align: center; padding: 60px;">
-      <div style="font-family: 'Inter Tight', sans-serif; font-size: 24px; color: var(--white-90);">Inbox empty</div>
+      <div style="font-family: 'Google Sans', sans-serif; font-size: 24px; color: var(--white-90);">Inbox empty</div>
       <div style="font-family: 'Geist', sans-serif; font-size: 13px; color: var(--white-50); margin-top: 8px;">Messages and call requests from Work with us land here.</div>
     </div>`;
     return;
@@ -1378,7 +1378,7 @@ function archiveSub(id) {
 function renderReviewsModeration(view) {
   if (pendingReviews.length === 0 && approvedReviews.length === 0) {
     view.innerHTML = `<div class="metric-card" style="text-align: center; padding: 60px;">
-      <div style="font-family: 'Inter Tight', sans-serif; font-size: 24px; color: var(--white-90);">No reviews yet</div>
+      <div style="font-family: 'Google Sans', sans-serif; font-size: 24px; color: var(--white-90);">No reviews yet</div>
     </div>`;
     return;
   }
@@ -1393,7 +1393,7 @@ function renderReviewsModeration(view) {
           </div>
           <div class="submission-meta">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div>
         </div>
-        <div style="font-family: 'Inter Tight', sans-serif; font-style: italic; font-size: 16px; color: var(--white-90); line-height: 1.6; margin: 12px 0;">"${r.quote}"</div>
+        <div style="font-family: 'Google Sans', sans-serif; font-style: italic; font-size: 16px; color: var(--white-90); line-height: 1.6; margin: 12px 0;">"${r.quote}"</div>
         <div class="submission-actions">
           <button class="btn-accept" onclick="approveReview('${r.id}')">Approve & Publish</button>
           <button class="btn-ghost" onclick="rejectReview('${r.id}')">Reject</button>
@@ -1413,7 +1413,7 @@ function renderReviewsModeration(view) {
           </div>
           <div class="submission-meta">${'★'.repeat(r.rating)}${'☆'.repeat(5-r.rating)}</div>
         </div>
-        <div style="font-family: 'Inter Tight', sans-serif; font-style: italic; font-size: 16px; color: var(--white-90); line-height: 1.6; margin: 12px 0;">"${r.quote}"</div>
+        <div style="font-family: 'Google Sans', sans-serif; font-style: italic; font-size: 16px; color: var(--white-90); line-height: 1.6; margin: 12px 0;">"${r.quote}"</div>
         <div class="submission-actions">
           <button class="btn-ghost" onclick="unpublishReview('${r.id}')">Remove from site</button>
         </div>
