@@ -7,7 +7,6 @@ Marketing website for RTG Agency ("Let your brand rule the globe"), a Lagos-base
 ## Repo
 
 - GitHub: https://github.com/Ruletheglobe/rule-the-globe — **public**.
-- Use the **Ruletheglobe** GitHub account for pushes (the machine is also logged in as `SanelRyan`). Check with `gh auth status`; push with `gh auth token --user Ruletheglobe` if the default credential picks the wrong account.
 - Branch: `main`. Pushing to `main` redeploys GitHub Pages automatically.
 - Never commit secrets: the repo is public. `.env*` is gitignored; `.env.example` is the only env file tracked.
 - Don't commit or push unless asked.
