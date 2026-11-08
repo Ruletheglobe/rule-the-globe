@@ -6047,3 +6047,30 @@ body { font-family: 'Geist', sans-serif; letter-spacing: -0.005em; }
   .sys-inner { padding: 22px 20px; }
   .sys-text { width: auto; max-width: none; }
 }
+
+/* ===== The System v3: art visible on collapsed cards, soft focus + float ===== */
+.sys-art-wrap {
+  position: absolute; z-index: 1; pointer-events: none;
+  width: 300px; height: 300px; right: 30px; top: 50%; margin-top: -150px;
+  transform-origin: 50% 50%;
+  transform: translate(68px, -28px) scale(0.56);
+  filter: blur(1.6px); opacity: 0.7;
+  transition: transform 700ms cubic-bezier(0.65,0,0.25,1), filter 500ms ease, opacity 500ms ease;
+}
+.sys-panel:not(.open):hover .sys-art-wrap { filter: blur(0.6px); opacity: 0.9; }
+.sys-panel.open .sys-art-wrap { transform: none; filter: none; opacity: 1; transition-delay: 60ms; }
+.sys-art-wrap .sys-art {
+  position: static; width: 100%; height: 100%; margin: 0; top: auto; right: auto;
+  transform: none !important; opacity: 1;
+  animation: sysFloat 5.5s ease-in-out infinite;
+}
+.sys-panel:nth-child(2) .sys-art { animation-delay: -1.8s; }
+.sys-panel:nth-child(3) .sys-art { animation-delay: -3.6s; }
+@keyframes sysFloat { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-8px) rotate(-1.5deg); } }
+@media (max-width: 1100px) {
+  .sys-art-wrap { width: 220px; height: 220px; margin-top: -110px; right: 20px; transform: translate(40px, -24px) scale(0.6); }
+}
+@media (max-width: 900px) {
+  .sys-art-wrap, .sys-panel.open .sys-art-wrap { position: relative; top: auto; right: auto; margin: 64px auto 0; display: block; width: 200px; height: 200px; transform: none; filter: none; opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) { .sys-art-wrap .sys-art { animation: none; } }
