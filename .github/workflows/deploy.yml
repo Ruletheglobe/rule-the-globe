@@ -20,9 +20,8 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      # Served at the root of the custom domain rtg.studio, so no base path
       - run: npm run build
-        env:
-          NEXT_PUBLIC_BASE_PATH: /rule-the-globe
       - uses: actions/upload-pages-artifact@v3
         with:
           path: out
