@@ -14,7 +14,7 @@
 
 <nav class="nav" id="nav">
   <div class="nav-left">
-    <span class="nav-logo">RTG</span>
+    <a class="nav-brand logo-fx" href="#" aria-label="RTG, back to top" onclick="logoSpin(event)"><img class="nav-logo-img" src="rtg-logo-256.png" alt="RTG" width="44" height="41" /><span class="logo-shine" style="-webkit-mask-image:url(rtg-logo-256.png);mask-image:url(rtg-logo-256.png)"></span></a>
     <span class="nav-beta">BETA</span>
   </div>
   <div class="nav-center">
@@ -136,18 +136,17 @@
   <div class="v4-head">
     <div>
       <div class="section-label">PRICING</div>
-      <h2 class="section-title">Clear pricing. <em>Serious results.</em></h2>
+      <h2 class="section-title">Pick what you need. <em>Pay for what you use.</em></h2>
     </div>
-    <p class="section-subtitle">Every plan includes the build, hosting, SEO and AIO. Prices up front, so the first call is about your project.</p>
+    <p class="section-subtitle">Mix any services into one plan. Try it for a month with a one-time payment, then keep going monthly or stop.</p>
   </div>
 
-  <div class="pr-shell">
+  <div class="pr-shell pb">
     <div class="pr-controls">
-      <div class="pr-tabs" role="tablist" id="prTabs">
-        <span class="pr-ind" id="prInd"></span>
-        <button class="pr-tab active" data-plan="foundation" onclick="setPlan('foundation')"><span class="pt-n">Foundation</span><span class="pt-p" data-p="foundation">$300</span></button>
-        <button class="pr-tab" data-plan="growth" onclick="setPlan('growth')"><span class="pt-n">Growth</span><span class="pt-p" data-p="growth">$600</span></button>
-        <button class="pr-tab" data-plan="dominance" onclick="setPlan('dominance')"><span class="pt-n">Dominance</span><span class="pt-p" data-p="dominance">$1,000</span></button>
+      <div class="pb-bill" id="pbBill" role="radiogroup" aria-label="How you pay">
+        <span class="pb-bill-ind" id="pbBillInd"></span>
+        <button data-v="trial" role="radio" onclick="pbSetMode('trial')"><b>Try 1 month</b><small>One-time payment</small></button>
+        <button data-v="monthly" role="radio" onclick="pbSetMode('monthly')"><b>Monthly</b><small>Cancel anytime · save 15%</small></button>
       </div>
       <div class="pr-seg" id="prCur" aria-label="Currency">
         <button class="on" data-v="usd" onclick="setCur('usd')">USD</button>
@@ -155,27 +154,10 @@
       </div>
     </div>
 
+    <div class="pb-tabs" id="pbTabs" role="tablist" aria-label="Services"></div>
+
     <div class="pr-card">
-      <div class="pr-left">
-        <div class="pr-title-row">
-          <span class="pr-name" id="prName">Foundation</span>
-          <span class="pr-chip"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span id="prDelivery">48hr delivery</span></span>
-        </div>
-        <p class="pr-for" id="prFor"></p>
-
-        <div class="pr-rows">
-          <div class="pr-row"><span>One-time setup</span><b id="prSetup">$250</b></div>
-          <label class="pr-row pr-row-switch">
-            <span>Pay yearly <em class="pr-save-tag" id="prSaveTag">Save $600</em></span>
-            <input type="checkbox" id="prYearly" onchange="setBilling(this.checked ? 'annual' : 'monthly')" />
-            <span class="pr-switch" aria-hidden="true"></span>
-          </label>
-          <div class="pr-row"><span>Support</span><b id="prSupport">Email support</b></div>
-        </div>
-
-        <div class="pr-inherit" id="prInherit"></div>
-        <ul class="pr-feats" id="prFeats"></ul>
-      </div>
+      <div class="pr-left" id="pbLeft"></div>
 
       <div class="pr-right">
         <div class="pr-stage" id="prStage">
@@ -184,15 +166,15 @@
             <span class="pr-light"></span>
             <div class="pm-top">
               <span class="pm-logo">RTG</span>
-              <span class="pr-pop" id="prPop">MOST POPULAR</span>
+              <span class="pr-pop" id="prPop">STARTER</span>
               <svg class="pm-nfc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8.5 7.5a6.5 6.5 0 0 1 0 9M12 5a10 10 0 0 1 0 14M15.5 2.5a13.5 13.5 0 0 1 0 19"/></svg>
             </div>
             <div class="pm-chip"><i></i><i></i><i></i></div>
             <div class="pm-bottom">
               <div>
-                <div class="pr-metal-label" id="prMetalLabel">FOUNDATION PLAN</div>
-                <div class="pr-price"><span id="prPrice">$300</span><small id="prPer">/mo</small></div>
-                <div class="pr-alt" id="prAlt">₦480,000 per month</div>
+                <div class="pr-metal-label" id="prMetalLabel">WEB DEVELOPMENT</div>
+                <div class="pr-price"><span id="prPrice">$0</span><small id="prPer">/mo</small></div>
+                <div class="pr-alt" id="prAlt"></div>
               </div>
               <div class="pm-member">
                 <span>MEMBER SINCE</span>
@@ -201,73 +183,45 @@
             </div>
           </div>
         </div>
+        <div class="pb-lines" id="pbLines"></div>
         <div class="pr-total" id="prTotal"></div>
         <div class="pr-btns">
-          <button class="gl-cta pr-go" onclick="startPlan()">Start <span id="prGoName">Foundation</span> <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg></button>
+          <button class="gl-cta pr-go" id="pbGo" onclick="startPlan()"><span id="prGoName">Start 1-month trial</span> <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg></button>
           <button class="gl-ghost pr-msg" onclick="openWW('message')">Send a message</button>
         </div>
-        <p class="pr-note">Not sure which plan fits? <a onclick="openWW('call')">Book a 20 min call.</a></p>
+        <p class="pr-note">Not sure what to pick? <a onclick="bookCall('website')">Book a 20 min call.</a></p>
       </div>
     </div>
 
     <div class="pr-steps">
-      <div class="pr-step"><span>01</span><b>Kickoff call</b><p>Day 0. Goals, keywords, assets.</p></div>
-      <div class="pr-step"><span>02</span><b>Site live</b><p>Within 48 hours of kickoff.</p></div>
-      <div class="pr-step"><span>03</span><b>First report</b><p>End of week one. Three moves to make.</p></div>
-      <div class="pr-step"><span>04</span><b>Every week after</b><p>Ranking, AI citations, conversions.</p></div>
+      <div class="pr-step"><span>01</span><b>Pick and pay</b><p>Build your plan. Start with a 1-month trial.</p></div>
+      <div class="pr-step"><span>02</span><b>Kickoff call</b><p>Goals, assets and first deliveries agreed.</p></div>
+      <div class="pr-step"><span>03</span><b>See results</b><p>Your dashboard tracks every delivery.</p></div>
+      <div class="pr-step"><span>04</span><b>Keep going</b><p>Switch to monthly, add services or stop.</p></div>
     </div>
 
-    <details class="pr-compare">
-      <summary>Compare all plans <span class="faq-plus"></span></summary>
-      <div class="pr-table-wrap"><table class="pr-table" id="prTable"></table></div>
-    </details>
     <div class="xs-head">
-      <span class="section-label">MORE WAYS TO WORK WITH RTG</span>
+      <span class="section-label">ALSO FROM RTG</span>
     </div>
-    <div class="xs-grid" id="services">
-      <article class="xs-card">
-        <div class="xs-top">
-          <span class="xs-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 10v4a1 1 0 0 0 1 1h2l5 4V5L7 9H5a1 1 0 0 0-1 1z"/><path d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/></svg></span>
-          <span class="xs-tag">YOUR BUDGET. OUR SETUP.</span>
+    <div class="xs-grid xs-grid-1" id="services">
+      <article class="xs-card xs-call xs-wide">
+        <div class="xs-wide-l">
+          <div class="xs-top">
+            <span class="xs-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l1.8 4.6L18 9.4l-4.2 1.8L12 16l-1.8-4.8L6 9.4l4.2-1.8z"/><path d="M18 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></svg></span>
+            <span class="xs-tag xs-tag-red">BY CALL ONLY</span>
+          </div>
+          <h3 class="xs-title">AI Tools Training</h3>
+          <p class="xs-copy">Learn the AI tools RTG uses to build, write and market. Every session is shaped around your team and your goals.</p>
         </div>
-        <h3 class="xs-title">Ads &amp; Growth</h3>
-        <p class="xs-copy">Pick what you need. Your budget stays in your account. RTG sets it up and runs it for the most clicks, without the costly mistakes.</p>
-        <div class="xs-svcs" id="xsSvcs">
-          <button type="button" class="xs-svc on" data-svc="AI UGC" onclick="toggleSvc(this)">
-            <span class="xs-svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3"/></svg></span>
-            <b>AI UGC</b><small>Creator-style video ads made with AI</small><i class="xs-svc-tick"></i></button>
-          <button type="button" class="xs-svc on" data-svc="Meta Ads" onclick="toggleSvc(this)">
-            <span class="xs-svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 15c0-5 2.5-8 4.5-8 3 0 5.5 10 9 10 2 0 3.5-2 3.5-5s-1.5-5-3.5-5c-3.5 0-6 10-9 10C5 17 3 16.5 3 15z"/></svg></span>
-            <b>Meta Ads</b><small>Facebook and Instagram campaigns</small><i class="xs-svc-tick"></i></button>
-          <button type="button" class="xs-svc" data-svc="Google Ads" onclick="toggleSvc(this)">
-            <span class="xs-svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="6"/><path d="M20 20l-4.5-4.5"/></svg></span>
-            <b>Google Ads</b><small>Search ads for people ready to buy</small><i class="xs-svc-tick"></i></button>
-          <button type="button" class="xs-svc" data-svc="SEO Optimisation" onclick="toggleSvc(this)">
-            <span class="xs-svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 18l5-6 4 3 7-9"/><path d="M15 6h5v5"/></svg></span>
-            <b>SEO Optimisation</b><small>Rank higher on Google and AI search</small><i class="xs-svc-tick"></i></button>
-        </div>
-        <div class="xs-price"><span>Ad spend stays in your account</span><b>Fee quoted on call</b></div>
-        <div class="xs-btns">
-          <button class="gl-cta" onclick="startService('ads')"><span id="xsGo">Start with 2 services</span> <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg></button>
-          <button class="gl-ghost" onclick="bookCall('ads')">Book a call</button>
-        </div>
-      </article>
-      <article class="xs-card xs-call">
-        <div class="xs-top">
-          <span class="xs-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l1.8 4.6L18 9.4l-4.2 1.8L12 16l-1.8-4.8L6 9.4l4.2-1.8z"/><path d="M18 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></svg></span>
-          <span class="xs-tag xs-tag-red">BY CALL ONLY</span>
-        </div>
-        <h3 class="xs-title">AI Tools Training</h3>
-        <p class="xs-copy">Learn the AI tools RTG uses to build, write and market. Every session is shaped around your team and your goals.</p>
-        <ul class="xs-list">
-          <li><svg viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Pick the right AI tools for your business</li>
-          <li><svg viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Hands-on walkthroughs on your own work</li>
-          <li><svg viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Prompts and workflows your team keeps</li>
-          <li><svg viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Follow-up notes after every session</li>
-        </ul>
-        <div class="xs-price"><span>No price list</span><b>Book a call to start</b></div>
-        <div class="xs-btns xs-btns-1">
-          <button class="gl-cta" onclick="bookCall('training')">Book a call <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg></button>
+        <div class="xs-wide-r">
+          <ul class="xs-list">
+            <li><svg viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Pick the right AI tools for your business</li>
+            <li><svg viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Hands-on walkthroughs on your own work</li>
+            <li><svg viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Prompts and workflows your team keeps</li>
+          </ul>
+          <div class="xs-btns xs-btns-1">
+            <button class="gl-cta" onclick="bookCall('training')">Book a call <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg></button>
+          </div>
         </div>
       </article>
     </div>
@@ -286,6 +240,21 @@
     <div class="result-divider-v"></div>
     <div class="result-stat"><div class="result-value">$0</div><div class="result-label">extra for AIO on every plan</div></div>
   </div>
+</section>
+
+<!-- TEAM -->
+<section class="section" id="team">
+  <div class="team-head">
+    <div>
+      <div class="section-label">THE TEAM</div>
+      <h2 class="section-title">The people behind <em>every build.</em></h2>
+    </div>
+    <div class="team-nav">
+      <button class="ba-nav" aria-label="Previous" onclick="teamScroll(-1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></button>
+      <button class="ba-nav" aria-label="Next" onclick="teamScroll(1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+    </div>
+  </div>
+  <div class="team-track" id="teamTrack"></div>
 </section>
 
 <!-- REVIEWS -->
@@ -398,7 +367,7 @@
 <footer class="footer">
   <div class="footer-grid">
     <div class="footer-col">
-      <div class="footer-wordmark">RTG</div>
+      <a class="footer-brand logo-fx" href="#" aria-label="RTG, back to top" onclick="logoSpin(event)"><img class="footer-logo" src="rtg-logo-256.png" alt="RTG" width="84" height="78" loading="lazy" /><span class="logo-shine" style="-webkit-mask-image:url(rtg-logo-256.png);mask-image:url(rtg-logo-256.png)"></span></a>
       <div class="footer-motto">Let your brand rule the globe.</div>
     </div>
     <div class="footer-col">
@@ -461,17 +430,8 @@
             <label class="ww-field"><span class="ww-label">Email</span>
               <input class="ww-input" name="email" type="email" placeholder="you@yourbrand.com" autocomplete="email" /></label>
           </div>
-          <label class="ww-field"><span class="ww-label">Plan</span>
-            <select class="ww-select" name="plan" onchange="syncPlanNote()">
-              <option value="foundation">Foundation · $300/mo</option>
-              <option value="growth">Growth · $600/mo</option>
-              <option value="dominance">Dominance · $1,000/mo</option>
-              <option value="ads">Ads &amp; growth · fee quoted on call</option>
-            </select></label>
-          <div class="ww-field ww-svc-field" id="wwSvcField" hidden>
-            <span class="ww-label">Services</span>
-            <div class="ww-svc-pills" id="wwSvcPills"></div>
-          </div>
+          <div class="ww-field"><span class="ww-label">Your plan <a class="ww-edit" onclick="closeWW();scrollToEl('pricing')">Edit</a></span>
+            <div class="ww-plan" id="wwPlan"></div></div>
           <label class="ww-field"><span class="ww-label">What are you building?</span>
             <textarea class="ww-textarea" name="message" placeholder="A few lines is enough."></textarea></label>
           <label class="ww-check">
@@ -626,7 +586,7 @@
 <div class="admin-app" id="admin-app">
   <aside class="admin-sidebar">
     <div class="admin-logo-wrap">
-      <div class="admin-logo">RTG</div>
+      <img class="admin-logo-img" src="rtg-logo-256.png" alt="RTG" width="48" height="45" />
       <div class="admin-logo-sub">Admin · v1.1</div>
     </div>
     <div class="sidebar-group">
