@@ -4764,3 +4764,22 @@ body { font-family: 'Geist', sans-serif; letter-spacing: -0.005em; }
   }
   .hero .hero-location-pill { z-index: 2; }
 }
+
+/* =====================================================
+   HERO GLOBE: Three.js canvas
+   ===================================================== */
+.v4-globe.globe-3d {
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+}
+.v4-globe.globe-3d > img,
+.v4-globe.globe-3d > .gl-sweep,
+.v4-globe.globe-3d > .gl-ping,
+.v4-globe.globe-3d > .gl-orbit { display: none !important; }
+.v4-globe .hero-globe-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+}
