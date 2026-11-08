@@ -6074,3 +6074,7 @@ body { font-family: 'Geist', sans-serif; letter-spacing: -0.005em; }
   .sys-art-wrap, .sys-panel.open .sys-art-wrap { position: relative; top: auto; right: auto; margin: 64px auto 0; display: block; width: 200px; height: 200px; transform: none; filter: none; opacity: 1; }
 }
 @media (prefers-reduced-motion: reduce) { .sys-art-wrap .sys-art { animation: none; } }
+/* closed cards: art sits toward the bottom-right corner */
+.sys-art-wrap { transform: translate(98px, 30px) scale(0.56); }
+@media (max-width: 1100px) { .sys-art-wrap { transform: translate(60px, 24px) scale(0.6); } }
+@media (max-width: 900px) { .sys-art-wrap, .sys-panel.open .sys-art-wrap { transform: none; } }
