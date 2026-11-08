@@ -5949,3 +5949,23 @@ body { font-family: 'Geist', sans-serif; letter-spacing: -0.005em; }
 .footer-contact .fc-row:hover { color: var(--lime); transform: translateX(2px); }
 .footer-contact .fc-row:hover svg { opacity: 1; }
 .footer-contact .fc-ig:hover svg { color: var(--red); }
+
+/* ===== Footer v2: clickable contact, spread layout ===== */
+.footer-grid { display: grid !important; grid-template-columns: 1fr auto 1fr !important; align-items: start; gap: 40px; }
+.footer-grid > .footer-col:nth-child(2) { justify-self: center; }
+.footer-grid > .footer-col:last-child { justify-self: end; }
+.footer-grid > .footer-col:last-child h4 { text-align: left; }
+.fc-v2 { display: flex !important; flex-direction: column; gap: 12px; }
+.fc-mails { display: flex; gap: 10px; flex-wrap: wrap; }
+.fc-pill { display: inline-flex; align-items: center; gap: 9px; height: 42px; padding: 0 18px; border-radius: 99px; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.04); color: var(--ink, #fff); font-size: 14px; font-weight: 500; transition: border-color .2s, background .2s, color .2s, transform .2s; }
+.fc-pill svg { width: 17px; height: 17px; }
+.fc-pill:hover { border-color: var(--lime); background: rgba(156,232,96,0.1); color: var(--lime); transform: translateY(-2px); }
+.fc-socials { display: flex; gap: 10px; }
+.fc-ico { display: grid; place-items: center; width: 42px; height: 42px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.8); transition: border-color .2s, background .2s, color .2s, transform .2s; }
+.fc-ico svg { width: 18px; height: 18px; }
+.fc-ico:hover { border-color: var(--lime); color: var(--lime); transform: translateY(-2px); }
+.fc-ico.fc-ig:hover { border-color: var(--red); color: var(--red); background: rgba(226,85,72,0.1); }
+@media (max-width: 760px) {
+  .footer-grid { grid-template-columns: 1fr !important; gap: 28px; }
+  .footer-grid > .footer-col:nth-child(2), .footer-grid > .footer-col:last-child { justify-self: start; }
+}
