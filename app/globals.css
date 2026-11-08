@@ -4661,3 +4661,87 @@ body { font-family: 'Geist', sans-serif; letter-spacing: -0.005em; }
 
 .pr-metal[data-tier="growth"]::after { opacity: 0.3; }
 .pr-metal[data-tier="growth"] .pr-light { opacity: 0.45; }
+
+/* =====================================================
+   HERO WORD HOVER: "brand" + "globe"
+   ===================================================== */
+.v4-h1 .it {
+  display: inline-block;
+  position: relative;
+}
+.v4-h1 .rot-wrap,
+.v4-h1 .it {
+  cursor: default;
+  transition: transform 600ms cubic-bezier(0.16,1,0.3,1), text-shadow 500ms ease;
+}
+.v4-h1 .rot-word { transition: transform 420ms cubic-bezier(0.65,0,0.35,1), opacity 320ms ease, text-shadow 500ms ease !important; }
+
+/* underline sweep */
+.v4-h1 .rot-wrap::after,
+.v4-h1 .it::after {
+  content: '';
+  position: absolute;
+  left: 0.02em;
+  bottom: 0.04em;
+  top: auto;
+  width: auto;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, #fff 35%, var(--red) 100%);
+  box-shadow: 0 0 12px rgba(255,255,255,0.45);
+  clip-path: none;
+  filter: none;
+  animation: none;
+  opacity: 1;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 700ms cubic-bezier(0.16,1,0.3,1);
+  pointer-events: none;
+}
+.v4-h1 .rot-wrap::after { right: 0.24em; }
+.v4-h1 .it::after { right: 0.32em; }
+
+/* globe's red period */
+.v4-h1 .it .period {
+  display: inline-block;
+  transition: transform 500ms cubic-bezier(0.34,1.56,0.64,1), text-shadow 500ms ease;
+}
+
+/* hero globe reacts when "globe" is hovered */
+.hero .v4-globe { transition: filter 700ms ease; }
+
+@media (hover: hover) {
+  .v4-h1 .rot-wrap:hover,
+  .v4-h1 .it:hover {
+    transform: translateY(-0.07em) rotate(-2deg);
+  }
+  .v4-h1 .rot-wrap:hover .rot-word,
+  .v4-h1 .it:hover {
+    -webkit-text-fill-color: #ffffff !important;
+    color: #ffffff;
+    text-shadow:
+      0 0 12px rgba(255,255,255,0.75),
+      0 0 34px rgba(255,255,255,0.4),
+      0 0 70px rgba(255,255,255,0.2);
+  }
+  .v4-h1 .rot-wrap:hover::after,
+  .v4-h1 .it:hover::after {
+    transform: scaleX(1);
+  }
+  /* sparkles on "brand" twinkle faster */
+  .v4-h1 .rot-wrap:hover .rot-word::before,
+  .v4-h1 .rot-wrap:hover .rot-word::after {
+    animation-duration: 0.9s;
+  }
+  .v4-h1 .it:hover .period {
+    transform: scale(1.5);
+    text-shadow: 0 0 10px rgba(255,45,61,0.9), 0 0 26px rgba(255,45,61,0.6);
+  }
+  .hero:has(.v4-h1 .it:hover) .v4-globe {
+    filter: brightness(1.35) drop-shadow(0 0 40px rgba(255,255,255,0.18));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .v4-h1 .rot-wrap, .v4-h1 .it, .v4-h1 .rot-wrap::after, .v4-h1 .it::after, .v4-h1 .it .period { transition: none !important; }
+}

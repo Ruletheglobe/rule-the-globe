@@ -562,6 +562,7 @@ function initRotatingWord() {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   let i = 0;
   setInterval(() => {
+    if (el.parentElement && el.parentElement.matches(':hover')) return;
     el.classList.add('out');
     setTimeout(() => {
       i = (i + 1) % words.length;
