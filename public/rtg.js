@@ -263,6 +263,9 @@ function animateGlobe() {
 
 // ==================== GRAIN ====================
 function initGrain() {
+  // Grain is now a static CSS noise tile animated on the compositor (see globals.css).
+  // Regenerating an SVG turbulence filter every 60ms was the main source of scroll lag.
+  return;
   const turb = document.getElementById('turbulence');
   if (!turb) return;
   let seed = 1;
@@ -812,10 +815,31 @@ function renderPricing(bump) {
     `<li><svg viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>${f}</li>`).join('');
 
   const idx = planOrder.indexOf(plan);
+  // Marketing-style comparison: Growth is the featured column, rows are grouped
+  const pitch = { foundation: 'Get found', growth: 'Grow every month', dominance: 'Own your category' };
+  const groups = [
+    ['The essentials', 0, 5],
+    ['Growth engine', 5, 9],
+    ['Category leadership', 9, 13]
+  ];
+  const colCls = i => [i === idx ? 'on' : '', plans[planOrder[i]].popular ? 'feat' : ''].join(' ').trim();
+  const cell = (v, i) => `<td class="${colCls(i)}">${v ? '<i class="yes"></i>' : '<i class="no"></i>'}</td>`;
   document.getElementById('prTable').innerHTML = `
-    <thead><tr><th></th>${planOrder.map((k, i) => `<th class="${i === idx ? 'on' : ''}" onclick="setPlan('${k}')">${plans[k].name}<small>${money(yearly ? plans[k].annual : plans[k].monthly, cur)}${yearly ? '/yr' : '/mo'}</small></th>`).join('')}</tr></thead>
-    <tbody>${compareRows.map(r => `<tr><td>${r[0]}</td>${[1, 2, 3].map(c => `<td class="${c - 1 === idx ? 'on' : ''}">${r[c] ? '<i class="yes"></i>' : '<i class="no"></i>'}</td>`).join('')}</tr>`).join('')}
-    <tr><td>Support</td>${planOrder.map((k, i) => `<td class="${i === idx ? 'on' : ''} txt">${plans[k].support.replace('Direct access to the RTG founder', 'Founder direct')}</td>`).join('')}</tr></tbody>`;
+    <thead><tr><th class="pc-corner"><span>Every plan includes the build, hosting, SEO and AIO.</span></th>${planOrder.map((k, i) => `
+      <th class="${colCls(i)}" onclick="setPlan('${k}')">
+        ${plans[k].popular ? '<span class="pc-badge">Most popular</span>' : ''}
+        <span class="pc-name">${plans[k].name}</span>
+        <span class="pc-pitch">${pitch[k]}</span>
+        <small>${money(yearly ? plans[k].annual : plans[k].monthly, cur)}${yearly ? '/yr' : '/mo'}</small>
+      </th>`).join('')}</tr></thead>
+    <tbody>${groups.map(([label, a, b]) => `
+      <tr class="pc-group"><td><span>${label}</span></td>${[0, 1, 2].map(i => `<td class="${colCls(i)}"></td>`).join('')}</tr>
+      ${compareRows.slice(a, b).map(r => `<tr><td>${r[0]}</td>${[1, 2, 3].map(c => cell(r[c], c - 1)).join('')}</tr>`).join('')}`).join('')}
+      <tr class="pc-group"><td><span>Support</span></td>${[0, 1, 2].map(i => `<td class="${colCls(i)}"></td>`).join('')}</tr>
+      <tr><td>How you reach us</td>${planOrder.map((k, i) => `<td class="${colCls(i)} txt">${plans[k].support.replace('Direct access to the RTG founder', 'Founder direct')}</td>`).join('')}</tr>
+    </tbody>
+    <tfoot><tr><td></td>${planOrder.map((k, i) => `
+      <td class="${colCls(i)}"><button class="${plans[k].popular ? 'btn-primary' : 'btn-secondary'} pc-cta" onclick="setPlan('${k}');openWW('project')">${plans[k].popular ? 'Choose ' + plans[k].name : 'Start with ' + plans[k].name}</button></td>`).join('')}</tr></tfoot>`;
 
   const cardEl = document.getElementById('prMetal');
   if (cardEl) cardEl.dataset.tier = plan;

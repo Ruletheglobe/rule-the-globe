@@ -32,12 +32,12 @@ export default function ScrollAnimations() {
           );
           if (!head.length) return;
           gsap.from(head, {
-            y: 36,
+            y: 26,
             opacity: 0,
-            duration: 0.9,
+            duration: 0.65,
             ease,
-            stagger: 0.12,
-            scrollTrigger: { trigger: section, start: "top 80%", once: true },
+            stagger: 0.08,
+            scrollTrigger: { trigger: section, start: "top 92%", once: true },
           });
         });
 
@@ -46,15 +46,15 @@ export default function ScrollAnimations() {
           if (!els.length) return;
           gsap.set(els, { opacity: 0, y });
           ScrollTrigger.batch(els, {
-            start: "top 88%",
+            start: "top 96%",
             once: true,
             onEnter: (items) =>
               gsap.to(items, {
                 opacity: 1,
                 y: 0,
-                duration: 0.9,
+                duration: 0.7,
                 ease,
-                stagger: 0.12,
+                stagger: 0.07,
                 overwrite: true,
                 clearProps: "opacity,transform",
               }),

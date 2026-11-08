@@ -17,7 +17,8 @@ const TARGETS: [number, number, number, number][] = [
   [24.71, 46.68, 0.12, 0], // Riyadh
   [28.61, 77.21, 0.24, 0], // Delhi
 ];
-const RED = 0xff2d3d;
+const RED = 0xe25548;
+const LIME = 0x9ce860;
 
 export default function HeroGlobe() {
   useEffect(() => {
@@ -301,7 +302,12 @@ export default function HeroGlobe() {
               float ends = smoothstep(0.0, 0.04, vU) * smoothstep(1.0, 0.96, vU);
               float face = smoothstep(0.0, 0.3, vFace);
               float a = (0.38 + 1.3 * pulse) * ends * face;
-              gl_FragColor = vec4(vec3(1.0, 0.98, 0.96), a);
+              vec3 coral = vec3(0.886, 0.333, 0.282);
+              vec3 lime = vec3(0.612, 0.910, 0.376);
+              vec3 warm = vec3(1.0, 0.97, 0.93);
+              vec3 col = vU < 0.5 ? mix(coral, warm, smoothstep(0.0, 0.5, vU)) : mix(warm, lime, smoothstep(0.5, 1.0, vU));
+              col = mix(col, vec3(1.0), 0.15 + 0.55 * pulse);
+              gl_FragColor = vec4(col, a);
             }`,
         });
       const arcMats: InstanceType<typeof THREE.ShaderMaterial>[] = [];
@@ -364,7 +370,7 @@ export default function HeroGlobe() {
         globe.add(s);
         sprites.push({ s, base: scale, kind, phase: Math.random() * Math.PI * 2, speed: 0.6 + Math.random() * 1.2 });
       };
-      endpoints.forEach((p) => addSprite(glowTex, p, 0.1, "end"));
+      endpoints.forEach((p) => addSprite(glowTex, p, 0.1, "end", LIME));
       const lagosP = lagosV.clone().multiplyScalar(1.008);
       addSprite(glowTex, lagosP, 0.13, "lagos", RED);
       addSprite(glowTex, lagosP, 0.06, "lagos", 0xffffff);
@@ -406,7 +412,12 @@ export default function HeroGlobe() {
               float spec = pow(max(dot(reflect(-L, vN), vV), 0.0), 220.0);
               float glare = pow(max(dot(vN, L), 0.0), 14.0) * 0.06;
               float a = fres * (0.35 + 1.4 * pow(max(dot(vN, L), 0.0), 1.5)) + spec * 0.0 + glare * 0.0;
-              gl_FragColor = vec4(vec3(1.0), a);
+              vec3 lime = vec3(0.612, 0.910, 0.376);
+              vec3 coral = vec3(0.886, 0.333, 0.282);
+              float side = dot(vN, L);
+              vec3 tint = side > 0.0 ? lime : coral;
+              vec3 col = mix(vec3(1.0), tint, clamp(abs(side) * 1.4, 0.0, 0.85));
+              gl_FragColor = vec4(col, a);
             }`,
         })
       );

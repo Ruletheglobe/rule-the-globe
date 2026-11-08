@@ -306,10 +306,71 @@
 <!-- FAQ -->
 <section class="section proof-section" id="faq">
   <div class="faq-wrap">
-    <div>
+    <div class="faq-aside">
       <div class="section-label">FAQ</div>
       <h2 class="section-title">Short <em>answers.</em></h2>
       <p class="section-subtitle">Anything else, send a message. Reply within 24 hours.</p>
+      <div class="faq-art" aria-hidden="true">
+        <svg viewBox="0 0 420 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="faqGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#9ce860"/>
+              <stop offset="0.5" stop-color="#f4efe6"/>
+              <stop offset="1" stop-color="#e25548"/>
+            </linearGradient>
+            <radialGradient id="faqCore" cx="0.5" cy="0.5" r="0.5">
+              <stop offset="0" stop-color="#9ce860" stop-opacity="0.2"/>
+              <stop offset="1" stop-color="#9ce860" stop-opacity="0"/>
+            </radialGradient>
+            <pattern id="faqDots" width="5" height="5" patternUnits="userSpaceOnUse">
+              <circle cx="2.5" cy="2.5" r="0.9" fill="#ffffff" fill-opacity="0.55"/>
+            </pattern>
+            <clipPath id="faqClip"><circle cx="210" cy="150" r="44"/></clipPath>
+          </defs>
+
+          <circle cx="210" cy="150" r="120" fill="url(#faqCore)"/>
+
+          <g class="faq-orbit" transform="rotate(-6 210 150)">
+            <path id="faqOrbC" d="M14,150 a196,118 0 1,0 392,0 a196,118 0 1,0 -392,0" stroke-dasharray="2 6"/>
+            <circle r="3" class="faq-node lime"><animateMotion dur="26s" repeatCount="indefinite"><mpath href="#faqOrbC"/></animateMotion></circle>
+          </g>
+          <g class="faq-orbit" transform="rotate(-12 210 150)">
+            <path id="faqOrbA" d="M40,150 a170,54 0 1,0 340,0 a170,54 0 1,0 -340,0"/>
+            <circle r="4" class="faq-node lime glow"><animateMotion dur="14s" repeatCount="indefinite"><mpath href="#faqOrbA"/></animateMotion></circle>
+          </g>
+          <g class="faq-orbit" transform="rotate(32 210 150)">
+            <path id="faqOrbB" d="M90,150 a120,86 0 1,0 240,0 a120,86 0 1,0 -240,0"/>
+            <circle r="3.5" class="faq-node coral glow"><animateMotion dur="19s" begin="-6s" repeatCount="indefinite"><mpath href="#faqOrbB"/></animateMotion></circle>
+          </g>
+
+          <g clip-path="url(#faqClip)">
+            <rect x="160" y="100" width="100" height="100" fill="url(#faqDots)"/>
+          </g>
+          <ellipse cx="210" cy="150" rx="18" ry="44" class="faq-mer"/>
+          <ellipse cx="210" cy="150" rx="34" ry="44" class="faq-mer"/>
+          <line x1="166" y1="150" x2="254" y2="150" class="faq-mer"/>
+          <circle cx="210" cy="150" r="44" stroke="url(#faqGrad)" stroke-width="1.4"/>
+
+          <circle cx="204" cy="158" r="10" class="faq-ping"/>
+          <circle cx="204" cy="158" r="10" class="faq-ping faq-ping-2"/>
+          <circle cx="204" cy="158" r="3.2" fill="#e25548"/>
+
+          <path d="M84 52 L176 122" class="faq-link"/>
+          <path d="M338 70 L248 128" class="faq-link"/>
+          <path d="M96 248 L180 182" class="faq-link"/>
+          <g class="faq-chip" transform="translate(28 40)"><rect width="66" height="24" rx="12"/><circle cx="14" cy="12" r="3" fill="#9ce860"/><text x="24" y="16">SEO</text></g>
+          <g class="faq-chip" transform="translate(316 58)"><rect width="66" height="24" rx="12"/><circle cx="14" cy="12" r="3" fill="#e25548"/><text x="24" y="16">AIO</text></g>
+          <g class="faq-chip" transform="translate(36 238)"><rect width="78" height="24" rx="12"/><circle cx="14" cy="12" r="3" fill="#9ce860"/><text x="24" y="16">GROWTH</text></g>
+        </svg>
+      </div>
+      <div class="faq-help">
+        <span class="faq-help-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg></span>
+        <div class="faq-help-copy">
+          <div class="faq-help-title">Still curious?</div>
+          <div class="faq-help-sub">Ask a real person. Reply within 24 hours.</div>
+        </div>
+        <button class="btn-secondary faq-help-btn" onclick="openWW('project')">Ask us</button>
+      </div>
     </div>
     <div class="faq-list" id="faqList"></div>
   </div>
