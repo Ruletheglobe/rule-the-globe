@@ -5865,3 +5865,9 @@ body { font-family: 'Geist', sans-serif; letter-spacing: -0.005em; }
   .team-nav { display: none; }
   .team-card { flex-basis: 74%; }
 }
+
+/* Image globe (Three.js globe removed): Lagos light in brand lime */
+.hero .v4-globe img { filter: contrast(1.05) brightness(1.05) !important; }
+.hero .v4-globe .gl-ping { background: var(--lime); box-shadow: 0 0 12px 3px rgba(156,232,96,0.7); }
+.hero .v4-globe .gl-ping::before, .hero .v4-globe .gl-ping::after { border-color: rgba(156,232,96,0.7); }
+.hero .v4-globe .gl-orbit i::before { background: var(--lime); box-shadow: 0 0 10px 3px rgba(156,232,96,0.6); }
