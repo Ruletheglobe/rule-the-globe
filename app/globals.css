@@ -225,13 +225,24 @@ input, select, textarea { font-family: inherit; outline: none; }
     backdrop-filter: blur(40px);
     border: 1px solid var(--border-glass);
     border-radius: var(--radius-lg);
-    padding: 24px;
-    display: none;
+    padding: 44px 24px 24px;
+    display: flex;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateY(-16px);
+    transition: opacity 280ms ease, transform 380ms cubic-bezier(0.16,1,0.3,1), visibility 0s linear 380ms;
     flex-direction: column;
     gap: 18px;
     z-index: 99;
   }
-  .nav-mobile-panel.open { display: flex; }
+  .nav-mobile-panel.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translateY(0);
+    transition: opacity 280ms ease, transform 380ms cubic-bezier(0.16,1,0.3,1), visibility 0s;
+  }
 }
 
 /* ========== HERO ========== */
