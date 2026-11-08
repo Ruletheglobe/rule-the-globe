@@ -6018,3 +6018,32 @@ body { font-family: 'Geist', sans-serif; letter-spacing: -0.005em; }
 .sys-panel.open .sys-art { transform: none; }
 @media (max-width: 1100px) { .sys-art { width: 210px; height: 210px; right: 28px; margin-top: -80px; } .sys-text { width: 340px; } }
 @media (max-width: 900px) { .sys-art { margin-top: 0; right: auto; } .sys-text { width: auto; max-width: none; } }
+
+/* ===== The System v2: tighter, word on collapsed cards ===== */
+.sys-acc { gap: 10px; height: 360px; margin-top: 44px !important; }
+.sys-acc .sys-panel { flex: 1 1 0; }
+.sys-acc .sys-panel.open { flex: 3.4 1 0; }
+.sys-num { top: 20px; right: 22px; font-size: 52px; }
+.sys-word {
+  position: absolute; left: 24px; bottom: 26px; z-index: 2;
+  font-family: 'Google Sans', sans-serif; font-weight: 700; font-size: 34px; line-height: 1; letter-spacing: -0.03em;
+  color: var(--ink, #fff); white-space: nowrap;
+  transition: opacity 260ms ease, transform 420ms cubic-bezier(0.16,1,0.3,1);
+}
+.sys-panel:not(.open):hover .sys-word { color: var(--lime); }
+.sys-panel.open .sys-word { opacity: 0; transform: translateY(10px); pointer-events: none; }
+.sys-panel:not(.open) .sys-word { transition-delay: 200ms; }
+.sys-inner { padding: 30px 32px 30px; }
+.sys-text { width: 380px; max-width: 380px; }
+.sys-text .how-title { margin-top: 14px; font-size: 28px; }
+.sys-text .how-body { margin-top: 10px; }
+.sys-art { width: 300px; height: 300px; right: 30px; top: 50%; margin-top: -150px; }
+.sys-panel.open .sys-art { filter: drop-shadow(0 0 24px rgba(156,232,96,0.12)); }
+@media (max-width: 1100px) { .sys-art { width: 220px; height: 220px; margin-top: -110px; right: 20px; } .sys-text { width: 320px; max-width: 320px; } .sys-word { font-size: 28px; } }
+@media (max-width: 900px) {
+  .sys-acc { height: auto; }
+  .sys-word { display: none; }
+  .sys-art { width: 200px; height: 200px; margin: 0 auto 4px; top: auto; right: auto; }
+  .sys-inner { padding: 22px 20px; }
+  .sys-text { width: auto; max-width: none; }
+}
