@@ -602,43 +602,184 @@ const workShowcase = [
     sub: 'Pay as you go gym and rooftop yoga for Yaba tech workers.', b1: 'Start trial', b2: 'Classes' }
 ];
 
+// Old-site look per client, for the "before" side of the slider
+const workBefore = {
+  frankies: { title: 'Welcome To Frankies Wraps!!!', tag: 'Best wraps in Lagos. Call us to order today.', links: ['Home', 'Menu', 'Contact Us', 'Gallery'], tone: '#8a5a2b', year: 2019 },
+  tooth: { title: 'THE TOOTH BOOTH DENTAL CLINIC', tag: 'Quality dental care. Opening hours Mon to Sat.', links: ['Home', 'About Us', 'Services', 'Contact'], tone: '#2d4f7c', year: 2018 },
+  glow: { title: 'Glow Skin Studio ~ Beauty & Spa', tag: 'Facials, massage and more. DM us on Instagram to book.', links: ['Home', 'Price List', 'Gallery', 'Location'], tone: '#7c3a5c', year: 2020 },
+  nomad: { parked: true }
+};
+let workIdx = 0;
+let baPos = 50;
+
+function workBeforeHTML(w) {
+  const b = workBefore[w.key] || {};
+  if (b.parked) {
+    return `<div class="old old-parked">
+      <div class="old-bar"><i></i><i></i><i></i><span>nomadfitness.ng</span></div>
+      <div class="old-park"><b>This domain is parked</b><span>No website yet. Bookings ran through Instagram DMs.</span></div>
+    </div>`;
+  }
+  const visits = (proofData[w.key] ? proofData[w.key].metrics[0].before : 0);
+  return `<div class="old" style="--old-tone:${b.tone}">
+    <div class="old-bar"><i></i><i></i><i></i><span>${esc(w.short.toLowerCase().replace(/\s/g, ''))}.com.ng</span></div>
+    <div class="old-page">
+      <div class="old-head">${esc(b.title)}</div>
+      <div class="old-links">${b.links.map(l => `<u>${l}</u>`).join(' | ')}</div>
+      <div class="old-body">
+        <div class="old-img">IMAGE</div>
+        <div class="old-copy">
+          <p>${esc(b.tag)}</p>
+          <p class="old-small">We are open for business. Click on the links above for more information about our services and prices.</p>
+          <span class="old-btn">Click Here</span>
+        </div>
+      </div>
+      <div class="old-foot">Visitors: ${String(visits).padStart(6, '0')} &nbsp;|&nbsp; © ${b.year} &nbsp;|&nbsp; Best viewed in Chrome</div>
+    </div>
+  </div>`;
+}
+
+function workAfterHTML(w) {
+  const p = proofData[w.key];
+  const ms = p ? p.metrics : null;
+  const heroStats = ms ? `<div class="mock-stats">
+      <div><strong>${ms[0].after.toLocaleString()}</strong><small>Monthly visits</small></div>
+      <div><strong>${ms[1].after}</strong><small>${esc(ms[1].title.split(' ')[0])}</small></div>
+    </div>` : '';
+  return `<div class="mock" style="--mock-bg:${w.bg};--mock-accent:${w.accent};--mock-hero:${w.hero}">
+    <div class="mock-nav"><span>${esc(w.short)}${w.nav.map(n => `<i>${n}</i>`).join('')}</span><b>${w.cta}</b></div>
+    <div class="mock-hero">
+      <div class="mock-h">${esc(w.h)}</div>
+      <div class="mock-sub">${esc(w.sub)}</div>
+      <div class="mock-btns"><span>${w.b1}</span><span>${w.b2}</span></div>
+      ${heroStats}
+    </div>
+  </div>`;
+}
+
 function renderWork() {
   const grid = document.getElementById('workGrid');
   if (!grid) return;
-  grid.innerHTML = workShowcase.map(w => {
+  grid.innerHTML = `<div class="gl-work ba" id="baRoot">
+    <div class="ba-stage" id="baStage" style="--pos:${baPos}%">
+      <div class="ba-layer ba-after" id="baAfter"></div>
+      <div class="ba-layer ba-before" id="baBefore"></div>
+      <span class="ba-tag ba-tag-l">Before</span>
+      <span class="ba-tag ba-tag-r">After RTG</span>
+      <div class="ba-handle" id="baHandle" role="slider" tabindex="0" aria-label="Drag to compare before and after" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${baPos}">
+        <span class="ba-line"></span>
+        <span class="ba-knob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7l-5 5 5 5M15 7l5 5-5 5"/></svg></span>
+      </div>
+      <span class="ba-hint" id="baHint">Drag to compare</span>
+    </div>
+    <div class="ba-info" id="baInfo"></div>
+    <div class="ba-strip-wrap">
+      <button class="ba-nav" aria-label="Previous project" onclick="selectWork(workIdx - 1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></button>
+      <div class="ba-strip" id="baStrip" role="tablist">${workShowcase.map((w, k) => `
+        <button class="ba-thumb" role="tab" data-i="${k}" onclick="selectWork(${k})" aria-label="${esc(w.name)}">
+          <span class="ba-thumb-shot" style="background:${w.shot}"><span class="ba-thumb-page" style="--mock-bg:${w.bg};--mock-hero:${w.hero}"><i></i></span></span>
+          <span class="ba-thumb-name">${esc(w.short)}</span>
+          <span class="ba-thumb-num">${String(k + 1).padStart(2, '0')}</span>
+        </button>`).join('')}
+      </div>
+      <button class="ba-nav" aria-label="Next project" onclick="selectWork(workIdx + 1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+    </div>
+  </div>`;
+  selectWork(0, true);
+  initBeforeAfter();
+}
+
+function selectWork(i, first) {
+  const n = workShowcase.length;
+  workIdx = (i + n) % n;
+  const w = workShowcase[workIdx];
+  const stage = document.getElementById('baStage');
+  if (!stage) return;
+  const paint = () => {
+    stage.style.background = w.shot;
+    document.getElementById('baAfter').innerHTML = workAfterHTML(w);
+    document.getElementById('baBefore').innerHTML = workBeforeHTML(w);
     const p = proofData[w.key];
-    const ms = p ? p.metrics : null;
-    const heroStats = ms ? `<div class="mock-stats">
-        <div><strong>${ms[0].after.toLocaleString()}</strong><small>Monthly visits</small></div>
-        <div><strong>${ms[1].after}</strong><small>${esc(ms[1].title.split(' ')[0])}</small></div>
-      </div>` : '';
-    const stats = ms ? `<div class="gl-work-stats">${ms.map(m => {
-        const mult = m.before === 0 ? 'new' : (m.after / m.before).toFixed(1) + 'x';
-        return `<div><strong>${mult}</strong><span>${esc(m.label.toLowerCase())}</span></div>`;
-      }).join('')}</div>` : '';
-    return `<article class="gl-work observe-w" onclick="${w.live ? '' : "openWW('project')"}">
-      <div class="gl-shot" style="background:${w.shot}">
-        <div class="mock" style="--mock-bg:${w.bg};--mock-accent:${w.accent};--mock-hero:${w.hero}">
-          <div class="mock-nav"><span>${esc(w.short)}${w.nav.map(n => `<i>${n}</i>`).join('')}</span><b>${w.cta}</b></div>
-          <div class="mock-hero">
-            <div class="mock-h">${esc(w.h)}</div>
-            <div class="mock-sub">${esc(w.sub)}</div>
-            <div class="mock-btns"><span>${w.b1}</span><span>${w.b2}</span></div>
-            ${heroStats}
-          </div>
-        </div>
+    const stats = p ? p.metrics.map(m => {
+      const mult = m.before === 0 ? 'new' : (m.after / m.before).toFixed(1) + 'x';
+      return `<div class="ba-stat"><span>${esc(m.label.toLowerCase())}</span><b>${m.before.toLocaleString()} <i>→</i> ${m.after.toLocaleString()}</b><em>${mult}</em></div>`;
+    }).join('') : `<div class="ba-stat ba-stat-wide"><span>status</span><b>Membership site and booking flow in build</b></div>`;
+    document.getElementById('baInfo').innerHTML = `
+      <div class="ba-who">
+        <div class="ba-name">${esc(w.name)} <span class="live-pill ${w.live ? '' : 'work-pill-build'}">${w.live ? 'LIVE' : 'IN BUILD'}</span></div>
+        <div class="ba-type">${esc(w.type)}</div>
       </div>
-      <div class="gl-work-meta">
-        <div>
-          <div class="gl-work-name">${esc(w.name)}</div>
-          <div class="gl-work-type">${esc(w.type)}</div>
-          ${stats}
-        </div>
-        <span class="live-pill ${w.live ? '' : 'work-pill-build'}">${w.live ? 'LIVE' : 'IN BUILD'}</span>
-      </div>
-    </article>`;
-  }).join('');
-  countUpIn(grid);
+      <div class="ba-stats">${stats}</div>`;
+    document.querySelectorAll('.ba-thumb').forEach(t => {
+      const on = +t.dataset.i === workIdx;
+      t.classList.toggle('on', on);
+      t.setAttribute('aria-selected', on);
+      if (on && !first) {
+        const strip = t.parentElement;
+        strip.scrollTo({ left: t.offsetLeft - (strip.clientWidth - t.offsetWidth) / 2, behavior: 'smooth' });
+      }
+    });
+  };
+  if (first) { paint(); return; }
+  stage.classList.add('swap');
+  setTimeout(() => { paint(); stage.classList.remove('swap'); }, 220);
+}
+
+function setBA(pct) {
+  baPos = Math.max(0, Math.min(100, pct));
+  const stage = document.getElementById('baStage');
+  const h = document.getElementById('baHandle');
+  if (!stage) return;
+  stage.style.setProperty('--pos', baPos + '%');
+  if (h) h.setAttribute('aria-valuenow', Math.round(baPos));
+}
+
+function initBeforeAfter() {
+  const stage = document.getElementById('baStage');
+  const handle = document.getElementById('baHandle');
+  const hint = document.getElementById('baHint');
+  if (!stage || !handle) return;
+  let dragging = false;
+  const fromEvent = e => {
+    const r = stage.getBoundingClientRect();
+    setBA(((e.clientX - r.left) / r.width) * 100);
+  };
+  const hideHint = () => hint && hint.classList.add('gone');
+  stage.addEventListener('pointerdown', e => {
+    if (e.target.closest('a,button:not(.ba-handle)')) return;
+    dragging = true;
+    stage.classList.add('dragging');
+    stage.setPointerCapture(e.pointerId);
+    fromEvent(e);
+    hideHint();
+  });
+  stage.addEventListener('pointermove', e => { if (dragging) fromEvent(e); });
+  const end = () => { dragging = false; stage.classList.remove('dragging'); };
+  stage.addEventListener('pointerup', end);
+  stage.addEventListener('pointercancel', end);
+  handle.addEventListener('keydown', e => {
+    const step = e.shiftKey ? 10 : 4;
+    if (e.key === 'ArrowLeft') { setBA(baPos - step); hideHint(); e.preventDefault(); }
+    if (e.key === 'ArrowRight') { setBA(baPos + step); hideHint(); e.preventDefault(); }
+    if (e.key === 'Home') { setBA(0); e.preventDefault(); }
+    if (e.key === 'End') { setBA(100); e.preventDefault(); }
+  });
+  const strip = document.getElementById('baStrip');
+  if (strip) strip.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') { selectWork(workIdx + 1); e.preventDefault(); }
+    if (e.key === 'ArrowLeft') { selectWork(workIdx - 1); e.preventDefault(); }
+  });
+  // one-time sweep the first time the slider scrolls into view
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver(entries => {
+    if (!entries.some(en => en.isIntersecting)) return;
+    io.disconnect();
+    const keys = [[0, 50], [700, 78], [1300, 22], [1900, 50]];
+    stage.classList.add('sweeping');
+    keys.forEach(([t, v]) => setTimeout(() => { if (!dragging) setBA(v); }, 400 + t));
+    setTimeout(() => stage.classList.remove('sweeping'), 2600);
+  }, { threshold: 0.5 });
+  io.observe(stage);
 }
 
 // ==================== TESTIMONIAL ====================

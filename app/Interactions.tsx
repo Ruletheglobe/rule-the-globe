@@ -28,7 +28,7 @@ export default function Interactions() {
     let timer = 0;
 
     const start = () => {
-      if (!document.querySelector("#workGrid .gl-shot") && tries++ < 40) {
+      if (!document.querySelector("#workGrid .ba-stage, #workGrid .gl-shot") && tries++ < 40) {
         timer = window.setTimeout(start, 100);
         return;
       }
