@@ -21,7 +21,6 @@
     <a class="nav-link" href="#work">Work</a>
     <a class="nav-link" href="#how-it-works">System</a>
     <a class="nav-link" href="#pricing">Pricing</a>
-    <a class="nav-link" href="#services">Ads &amp; AI</a>
     <a class="nav-link" href="#reviews">Reviews</a>
     <a class="nav-link" href="#faq">FAQ</a>
   </div>
@@ -36,7 +35,6 @@
   <a class="nav-link" onclick="scrollToEl('work')">Work</a>
   <a class="nav-link" onclick="scrollToEl('how-it-works')">System</a>
   <a class="nav-link" onclick="scrollToEl('pricing')">Pricing</a>
-  <a class="nav-link" onclick="scrollToEl('services')">Ads &amp; AI</a>
   <a class="nav-link" onclick="scrollToEl('reviews')">Reviews</a>
   <a class="nav-link" onclick="scrollToEl('faq')">FAQ</a>
   <button class="btn-primary" style="justify-content:center" onclick="openWW('project')">Work with us</button>
@@ -136,28 +134,35 @@
   <div class="v4-head">
     <div>
       <div class="section-label">PRICING</div>
-      <h2 class="section-title">Pick what you need. <em>Pay for what you use.</em></h2>
+      <h2 class="section-title">Three plans. <em>Everything included.</em></h2>
     </div>
-    <p class="section-subtitle">Mix any services into one plan. Try it for a month with a one-time payment, then keep going monthly or stop.</p>
+    <p class="section-subtitle">Try any plan for a month with one payment. Like the results? Keep going monthly and cancel anytime.</p>
   </div>
 
-  <div class="pr-shell pb">
+  <div class="pr-shell pb pb-simple">
     <div class="pr-controls">
+      <div class="pr-tabs" role="tablist" id="prTabs">
+        <span class="pr-ind" id="prInd"></span>
+        <button class="pr-tab active" data-plan="foundation" onclick="setPlan('foundation')"><span class="pt-n">Foundation</span><span class="pt-p" data-p="foundation"></span></button>
+        <button class="pr-tab" data-plan="growth" onclick="setPlan('growth')"><span class="pt-n">Growth</span><span class="pt-p" data-p="growth"></span></button>
+        <button class="pr-tab" data-plan="dominance" onclick="setPlan('dominance')"><span class="pt-n">Dominance</span><span class="pt-p" data-p="dominance"></span></button>
+      </div>
       <div class="pb-bill" id="pbBill" role="radiogroup" aria-label="How you pay">
         <span class="pb-bill-ind" id="pbBillInd"></span>
-        <button data-v="trial" role="radio" onclick="pbSetMode('trial')"><b>Try 1 month</b><small>One-time payment</small></button>
-        <button data-v="monthly" role="radio" onclick="pbSetMode('monthly')"><b>Monthly</b><small>Cancel anytime · save 15%</small></button>
-      </div>
-      <div class="pr-seg" id="prCur" aria-label="Currency">
-        <button class="on" data-v="usd" onclick="setCur('usd')">USD</button>
-        <button data-v="ngn" onclick="setCur('ngn')">NGN</button>
+        <button data-v="trial" role="radio" onclick="pbSetMode('trial')"><b>Try 1 month</b><small>One-time</small></button>
+        <button data-v="monthly" role="radio" onclick="pbSetMode('monthly')"><b>Monthly</b><small>Save 15%</small></button>
       </div>
     </div>
 
-    <div class="pb-tabs" id="pbTabs" role="tablist" aria-label="Services"></div>
-
     <div class="pr-card">
-      <div class="pr-left" id="pbLeft"></div>
+      <div class="pr-left">
+        <div class="pr-title-row">
+          <span class="pr-name" id="prName">Foundation</span>
+        </div>
+        <p class="pr-for" id="prFor"></p>
+        <div class="pr-inherit" id="prInherit"></div>
+        <ul class="pr-feats" id="prFeats"></ul>
+      </div>
 
       <div class="pr-right">
         <div class="pr-stage" id="prStage">
@@ -166,13 +171,13 @@
             <span class="pr-light"></span>
             <div class="pm-top">
               <span class="pm-logo">RTG</span>
-              <span class="pr-pop" id="prPop">STARTER</span>
+              <span class="pr-pop" id="prPop">MOST POPULAR</span>
               <svg class="pm-nfc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8.5 7.5a6.5 6.5 0 0 1 0 9M12 5a10 10 0 0 1 0 14M15.5 2.5a13.5 13.5 0 0 1 0 19"/></svg>
             </div>
             <div class="pm-chip"><i></i><i></i><i></i></div>
             <div class="pm-bottom">
               <div>
-                <div class="pr-metal-label" id="prMetalLabel">WEB DEVELOPMENT</div>
+                <div class="pr-metal-label" id="prMetalLabel">FOUNDATION PLAN</div>
                 <div class="pr-price"><span id="prPrice">$0</span><small id="prPer">/mo</small></div>
                 <div class="pr-alt" id="prAlt"></div>
               </div>
@@ -183,49 +188,13 @@
             </div>
           </div>
         </div>
-        <div class="pb-lines" id="pbLines"></div>
-        <div class="pr-total" id="prTotal"></div>
         <div class="pr-btns">
-          <button class="gl-cta pr-go" id="pbGo" onclick="startPlan()"><span id="prGoName">Start 1-month trial</span> <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg></button>
+          <button class="gl-cta pr-go" id="pbGo" onclick="startPlan()"><span id="prGoName">Start Foundation</span> <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg></button>
           <button class="gl-ghost pr-msg" onclick="openWW('message')">Send a message</button>
         </div>
-        <p class="pr-note">Not sure what to pick? <a onclick="bookCall('website')">Book a 20 min call.</a></p>
+        <p class="pr-note" id="prNote"></p>
       </div>
     </div>
-
-    <div class="pr-steps">
-      <div class="pr-step"><span>01</span><b>Pick and pay</b><p>Build your plan. Start with a 1-month trial.</p></div>
-      <div class="pr-step"><span>02</span><b>Kickoff call</b><p>Goals, assets and first deliveries agreed.</p></div>
-      <div class="pr-step"><span>03</span><b>See results</b><p>Your dashboard tracks every delivery.</p></div>
-      <div class="pr-step"><span>04</span><b>Keep going</b><p>Switch to monthly, add services or stop.</p></div>
-    </div>
-
-    <div class="xs-head">
-      <span class="section-label">ALSO FROM RTG</span>
-    </div>
-    <div class="xs-grid xs-grid-1" id="services">
-      <article class="xs-card xs-call xs-wide">
-        <div class="xs-wide-l">
-          <div class="xs-top">
-            <span class="xs-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l1.8 4.6L18 9.4l-4.2 1.8L12 16l-1.8-4.8L6 9.4l4.2-1.8z"/><path d="M18 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></svg></span>
-            <span class="xs-tag xs-tag-red">BY CALL ONLY</span>
-          </div>
-          <h3 class="xs-title">AI Tools Training</h3>
-          <p class="xs-copy">Learn the AI tools RTG uses to build, write and market. Every session is shaped around your team and your goals.</p>
-        </div>
-        <div class="xs-wide-r">
-          <ul class="xs-list">
-            <li><svg viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Pick the right AI tools for your business</li>
-            <li><svg viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Hands-on walkthroughs on your own work</li>
-            <li><svg viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Prompts and workflows your team keeps</li>
-          </ul>
-          <div class="xs-btns xs-btns-1">
-            <button class="gl-cta" onclick="bookCall('training')">Book a call <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg></button>
-          </div>
-        </div>
-      </article>
-    </div>
-
   </div>
 </section>
 

@@ -810,9 +810,9 @@ const faqs = [
   ['Who do you work with?', 'Restaurants, clinics, beauty, fitness, retail and gaming studios. Any business that needs its website to bring in customers.'],
   ["What if I don't have a brief?", 'Send a few lines or book a call. RTG turns it into a plan.'],
   ['How long does a build take?', 'Most sites go live within 48 hours of kickoff. Bigger builds take one to two weeks.'],
-  ['How much does it cost?', 'Plans start at $300 a month plus a $250 one-time setup. Yearly billing gets two months free. No hidden fees.'],
-  ['What growth services do you offer?', 'AI UGC ads, Meta Ads, Google Ads and SEO optimisation. Your ad budget stays in your account. RTG runs it for the most clicks and quotes the fee on a short call.'],
-  ['Do you teach AI tools?', 'Yes, by call only. Book a call and RTG shapes the training around your team.'],
+  ['How much does it cost?', 'Foundation is $300, Growth $800 and Dominance $1,500. Try any plan for one month with a single payment, or go monthly for 15% less and cancel anytime.'],
+  ['What is in each plan?', 'Foundation is your website with SEO and AI search. Growth adds UGC videos, AI content, AI ads and Meta Ads. Dominance adds AI model shoots, a short film ad, Google Ads and AI tools training.'],
+  ['Does my ad budget go to you?', 'No. Your ad spend stays in your own Meta or Google account. The plan covers RTG running it for you.'],
   ['Why do you show prices?', 'So you know before the first call. It saves both of us time and keeps the focus on your build.'],
   ['What happens after launch?', 'RTG keeps the site fast, ranked and updated, with a weekly report on what to fix next.']
 ];
@@ -851,148 +851,45 @@ function glHome() {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-// ==================== PRICING: SERVICE BUILDER ====================
-// Every price on the pricing section lives here. Change a number, the page updates.
+// ==================== PRICING: 3 PLANS ====================
+// Every price and inclusion lives here. Change a number, the page updates.
 const NGN_RATE = 1600;
 const MONTHLY_DISCOUNT = 0.15; // monthly plans pay 15% less than the 1-month trial
-const SVC_ORDER = ['web', 'ugc', 'models', 'content', 'aiads'];
-const SERVICES = {
-  web: {
-    name: 'Web Development', short: 'WEB', delivery: '48hr delivery',
-    icon: '<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M7 6.5h.01M10 6.5h.01"/>',
-    desc: 'A fast site built to rank on Google, get cited by AI and turn visitors into customers.',
-    choiceLabel: 'What you need',
-    choices: [
-      { id: 'landing', label: 'Landing page', note: 'One page, one offer', price: 300 },
-      { id: 'site', label: 'Website', note: 'Up to 5 pages', price: 600 },
-      { id: 'store', label: 'Website + bookings', note: 'Or a small store', price: 1000 }
-    ],
-    addons: [
-      { id: 'seo', label: 'SEO + AI search (AIO)', price: 150, on: true },
-      { id: 'pages', label: 'Extra pages', price: 60, unit: '/page', qty: true },
-      { id: 'report', label: 'Weekly growth report', price: 80 }
-    ],
-    feats: ['Desktop, tablet and mobile', 'Hosting and SSL included', 'Unlimited revisions', 'Updates every 48 hours']
+const PLAN_ORDER = ['foundation', 'growth', 'dominance'];
+const PLANS = {
+  foundation: {
+    name: 'Foundation', price: 300,
+    for: 'Get your business online and found on Google.',
+    inherit: null,
+    feats: ['Website, up to 5 pages', 'SEO + AI search (AIO)', 'Hosting, SSL and updates', 'Monthly results report']
   },
-  ugc: {
-    name: 'UGC Videos', short: 'UGC', delivery: '7 day delivery',
-    icon: '<rect x="6" y="2.5" width="12" height="19" rx="2.5"/><path d="M10.5 9.5v5l4-2.5z"/>',
-    desc: 'Creator-style videos that sell your product the way real customers talk about it.',
-    choiceLabel: 'Video length',
-    choices: [
-      { id: 's', label: '15 to 30 seconds', note: 'Hooks and quick demos', price: 90 },
-      { id: 'l', label: '60 seconds', note: 'Reviews and unboxings', price: 150 }
-    ],
-    qty: { label: 'Videos this month', min: 1, max: 30, def: 4 },
-    addons: [
-      { id: 'hooks', label: '3 extra hooks per video', price: 25, unit: '/video', perQty: true },
-      { id: 'raw', label: 'Raw footage files', price: 40 }
-    ],
-    feats: ['Script and brief written for you', 'Vertical 9:16 for TikTok, Reels and Shorts', 'Captions on every video', '2 revision rounds']
+  growth: {
+    name: 'Growth', price: 800, popular: true,
+    for: 'Your site plus the content and ads that bring people to it.',
+    inherit: 'Foundation',
+    feats: ['4 UGC videos a month', '12 AI content posts a month', '2 AI video ads a month', 'Meta Ads management']
   },
-  models: {
-    name: 'AI Model Shoots', short: 'AI SHOOT', delivery: '5 day delivery',
-    icon: '<circle cx="12" cy="8" r="3.5"/><path d="M5 20c1-4 4-6 7-6s6 2 7 6"/><path d="M18.5 3.5l.6 1.4 1.4.6-1.4.6-.6 1.4-.6-1.4-1.4-.6 1.4-.6z"/>',
-    desc: 'Photo and video shoots with AI models wearing or holding your product. No studio, no booking.',
-    choiceLabel: 'Shoot type',
-    choices: [
-      { id: 'photo', label: 'Photo set', note: '10 images', price: 180 },
-      { id: 'video', label: 'Video shoot', note: '3 clips', price: 350 },
-      { id: 'both', label: 'Photo + video', note: '10 images, 3 clips', price: 480 }
-    ],
-    addons: [
-      { id: 'looks', label: 'Extra model or look', price: 60, unit: '/look', qty: true },
-      { id: 'scenes', label: 'Lifestyle scenes (city, beach, studio)', price: 80 }
-    ],
-    feats: ['Your product in any setting', 'The same model across every shoot', 'Sizes for web, ads and social', 'Full commercial rights']
-  },
-  content: {
-    name: 'AI Content Creation', short: 'CONTENT', delivery: 'Weekly drops',
-    icon: '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><path d="M14 17.5h7M17.5 14v7"/>',
-    desc: 'A month of posts, carousels and captions made with AI and checked by RTG before they go out.',
-    choiceLabel: 'Posts per month',
-    choices: [
-      { id: 'c12', label: '12 posts', note: '3 a week', price: 200 },
-      { id: 'c20', label: '20 posts', note: '5 a week', price: 320 },
-      { id: 'c30', label: '30 posts', note: 'Every day', price: 450 }
-    ],
-    addons: [
-      { id: 'reels', label: 'Reels editing (4 a month)', price: 150 },
-      { id: 'post', label: 'Scheduling and posting for you', price: 80 }
-    ],
-    feats: ['Content calendar for the month', 'Captions written for your audience', 'Carousels and single posts', 'Monthly performance recap']
-  },
-  aiads: {
-    name: 'AI Ads', short: 'AI ADS', delivery: '5 day delivery',
-    icon: '<rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M10 9.5v5l4.5-2.5z"/><path d="M2.5 9h19" opacity=".35"/>',
-    desc: 'Video ads made with AI, from 15 second hooks to 2 minute short film ads.',
-    choiceLabel: 'Ad length',
-    choices: [
-      { id: 'a15', label: '15 seconds', note: 'Scroll stopper', price: 120 },
-      { id: 'a30', label: '30 seconds', note: 'Product story', price: 200 },
-      { id: 'a60', label: '60 seconds', note: 'Full pitch', price: 350 },
-      { id: 'film', label: '2 min short film', note: 'Cinematic brand ad', price: 750 }
-    ],
-    qty: { label: 'Ads this month', min: 1, max: 20, def: 2 },
-    addons: [
-      { id: 'vo', label: 'AI voiceover', price: 50 },
-      { id: 'sizes', label: 'All sizes (9:16, 1:1, 16:9)', price: 40 },
-      { id: 'meta', label: 'Meta Ads management', price: 250, note: 'Ad spend stays in your account' },
-      { id: 'google', label: 'Google Ads management', price: 250, note: 'Ad spend stays in your account' }
-    ],
-    feats: ['Script and storyboard', 'Music and sound design', 'Captions on every ad', '2 revision rounds']
+  dominance: {
+    name: 'Dominance', price: 1500,
+    for: 'The full RTG team on your brand, every month.',
+    inherit: 'Growth',
+    feats: ['AI model photo and video shoot', '2 min short film ad', 'Google Ads management', 'AI tools training for your team', 'Direct line to the RTG founder']
   }
 };
 
-const pbState = { mode: 'trial', cur: 'usd', tab: 'web', cart: {} };
-SVC_ORDER.forEach(k => {
-  const S = SERVICES[k];
-  const add = {};
-  S.addons.forEach(a => { add[a.id] = a.qty ? 0 : !!a.on; });
-  pbState.cart[k] = { on: k === 'web', choice: S.choices[S.choices.length > 2 ? 1 : 0].id, qty: S.qty ? S.qty.def : 1, add };
-});
-const pricingState = pbState; // older code reads pricingState
+const pbState = { plan: 'growth', mode: 'trial', cur: 'usd' };
+const pricingState = pbState;
 
 function money(usd, cur) {
   return cur === 'ngn' ? '₦' + Math.round(usd * NGN_RATE).toLocaleString() : '$' + Math.round(usd).toLocaleString();
 }
-function svcPrice(k) {
-  const S = SERVICES[k], c = pbState.cart[k];
-  const ch = S.choices.find(x => x.id === c.choice) || S.choices[0];
-  const q = S.qty ? c.qty : 1;
-  let p = ch.price * q;
-  S.addons.forEach(a => {
-    const v = c.add[a.id];
-    if (a.qty) p += a.price * (v || 0);
-    else if (v) p += a.price * (a.perQty ? q : 1);
-  });
-  return p;
+function planPrice(k, mode) {
+  const p = PLANS[k].price;
+  return (mode || pbState.mode) === 'monthly' ? Math.round(p * (1 - MONTHLY_DISCOUNT)) : p;
 }
-function pbTotals() {
-  const on = SVC_ORDER.filter(k => pbState.cart[k].on);
-  const base = on.reduce((t, k) => t + svcPrice(k), 0);
-  const monthly = Math.round(base * (1 - MONTHLY_DISCOUNT));
-  return { on, base, monthly, due: pbState.mode === 'monthly' ? monthly : base };
-}
+function setPlan(k) { if (PLANS[k]) { pbState.plan = k; renderPricing(true); } }
 function pbSetMode(m) { pbState.mode = m; renderPricing(); }
-function pbTab(k) { pbState.tab = k; renderPricing(); }
-function pbToggleSvc(k, v) { pbState.cart[k].on = v == null ? !pbState.cart[k].on : v; renderPricing(true); }
-function pbChoose(k, id) { pbState.cart[k].choice = id; pbState.cart[k].on = true; renderPricing(true); }
-function pbQty(k, d) {
-  const S = SERVICES[k], c = pbState.cart[k];
-  c.qty = Math.max(S.qty.min, Math.min(S.qty.max, c.qty + d));
-  c.on = true;
-  renderPricing();
-}
-function pbAddon(k, id, v) {
-  const a = SERVICES[k].addons.find(x => x.id === id), c = pbState.cart[k];
-  if (a.qty) c.add[id] = Math.max(0, Math.min(20, (c.add[id] || 0) + v));
-  else c.add[id] = v;
-  c.on = true;
-  renderPricing();
-}
 function setCur(c) { pbState.cur = c; renderPricing(); }
-function setPlan() {}
 function setBilling(b) { pbSetMode(b === 'monthly' ? 'monthly' : 'trial'); }
 
 function countTo(el, from, to, fmt) {
@@ -1011,99 +908,49 @@ function countTo(el, from, to, fmt) {
 const PB_CHECK = '<svg viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
 function renderPricing(bump) {
-  const { mode, cur, tab, cart } = pbState;
-  const tabsEl = document.getElementById('pbTabs');
-  if (!tabsEl) return;
-  const T = pbTotals();
-  const per = mode === 'monthly' ? '/mo' : '';
+  const { plan, mode, cur } = pbState;
+  const P = PLANS[plan];
+  if (!document.getElementById('prTabs')) return;
+  const monthly = mode === 'monthly';
 
-  // billing toggle
+  document.querySelectorAll('.pr-tab').forEach(t => t.classList.toggle('active', t.dataset.plan === plan));
+  const ind = document.getElementById('prInd');
+  if (ind) ind.style.transform = `translateX(${PLAN_ORDER.indexOf(plan) * 100}%)`;
+  document.getElementById('prTabs').dataset.tier = plan;
+  document.querySelectorAll('.pt-p').forEach(el => { el.textContent = money(planPrice(el.dataset.p), cur) + (monthly ? '/mo' : ''); });
   document.querySelectorAll('#pbBill button').forEach(b => {
     const on = b.dataset.v === mode;
     b.classList.toggle('on', on);
     b.setAttribute('aria-checked', on);
   });
   const bi = document.getElementById('pbBillInd');
-  if (bi) bi.style.transform = mode === 'monthly' ? 'translateX(100%)' : 'translateX(0)';
-  document.querySelectorAll('#prCur button').forEach(b => b.classList.toggle('on', b.dataset.v === cur));
+  if (bi) bi.style.transform = monthly ? 'translateX(100%)' : 'translateX(0)';
 
-  // service tabs
-  tabsEl.innerHTML = SVC_ORDER.map(k => {
-    const S = SERVICES[k];
-    const from = Math.min(...S.choices.map(c => c.price));
-    return `<button class="pb-tab ${k === tab ? 'active' : ''} ${cart[k].on ? 'in' : ''}" role="tab" aria-selected="${k === tab}" onclick="pbTab('${k}')">
-      <span class="pb-tab-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${S.icon}</svg></span>
-      <span class="pb-tab-t"><b>${S.name}</b><small>${cart[k].on ? money(svcPrice(k), cur) + ' in plan' : 'from ' + money(from, cur)}</small></span>
-      <i class="pb-tab-dot"></i>
-    </button>`;
-  }).join('');
+  document.getElementById('prName').textContent = P.name;
+  document.getElementById('prFor').textContent = P.for;
+  document.getElementById('prInherit').innerHTML = P.inherit ? `<span class="pr-plus">+</span>Everything in ${P.inherit}, plus` : '';
+  document.getElementById('prFeats').innerHTML = P.feats.map(f => `<li>${PB_CHECK}${f}</li>`).join('');
 
-  // left: the open service
-  const S = SERVICES[tab], c = cart[tab];
-  const q = S.qty ? c.qty : 1;
-  document.getElementById('pbLeft').innerHTML = `
-    <div class="pr-title-row">
-      <span class="pr-name">${S.name}</span>
-      <span class="pr-chip"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>${S.delivery}</span></span>
-    </div>
-    <p class="pr-for">${S.desc}</p>
-    <label class="pr-row pr-row-switch pb-include ${c.on ? 'is-on' : ''}">
-      <span><b>${c.on ? 'In your plan' : 'Add to your plan'}</b><em class="pr-save-tag">${money(svcPrice(tab), cur)}</em></span>
-      <input type="checkbox" ${c.on ? 'checked' : ''} onchange="pbToggleSvc('${tab}', this.checked)" />
-      <span class="pr-switch" aria-hidden="true"></span>
-    </label>
-    <div class="pb-sub">${S.choiceLabel}</div>
-    <div class="pb-opts" style="--n:${Math.min(S.choices.length, 4)}">${S.choices.map(ch => `
-      <button class="pb-opt ${ch.id === c.choice ? 'on' : ''}" onclick="pbChoose('${tab}','${ch.id}')">
-        <b>${ch.label}</b><small>${ch.note}</small><span>${money(ch.price, cur)}${S.qty ? '<i> each</i>' : ''}</span>
-      </button>`).join('')}
-    </div>
-    ${S.qty ? `<div class="pr-row pb-qty-row"><span>${S.qty.label}</span>
-      <span class="pb-qty"><button aria-label="Fewer" onclick="pbQty('${tab}',-1)" ${c.qty <= S.qty.min ? 'disabled' : ''}>−</button><b>${c.qty}</b><button aria-label="More" onclick="pbQty('${tab}',1)" ${c.qty >= S.qty.max ? 'disabled' : ''}>+</button></span></div>` : ''}
-    <div class="pb-sub">Add-ons</div>
-    <div class="pr-rows pb-addons">${S.addons.map(a => {
-      const v = c.add[a.id];
-      if (a.qty) return `<div class="pr-row pb-qty-row"><span>${a.label}<small class="pb-price">+${money(a.price, cur)}${a.unit || ''}</small></span>
-        <span class="pb-qty"><button aria-label="Fewer" onclick="pbAddon('${tab}','${a.id}',-1)" ${!v ? 'disabled' : ''}>−</button><b>${v || 0}</b><button aria-label="More" onclick="pbAddon('${tab}','${a.id}',1)">+</button></span></div>`;
-      return `<label class="pr-row pr-row-switch ${v ? 'is-on' : ''}"><span>${a.label}<small class="pb-price">+${money(a.price * (a.perQty ? q : 1), cur)}${a.perQty ? ' for ' + q : ''}${a.note ? ' · ' + a.note : ''}</small></span>
-        <input type="checkbox" ${v ? 'checked' : ''} onchange="pbAddon('${tab}','${a.id}', this.checked)" /><span class="pr-switch" aria-hidden="true"></span></label>`;
-    }).join('')}</div>
-    <ul class="pr-feats">${S.feats.map(f => `<li>${PB_CHECK}${f}</li>`).join('')}</ul>`;
-
-  // right: card + summary
-  const n = T.on.length;
-  const tier = n >= 3 ? 'dominance' : n === 2 ? 'growth' : 'foundation';
   const card = document.getElementById('prMetal');
-  if (card) card.dataset.tier = tier;
-  document.getElementById('prPop').textContent = n >= 3 ? 'FULL STACK' : n === 2 ? 'BUNDLE' : 'STARTER';
-  document.getElementById('prPop').style.visibility = n ? 'visible' : 'hidden';
-  document.getElementById('prMetalLabel').textContent = n ? T.on.map(k => SERVICES[k].short).join(' + ') : 'PICK A SERVICE';
-  document.getElementById('prPer').textContent = mode === 'monthly' ? '/mo' : ' once';
+  card.dataset.tier = plan;
+  document.getElementById('prPop').style.visibility = P.popular ? 'visible' : 'hidden';
+  document.getElementById('prMetalLabel').textContent = P.name.toUpperCase() + ' PLAN';
+  document.getElementById('prPer').textContent = monthly ? '/mo' : ' once';
+  const price = planPrice(plan);
   const alt = cur === 'usd' ? 'ngn' : 'usd';
-  document.getElementById('prAlt').textContent = n ? `${money(T.due, alt)} ${mode === 'monthly' ? 'per month' : 'for 1 month'}` : 'Switch on a service to start';
+  document.getElementById('prAlt').innerHTML = `<button class="pb-cur" onclick="setCur('${alt}')" aria-label="Show price in ${alt.toUpperCase()}">${money(price, alt)}</button> ${monthly ? 'per month' : 'for 1 month'}`;
   const priceEl = document.getElementById('prPrice');
-  const target = cur === 'ngn' ? T.due * NGN_RATE : T.due;
+  const target = cur === 'ngn' ? price * NGN_RATE : price;
   const from = priceEl._val == null ? target : priceEl._val;
   priceEl._val = target;
   countTo(priceEl, from, target, v => (cur === 'ngn' ? '₦' : '$') + Math.round(v).toLocaleString());
 
-  document.getElementById('pbLines').innerHTML = n ? T.on.map(k => {
-    const ch = SERVICES[k].choices.find(x => x.id === cart[k].choice);
-    const lp = mode === 'monthly' ? svcPrice(k) * (1 - MONTHLY_DISCOUNT) : svcPrice(k);
-    return `<div class="pb-line ${k === tab ? 'cur' : ''}">
-      <button class="pb-line-name" onclick="pbTab('${k}')"><b>${SERVICES[k].name}</b><small>${ch.label}${SERVICES[k].qty ? ' × ' + cart[k].qty : ''}</small></button>
-      <span>${money(lp, cur)}${per}</span>
-      <button class="pb-x" aria-label="Remove ${SERVICES[k].name}" onclick="pbToggleSvc('${k}', false)">×</button>
-    </div>`;
-  }).join('') : '<div class="pb-empty">Switch on any service to build your plan.</div>';
+  document.getElementById('prGoName').textContent = `${monthly ? 'Start' : 'Try'} ${P.name}`;
+  document.getElementById('prNote').innerHTML = monthly
+    ? 'Billed monthly. Cancel anytime. <a onclick="bookCall(\'website\')">Questions? Book a call.</a>'
+    : `One payment, no renewal. Stay on for ${money(planPrice(plan, 'monthly'), 'usd')}/mo. <a onclick="bookCall('website')">Book a call.</a>`;
 
-  document.getElementById('prTotal').innerHTML = !n ? '' : mode === 'monthly'
-    ? `<span>Monthly · cancel anytime</span><b>${money(T.monthly, cur)}/mo <s>${money(T.base, cur)}</s></b>`
-    : `<span>1-month trial · one-time</span><b>${money(T.base, cur)} <em>or ${money(T.monthly, cur)}/mo monthly</em></b>`;
-  document.getElementById('prGoName').textContent = mode === 'monthly' ? 'Start monthly plan' : 'Start 1-month trial';
-  document.getElementById('pbGo').disabled = !n;
-
-  if (bump && card) { card.classList.remove('flip'); void card.offsetWidth; card.classList.add('flip'); }
+  if (bump) { card.classList.remove('flip'); void card.offsetWidth; card.classList.add('flip'); }
   syncPlanNote();
 }
 
@@ -1131,21 +978,19 @@ function initPricingCard() {
   });
 }
 
-// plain-text summary of the plan, used by the form and the inbox
+// summary used by the form and the admin inbox
 function pbSummary() {
-  const T = pbTotals(), cur = 'usd';
+  const P = PLANS[pbState.plan];
+  const price = planPrice(pbState.plan);
+  const monthly = Math.round(P.price * (1 - MONTHLY_DISCOUNT));
   return {
     mode: pbState.mode,
-    lines: T.on.map(k => {
-      const S = SERVICES[k], c = pbState.cart[k];
-      const ch = S.choices.find(x => x.id === c.choice);
-      const adds = S.addons.filter(a => a.qty ? c.add[a.id] > 0 : c.add[a.id]).map(a => a.qty ? `${a.label} × ${c.add[a.id]}` : a.label);
-      return { key: k, name: S.name, detail: ch.label + (S.qty ? ' × ' + c.qty : ''), addons: adds, price: Math.round(pbState.mode === 'monthly' ? svcPrice(k) * (1 - MONTHLY_DISCOUNT) : svcPrice(k)) };
-    }),
-    trial: T.base,
-    monthly: T.monthly,
-    due: T.due,
-    text: T.on.length ? `${T.on.map(k => SERVICES[k].name).join(' + ')} · ${pbState.mode === 'monthly' ? money(T.monthly, cur) + '/mo' : money(T.base, cur) + ' 1-month trial'}` : 'No services picked yet'
+    plan: pbState.plan,
+    lines: [{ key: pbState.plan, name: P.name + ' plan', detail: (P.inherit ? 'Everything in ' + P.inherit + ' + ' : '') + P.feats.join(', '), addons: [], price }],
+    trial: P.price,
+    monthly,
+    due: price,
+    text: `${P.name} plan · ${pbState.mode === 'monthly' ? money(monthly, 'usd') + '/mo' : money(P.price, 'usd') + ' 1-month trial'}`
   };
 }
 
@@ -1153,7 +998,7 @@ const topicNames = { website: 'Website plan', ads: 'Ads & growth', training: 'AI
 const svcState = new Set();
 function toggleSvc() {}
 function renderSvcs() {}
-function startService(key) { if (SERVICES[key]) { pbToggleSvc(key, true); pbTab(key); } scrollToEl('pricing'); }
+function startService() { scrollToEl('pricing'); }
 function bookCall(topic) {
   openWW('call');
   const sel = document.querySelector('.ww-panel[data-panel="call"] [name="topic"]');
@@ -1166,14 +1011,11 @@ function startPlan() {
 function syncPlanNote() {
   const box = document.getElementById('wwPlan');
   const t = document.getElementById('wwCommitText');
-  const sm = pbSummary();
-  if (box) box.innerHTML = sm.lines.length
-    ? sm.lines.map(l => `<div class="ww-plan-line"><span><b>${esc(l.name)}</b> ${esc(l.detail)}</span><span>${money(l.price, 'usd')}</span></div>`).join('') +
-      `<div class="ww-plan-total"><span>${pbState.mode === 'monthly' ? 'Monthly · cancel anytime' : '1-month trial · one-time'}</span><b>${money(sm.due, 'usd')}${pbState.mode === 'monthly' ? '/mo' : ''}</b></div>`
-    : '<div class="ww-plan-empty">No services picked yet. RTG will help you choose on a call.</div>';
-  if (t) t.textContent = sm.lines.length
-    ? (pbState.mode === 'monthly' ? `I'm ready to start at ${money(sm.monthly, 'usd')} a month.` : `I'm ready to pay ${money(sm.trial, 'usd')} for a 1-month trial.`)
-    : "I'm ready to invest once we agree on a plan.";
+  const P = PLANS[pbState.plan];
+  const price = planPrice(pbState.plan);
+  const monthly = pbState.mode === 'monthly';
+  if (box) box.innerHTML = `<div class="ww-plan-line ww-plan-one"><span><b>${P.name} plan</b><small>${monthly ? 'Monthly, cancel anytime' : '1-month trial, one payment'}</small></span><b class="ww-plan-price">${money(price, 'usd')}${monthly ? '/mo' : ''}</b></div>`;
+  if (t) t.textContent = monthly ? `I'm ready to start at ${money(price, 'usd')} a month.` : `I'm ready to pay ${money(price, 'usd')} for a 1-month trial.`;
 }
 
 // ==================== TEAM ====================
@@ -1665,7 +1507,7 @@ function acceptSubmission(id) {
     clientDatabase.unshift({
       id: 'c' + Date.now(),
       businessName: s.businessName, fullName: s.fullName || s.businessName, email: s.email, phone: '',
-      niche: s.order ? s.order.lines.map(l => l.name).join(', ') : '', location: '', plan: (s.order && s.order.lines.length >= 3) ? 'dominance' : (s.order && s.order.lines.length === 2) ? 'growth' : 'foundation', mrr: s.order ? s.order.monthly : 0,
+      niche: s.order ? s.order.lines.map(l => l.name).join(', ') : '', location: '', plan: (s.order && s.order.plan) || 'foundation', mrr: s.order ? s.order.monthly : 0,
       status: 'onboarding', billing: s.billing || 'Monthly', startDate: new Date().toISOString().slice(0, 10),
       audience: '', goals: s.message || '', keywords: '', differentiator: '',
       notes: 'Accepted from Work with us.'

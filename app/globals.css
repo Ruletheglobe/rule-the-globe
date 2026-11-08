@@ -5871,3 +5871,38 @@ body { font-family: 'Geist', sans-serif; letter-spacing: -0.005em; }
 .hero .v4-globe .gl-ping { background: var(--lime); box-shadow: 0 0 12px 3px rgba(156,232,96,0.7); }
 .hero .v4-globe .gl-ping::before, .hero .v4-globe .gl-ping::after { border-color: rgba(156,232,96,0.7); }
 .hero .v4-globe .gl-orbit i::before { background: var(--lime); box-shadow: 0 0 10px 3px rgba(156,232,96,0.6); }
+
+/* =====================================================
+   Pricing: three simple plans (trial or monthly)
+   ===================================================== */
+.pb-simple .pr-controls { justify-content: space-between; gap: 14px; }
+.pb-simple .pb-bill { min-width: 300px; }
+.pb-simple .pb-bill button { padding: 8px 14px; }
+.pb-simple .pr-card { align-items: center; }
+.pb-simple .pr-left { padding: 12px 8px; }
+.pb-simple .pr-name { font-size: 34px; }
+.pb-simple .pr-for { font-size: 15px; margin-top: 8px; }
+.pb-simple .pr-feats { margin-top: 18px; gap: 14px; }
+.pb-simple .pr-feats li { font-size: 15px; }
+.pb-simple .pr-inherit:empty + .pr-feats { margin-top: 24px; }
+.pb-simple .pr-btns { margin-top: 16px; }
+.pb-simple .pr-note { margin-top: 2px; }
+.pb-simple .pr-note a { color: var(--ink); }
+.pb-cur {
+  font: inherit;
+  color: inherit;
+  text-decoration: underline dotted;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.pb-cur:hover { color: var(--c-ink, #000); }
+@media (max-width: 900px) {
+  .pb-simple .pr-controls { flex-direction: column; align-items: stretch; }
+  .pb-simple .pb-bill { min-width: 0; }
+  .pb-simple .pr-name { font-size: 28px; }
+}
+
+.ww-plan-one { align-items: center; }
+.ww-plan-one > span { display: flex; flex-direction: column; gap: 2px; }
+.ww-plan-one small { font-size: 12px; color: var(--site-muted); }
+.ww-plan-price { font-family: 'Geist Mono', monospace; font-size: 15px; color: var(--lime) !important; }
