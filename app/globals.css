@@ -4745,3 +4745,19 @@ body { font-family: 'Geist', sans-serif; letter-spacing: -0.005em; }
 @media (prefers-reduced-motion: reduce) {
   .v4-h1 .rot-wrap, .v4-h1 .it, .v4-h1 .rot-wrap::after, .v4-h1 .it::after, .v4-h1 .it .period { transition: none !important; }
 }
+
+/* =====================================================
+   HERO GLOBE: fill the whole right side (desktop)
+   ===================================================== */
+@media (min-width: 901px) {
+  .hero .hero-right { padding: 0 !important; overflow: visible; align-self: stretch; }
+  .hero .hero-right .v4-globe {
+    position: absolute !important;
+    width: 150% !important;
+    aspect-ratio: 1;
+    top: 50% !important;
+    right: -46% !important;
+    margin: -75% 0 0 0;
+  }
+  .hero .hero-location-pill { z-index: 2; }
+}
