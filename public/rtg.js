@@ -1572,7 +1572,7 @@ function animateCounters(container) {
 
 // ==================== COUNT-UP ON SCROLL ====================
 function countUpIn(root) {
-  root.querySelectorAll('.gl-work-stats strong, .mock-stats strong, .proof-value').forEach(el => {
+  root.querySelectorAll('.gl-work-stats strong, .mock-stats strong, .proof-value, .result-value').forEach(el => {
     const finalText = el.textContent.trim();
     const m = finalText.match(/^([^\d]*)([\d,]*\.?\d+)(.*)$/);
     if (!m) return; // e.g. "new"
@@ -1603,3 +1603,4 @@ function countUpIn(root) {
     io.observe(el);
   });
 }
+countUpIn(document.querySelector(".results-stats") || document.createElement("div"));
