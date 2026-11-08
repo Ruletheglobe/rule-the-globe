@@ -526,13 +526,16 @@ function updateReviewBadge() {
 
 // ==================== MULTI-STEP FORM ====================
 // ==================== CONTACT CONFIG ====================
-// formEndpoint: paste a Formspree / Web3Forms / Getform URL to receive every
-// message in your inbox. Left empty, messages save to the admin inbox only.
+// web3formsKey: the Web3Forms access key. Every project and call request is
+// emailed to the inbox the key was created for. The key is public by design
+// (it can only send mail to that inbox), so it is safe in this public repo.
+// Left empty, submissions only save to the admin inbox in this browser.
 const RTG_CONFIG = {
   email: 'hello@rtg.studio',
   // Review links point at wherever the site is open (rtg.studio, GitHub Pages or Netlify)
   siteUrl: () => location.origin + location.pathname.replace(/index\.html$/, ''),
-  formEndpoint: ''
+  web3formsKey: '',
+  formEndpoint: 'https://api.web3forms.com/submit'
 };
 
 function esc(v) {
@@ -1150,15 +1153,52 @@ async function deliver(payload) {
   submissions.unshift(payload);
   saveSubmissions();
   updateSubmissionBadge();
-  if (!RTG_CONFIG.formEndpoint) return true;
+  if (!RTG_CONFIG.web3formsKey) return true;
   try {
     const r = await fetch(RTG_CONFIG.formEndpoint, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(emailFor(payload))
     });
-    return r.ok;
+    const j = await r.json().catch(() => ({}));
+    return r.ok && j.success !== false;
   } catch (e) { return false; }
+}
+
+// Turns a submission into a readable email for the RTG inbox
+function emailFor(p) {
+  const who = p.businessName || p.fullName || p.email;
+  const base = {
+    access_key: RTG_CONFIG.web3formsKey,
+    from_name: 'RTG website',
+    replyto: p.email,
+    botcheck: ''
+  };
+  if (p.type === 'project') {
+    const o = p.order || {};
+    return Object.assign(base, {
+      subject: `New project: ${who} · ${o.text || 'plan'}`,
+      Business: p.businessName,
+      Email: p.email,
+      Plan: o.text || '',
+      Billing: p.billing,
+      'Due now': o.due != null ? '$' + o.due : '',
+      'Ready to start': p.committed ? 'Yes' : 'No',
+      Message: p.message,
+      Sent: new Date(p.submittedAt).toUTCString()
+    });
+  }
+  if (p.type === 'call') {
+    return Object.assign(base, {
+      subject: `Call request: ${who} · ${p.callSlot}`,
+      Name: p.fullName,
+      Email: p.email,
+      Topic: (typeof topicNames !== 'undefined' && topicNames[p.topic]) || p.topic,
+      Slot: p.callSlot,
+      Sent: new Date(p.submittedAt).toUTCString()
+    });
+  }
+  return Object.assign(base, { subject: `New message from ${who}`, Details: JSON.stringify(p, null, 2) });
 }
 
 function wwSuccess(title, sub) {
@@ -1187,7 +1227,12 @@ async function submitProject() {
     billing: sm.mode === 'monthly' ? 'Monthly' : 'Trial',
     message: get('message'), submittedAt: new Date().toISOString()
   };
-  await deliver(payload);
+  const sent = await deliver(payload);
+  if (!sent) {
+    btn.disabled = false; btn.textContent = 'Try again';
+    showToast(`Couldn't send. Email ${RTG_CONFIG.email} instead.`);
+    return;
+  }
   btn.disabled = false; btn.textContent = 'Send message';
   f.reset(); syncPlanNote();
   wwSuccess('Project received.', `${sm.text}. RTG replies to ${payload.email} within 24 hours with your payment link and kickoff steps.`);
@@ -1210,7 +1255,12 @@ async function submitCall() {
     businessName: '', fullName: get('name'), email: get('email'),
     callSlot: `${when} · ${wwState.time} WAT`, submittedAt: new Date().toISOString()
   };
-  await deliver(payload);
+  const sent = await deliver(payload);
+  if (!sent) {
+    btn.disabled = false; btn.textContent = 'Try again';
+    showToast(`Couldn't send. Email ${RTG_CONFIG.email} instead.`);
+    return;
+  }
   btn.disabled = false; btn.textContent = 'Request call';
   f.reset();
   wwState.day = wwState.time = null;
