@@ -1772,3 +1772,22 @@ function countUpIn(root) {
   });
 }
 countUpIn(document.querySelector(".results-stats") || document.createElement("div"));
+
+// ==================== THE SYSTEM: hover accordion ====================
+function initSysAcc() {
+  const root = document.getElementById('sysAcc');
+  if (!root || root._ready) return;
+  root._ready = true;
+  const panels = [...root.querySelectorAll('.sys-panel')];
+  const open = p => panels.forEach(x => {
+    const on = x === p;
+    x.classList.toggle('open', on);
+    x.setAttribute('aria-expanded', on ? 'true' : 'false');
+  });
+  panels.forEach(p => {
+    p.addEventListener('pointerenter', e => { if (e.pointerType === 'mouse') open(p); });
+    p.addEventListener('click', () => open(p));
+    p.addEventListener('focus', () => open(p));
+  });
+}
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initSysAcc); else initSysAcc();
