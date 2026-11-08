@@ -359,6 +359,7 @@ function renderProofGrid(key) {
       </div>
     `;
   }).join('');
+  countUpIn(grid);
 }
 
 // ==================== REVIEWS ====================
@@ -633,6 +634,7 @@ function renderWork() {
       </div>
     </article>`;
   }).join('');
+  countUpIn(grid);
 }
 
 // ==================== TESTIMONIAL ====================
@@ -1567,3 +1569,37 @@ function animateCounters(container) {
   });
 });
 
+
+// ==================== COUNT-UP ON SCROLL ====================
+function countUpIn(root) {
+  root.querySelectorAll('.gl-work-stats strong, .mock-stats strong, .proof-value').forEach(el => {
+    const finalText = el.textContent.trim();
+    const m = finalText.match(/^([^\d]*)([\d,]*\.?\d+)(.*)$/);
+    if (!m) return; // e.g. "new"
+    const [, pre, numStr, post] = m;
+    const target = parseFloat(numStr.replace(/,/g, ''));
+    const decimals = (numStr.split('.')[1] || '').length;
+    const commas = numStr.includes(',');
+    const fmt = v => {
+      const s = v.toFixed(decimals);
+      return pre + (commas ? Number(s).toLocaleString('en-US', { minimumFractionDigits: decimals, maximumFractionDigits: decimals }) : s) + post;
+    };
+    let raf = 0;
+    el.textContent = fmt(0);
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        cancelAnimationFrame(raf);
+        if (!entry.isIntersecting) { el.textContent = fmt(0); return; }
+        const start = performance.now(), dur = 1400;
+        const tick = now => {
+          const t = Math.min((now - start) / dur, 1);
+          const eased = 1 - Math.pow(1 - t, 3);
+          el.textContent = t >= 1 ? finalText : fmt(target * eased);
+          if (t < 1) raf = requestAnimationFrame(tick);
+        };
+        raf = requestAnimationFrame(tick);
+      });
+    }, { threshold: 0.4 });
+    io.observe(el);
+  });
+}
