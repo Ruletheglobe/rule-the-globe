@@ -1111,7 +1111,7 @@ function syncPlanNote() {
 // Add a person: { name, role, photo: 'team/name.jpg' (in /public/team), tag: 'Short fun fact' }
 // Without a photo the card shows their initials on the brand gradient.
 const TEAM = [
-  { name: 'RTG', role: 'Founder', photo: '', tag: '' }
+  { name: 'Xica', role: 'Founder', photo: 'team/xica.jpg', pos: '80% 82%', tag: '' }
 ];
 function renderTeam() {
   const t = document.getElementById('teamTrack');
@@ -1119,7 +1119,7 @@ function renderTeam() {
   t.innerHTML = TEAM.map(m => {
     const ini = m.name.split(/\s+/).map(w => w[0]).join('').slice(0, 2).toUpperCase();
     return `<article class="team-card">
-      ${m.photo ? `<img class="team-photo" src="${esc(m.photo)}" alt="${esc(m.name)}" loading="lazy" draggable="false" />` : `<span class="team-initials" aria-hidden="true">${esc(ini)}</span>`}
+      ${m.photo ? `<img class="team-photo" src="${esc(m.photo)}" alt="${esc(m.name)}" loading="lazy" decoding="async" draggable="false"${m.pos ? ` style="object-position:${esc(m.pos)}"` : ''} />` : `<span class="team-initials" aria-hidden="true">${esc(ini)}</span>`}
       <div class="team-meta"><div class="team-name">${esc(m.name)}</div><div class="team-role">${esc(m.role)}</div></div>
       ${m.tag ? `<span class="team-tag">${esc(m.tag)}</span>` : ''}
     </article>`;
