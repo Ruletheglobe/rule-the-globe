@@ -6294,3 +6294,52 @@ body { font-family: 'Geist', sans-serif; letter-spacing: -0.005em; }
 .legal-foot a { color: inherit; opacity: 0.6; text-decoration: none; }
 .legal-foot a:hover { opacity: 1; }
 
+
+/* =====================================================
+   Page polish: progress bar, cursor glow, back-to-top, focus, scrollbar
+   ===================================================== */
+.fx-aura {
+  position: fixed; top: 0; left: 0; width: 520px; height: 520px; z-index: 1;
+  pointer-events: none; opacity: 0; transition: opacity 500ms ease; will-change: transform;
+  background: radial-gradient(circle, rgba(156,232,96,0.085) 0%, rgba(226,85,72,0.035) 40%, transparent 68%);
+}
+.fx-aura.on { opacity: 1; }
+.fx-top {
+  position: fixed; right: 22px; bottom: 22px; z-index: 9000;
+  width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; cursor: pointer;
+  color: #10200a; background: linear-gradient(135deg, #9ce860, #f6efe2);
+  border: 1px solid rgba(255,255,255,0.5);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45), 0 0 0 0 rgba(156,232,96,0.4);
+  opacity: 0; transform: translateY(14px) scale(0.9); pointer-events: none;
+  transition: opacity 300ms ease, transform 300ms cubic-bezier(0.16,1,0.3,1);
+}
+.fx-top svg { width: 20px; height: 20px; transition: transform 250ms cubic-bezier(0.16,1,0.3,1); }
+.fx-top.on { opacity: 1; transform: none; pointer-events: auto; }
+.fx-top.on:hover { transform: translateY(-3px) scale(1.05); }
+.fx-top:hover svg { transform: translateY(-2px); }
+.fx-top:active { transform: scale(0.94) !important; }
+@media (max-width: 640px) { .fx-top { right: 14px; bottom: 90px; width: 42px; height: 42px; } }
+
+/* keyboard focus: one consistent lime ring */
+:focus-visible { outline: 2px solid #9ce860; outline-offset: 3px; border-radius: 6px; }
+button:focus-visible, a:focus-visible, summary:focus-visible { outline: 2px solid #9ce860; outline-offset: 3px; }
+
+/* press feedback on buttons */
+.btn-primary:active, .btn-secondary:active, .nav-cta:active, .btn-next:active, .price-cta:active { transform: scale(0.97); }
+
+/* page scrollbar */
+html { scrollbar-width: thin; scrollbar-color: rgba(156,232,96,0.35) #0c0c0c; }
+html::-webkit-scrollbar { width: 10px; }
+html::-webkit-scrollbar-track { background: #0c0c0c; }
+html::-webkit-scrollbar-thumb { background: linear-gradient(180deg, rgba(156,232,96,0.45), rgba(226,85,72,0.4)); border-radius: 10px; border: 2px solid #0c0c0c; }
+
+/* footer links: gentle slide */
+.footer-nav a { display: inline-block; transition: color 200ms, transform 250ms cubic-bezier(0.16,1,0.3,1); }
+.footer-nav a:hover { transform: translateX(4px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .fx-aura { display: none; }
+  .fx-top, .fx-top svg { transition: none; }
+  html { scroll-behavior: auto; }
+}
+
