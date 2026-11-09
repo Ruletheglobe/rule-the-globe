@@ -6472,3 +6472,45 @@ html::-webkit-scrollbar-thumb { background: linear-gradient(180deg, rgba(156,232
   .pr-shell, .cta-band, .faq-item, .team-card, .ba-info { box-shadow: none !important; }
   .team-card:hover { transform: none; }
 }
+
+/* =====================================================
+   Phone lite mode, round 3: pricing
+   ===================================================== */
+@media (max-width: 820px), (hover: none) and (pointer: coarse) {
+  /* content-visibility with a guessed height makes tall, JS-built sections re-layout and jump while
+     scrolling on iOS. Render everything normally instead. */
+  #pricing, #team, #reviews, #faq, .cta-section, .footer {
+    content-visibility: visible !important;
+    contain-intrinsic-size: none !important;
+  }
+
+  /* metal plan card: flat, no 3D, no blend mode, no stacked striped gradients, no big shadows */
+  .pr-stage { perspective: none !important; }
+  .pr-metal, .pr-metal.tilting, .pr-metal.flip, .pr-metal.bump {
+    transform: none !important;
+    transform-style: flat !important;
+    animation: none !important;
+    transition: none !important;
+    box-shadow: 0 8px 22px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.6) !important;
+  }
+  .pr-light { display: none !important; }
+  .pr-metal { background: linear-gradient(125deg, #f7f8fa 0%, #c7cbd2 40%, #eef0f3 60%, #a7acb4 100%) !important; }
+  .sk-foundation { background: linear-gradient(125deg, #f7f8fa 0%, #c7cbd2 40%, #eef0f3 60%, #a7acb4 100%) !important; }
+  .sk-growth { background: linear-gradient(125deg, #ef3341 0%, #a50d19 45%, #e01d2c 70%, #6e0710 100%) !important; }
+  .sk-dominance { background: linear-gradient(125deg, #2c2d31 0%, #0c0c0e 45%, #1d1e22 70%, #050506 100%) !important; }
+  .pm-skin { transition: none !important; }
+  .pm-logo, .pm-chip, .pm-nfc, .pr-pop { filter: none !important; text-shadow: none !important; }
+
+  /* tab/segmented indicators: no layout-triggering transitions */
+  .pr-ind, .pb-bill-ind { will-change: auto !important; }
+
+  /* compare table: no glow filters or hover transitions */
+  .pr-table, .pr-table * { filter: none !important; transition: none !important; }
+  .pr-table td.feat i.yes { box-shadow: inset 0 0 0 1px rgba(156,232,96,0.55) !important; }
+
+  /* the line items animate in on every tab change */
+  .pb-line { animation: none !important; }
+}
+
+/* Frankies design: no monthly-visits chip */
+.mk-v-frankies .mk-chip-a { display: none; }

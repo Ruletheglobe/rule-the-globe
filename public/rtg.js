@@ -587,21 +587,11 @@ const workShowcase = [
     accent: '#ef4a14', hero: 'linear-gradient(135deg, #ff7a2f 0%, #e5341b 100%)', bg: '#fff7f1',
     nav: ['Menu', 'Delivery', 'About'], cta: 'Order', h: 'Wraps made fresh in 8 minutes.',
     sub: 'Lunch across Lekki. Cold-pressed juice. Zero preservatives.', b1: 'Order now', b2: 'See menu' },
-  { key: 'tooth', short: 'Tooth Booth', name: 'The Tooth Booth', type: 'Website design & build · Victoria Island', live: true,
-    shot: 'linear-gradient(135deg, #07163a 0%, #1f6fff 60%, #a8ccff 100%)',
-    accent: '#1e6bff', hero: 'linear-gradient(135deg, #2b7bff 0%, #0b2f8a 100%)', bg: '#f3f7ff',
-    nav: ['Treatments', 'Team', 'Prices'], cta: 'Book', h: 'Your smile, fixed same day.',
-    sub: 'US-trained dentists in VI. Same-day crowns and implants.', b1: 'Book a visit', b2: 'Treatments' },
   { key: 'glow', short: 'Glow', name: 'Glow Skin Studio', type: 'Landing page & booking · Ikeja', live: true,
     shot: 'linear-gradient(135deg, #2a0620 0%, #c2185b 55%, #ffc2d8 100%)',
     accent: '#c2185b', hero: 'linear-gradient(135deg, #f49ab9 0%, #a8306a 100%)', bg: '#fff5f8',
     nav: ['Facials', 'Products', 'Visit'], cta: 'Book', h: 'Skin that glows on its own.',
-    sub: 'Organic facials by a certified aesthetician in Ikeja.', b1: 'Book facial', b2: 'Treatments' },
-  { key: 'nomad', short: 'Nomad', name: 'Nomad Fitness', type: 'Membership site · Yaba · In build', live: false,
-    shot: 'linear-gradient(135deg, #03200f 0%, #12924a 60%, #b8ffd6 100%)',
-    accent: '#14a352', hero: 'linear-gradient(135deg, #1fcf72 0%, #0a5c33 100%)', bg: '#f2fff7',
-    nav: ['Classes', 'Rooftop', 'Join'], cta: 'Join', h: 'Train on the rooftop.',
-    sub: 'Pay as you go gym and rooftop yoga for Yaba tech workers.', b1: 'Start trial', b2: 'Classes' }
+    sub: 'Organic facials by a certified aesthetician in Ikeja.', b1: 'Book facial', b2: 'Treatments' }
 ];
 
 // Old-site look per client, for the "before" side of the slider
@@ -615,11 +605,13 @@ let workIdx = 0;
 let baPos = 50;
 
 function workBeforeHTML(w) {
+  // Frankies: the Before side shows the designed page (the After side is the live site)
+  if (w.url) return workDesignHTML(w);
   const b = workBefore[w.key] || {};
   if (b.parked) {
     return `<div class="old old-parked">
-      <div class="old-bar"><i></i><i></i><i></i><span>nomadfitness.ng</span></div>
-      <div class="old-park"><b>This domain is parked</b><span>No website yet. Bookings ran through Instagram DMs.</span></div>
+      <div class="old-bar"><i></i><i></i><i></i><span>riseupgames.net</span></div>
+      <div class="old-park"><b>This domain is parked</b><span>No studio website yet. The games lived only on Roblox.</span></div>
     </div>`;
   }
   const visits = (proofData[w.key] ? proofData[w.key].metrics[0].before : 0);
@@ -645,7 +637,7 @@ const workAfterExtra = {
   frankies: { badge: 'Rated 4.9 by 1,200+ diners', feats: [['8 min', 'Fresh wraps, every time'], ['Free', 'Delivery across Lekki'], ['100%', 'Cold-pressed juice']] },
   tooth: { badge: 'US-trained dental team', feats: [['Same day', 'Crowns and implants'], ['0%', 'Instalment plans'], ['Mon-Sat', 'Open late in VI']] },
   glow: { badge: 'Certified aesthetician', feats: [['Organic', 'Skin-first facials'], ['30 sec', 'To book online'], ['Ikeja', 'Calm, private studio']] },
-  nomad: { badge: 'Opening soon in Yaba', feats: [['Rooftop', 'Sunrise yoga classes'], ['Pay', 'As you go, no contract'], ['Yaba', 'Steps from the tech hub']] }
+  nomad: { badge: 'Roblox game studio', feats: [['Roblox', 'Games built for the platform'], ['Algorithm', 'Made to hit the feed'], ['Studio', 'Small team, fast builds']] }
 };
 
 const workArt = {
@@ -658,7 +650,7 @@ const workArt = {
   glow: `<div class="gl-arch"><i class="gl-sun"></i><i class="gl-arch2"></i><i class="gl-p gl-p1"></i><i class="gl-p gl-p2"></i><i class="gl-p gl-p3"></i></div>
     <div class="gl-menu"><small>Signature</small><b>Glow facial</b><span>60 min · from ₦25,000</span><em>&#9733;&#9733;&#9733;&#9733;&#9733; 4.9</em></div>`,
   nomad: `<svg class="nm-rings" viewBox="0 0 120 120"><circle cx="60" cy="60" r="52"/><circle class="r1" cx="60" cy="60" r="52"/><circle cx="60" cy="60" r="38"/><circle class="r2" cx="60" cy="60" r="38"/><circle cx="60" cy="60" r="24"/><circle class="r3" cx="60" cy="60" r="24"/></svg>
-    <div class="nm-sched"><small>Today · rooftop</small><div><b>06:00</b><span>Sunrise yoga</span></div><div><b>12:30</b><span>Lunch HIIT</span></div><div><b>18:00</b><span>Strength club</span></div></div>`
+    <div class="nm-sched"><small>Studio pipeline</small><div><b>01</b><span>Prototype</span></div><div><b>02</b><span>Playtest</span></div><div><b>03</b><span>Ship to Roblox</span></div></div>`
 };
 
 // Fit the 1280px-wide live iframe into whatever width the mock has
@@ -690,14 +682,19 @@ function workAfterHTML(w) {
       <div class="mk-live-view"><iframe src="${w.url}" title="${esc(w.name)} live site" loading="lazy" tabindex="-1"></iframe></div>
     </div>`;
   }
+  return workDesignHTML(w);
+}
+
+// The designed page (nav, hero, art, stat chips, feature cards)
+function workDesignHTML(w) {
   const p = proofData[w.key];
   const ms = p ? p.metrics : null;
   const x = workAfterExtra[w.key] || { badge: '', feats: [] };
   const chips = ms ? `
       <div class="mk-chip mk-chip-a"><small>Monthly visits</small><strong>${ms[0].after.toLocaleString()}</strong><em>${ms[0].before === 0 ? 'new' : '+' + Math.round(((ms[0].after - ms[0].before) / ms[0].before) * 100) + '%'}</em></div>
       <div class="mk-chip mk-chip-b"><small>${esc(ms[1].title)}</small><strong>${ms[1].after}</strong><em>${ms[1].before === 0 ? 'new' : (ms[1].after / ms[1].before).toFixed(1) + 'x'}</em></div>` : `
-      <div class="mk-chip mk-chip-a"><small>Status</small><strong>In build</strong><em>soon</em></div>
-      <div class="mk-chip mk-chip-b"><small>Launch</small><strong>Q1</strong><em>on track</em></div>`;
+      <div class="mk-chip mk-chip-a"><small>Status</small><strong>Live</strong><em>online now</em></div>
+      <div class="mk-chip mk-chip-b"><small>Platform</small><strong>Roblox</strong><em>studio</em></div>`;
   return `<div class="mock mk-v-${w.key}" style="--mock-bg:${w.bg};--mock-accent:${w.accent};--mock-hero:${w.hero}">
     <div class="mk-nav"><span class="mk-logo"><i></i>${esc(w.short)}</span><span class="mk-links">${w.nav.map(n => `<u>${n}</u>`).join('')}</span><b>${w.cta}</b></div>
     <div class="mock-hero mk-hero">
@@ -763,7 +760,7 @@ function selectWork(i, first) {
     const stats = p ? p.metrics.map(m => {
       const mult = m.before === 0 ? 'new' : (m.after / m.before).toFixed(1) + 'x';
       return `<div class="ba-stat"><span>${esc(m.label.toLowerCase())}</span><b>${m.before.toLocaleString()} <i>→</i> ${m.after.toLocaleString()}</b><em>${mult}</em></div>`;
-    }).join('') : `<div class="ba-stat ba-stat-wide"><span>status</span><b>Membership site and booking flow in build</b></div>`;
+    }).join('') : `<div class="ba-stat ba-stat-wide"><span>status</span><b>${esc(w.status || 'In build')}</b></div>`;
     document.getElementById('baInfo').innerHTML = `
       <div class="ba-who">
         <div class="ba-name">${esc(w.name)} <span class="live-pill ${w.live ? '' : 'work-pill-build'}">${w.live ? 'LIVE' : 'IN BUILD'}</span></div>
