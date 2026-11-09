@@ -679,8 +679,12 @@ function fitLive() {
 }
 window.addEventListener('resize', fitLive);
 
+// Phones skip the live iframe (a whole second website to load and scroll);
+// they get the designed mock instead.
+const baLiteMode = window.matchMedia('(max-width: 820px), (hover: none) and (pointer: coarse)').matches;
+
 function workAfterHTML(w) {
-  if (w.url) {
+  if (w.url && !baLiteMode) {
     const host = w.url.replace(/^https?:\/\//, '').replace(/\/$/, '');
     return `<div class="mock mk-live">
       <div class="mk-live-view"><iframe src="${w.url}" title="${esc(w.name)} live site" loading="lazy" tabindex="-1"></iframe></div>

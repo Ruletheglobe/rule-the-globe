@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300..700&family=Geist+Mono:wght@400;500&family=Google+Sans:wght@400..700&family=Instrument+Serif:ital@0;1&display=swap');
 
 :root {
   --bg-void: #030303;
@@ -6381,3 +6380,51 @@ html::-webkit-scrollbar-thumb { background: linear-gradient(180deg, rgba(156,232
 
 .mk-live { position: relative; width: 100%; height: 100%; overflow: hidden; }
 .mk-live-view { position: absolute; inset: 0; }
+
+/* =====================================================
+   Phone performance: drop the effects that cost the most
+   (large blurs, backdrop blur, background-position text shimmer,
+   film grain) and skip rendering off-screen sections.
+   ===================================================== */
+@media (max-width: 820px), (hover: none) and (pointer: coarse) {
+  /* big blurred, morphing orbs and the grain overlay repaint constantly */
+  .orb, .orb-1, .orb-2, .orb-3, #grain, .hero::after { display: none !important; }
+
+  /* backdrop-filter is the single most expensive thing on a phone GPU */
+  *, *::before, *::after {
+    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none !important;
+  }
+  /* keep glass surfaces readable once the blur is gone */
+  .ck { background: rgba(18,18,18,0.97); }
+  .nav, .nav.scrolled { background: rgba(8,8,8,0.92); }
+
+  /* shimmering gradient text (background-position + drop-shadow filter) repaints every frame */
+  .result-value, .proof-value.after, .metric-value, .sidebar-mrr-value, .price-value,
+  .plat-shine, .nav-logo, .footer-wordmark, .gl-work-stats strong,
+  .pr-metal[data-tier="dominance"] .pm-logo, .pr-metal[data-tier="dominance"] #prPrice,
+  .pr-metal::after, .btn-primary::before, .logo-shine, .hero .v4-h1 .it {
+    animation: none !important;
+    filter: none !important;
+  }
+
+  /* decorative infinite loops that are not worth the battery */
+  .footer-brand img, .faq-chip, .faq-link, .glint::before, .glint::after,
+  .mk-disc, .mk-chip, .fr-wrap, .fr-steam i, .th-badge { animation: none !important; }
+
+  /* the custom cursor glow is pointless on touch */
+  .fx-aura { display: none !important; }
+
+  /* cheaper shadows */
+  .ba-stage { box-shadow: 0 16px 40px rgba(0,0,0,0.4); }
+  .price-card, .review-card, .proof-card, .plan-card { box-shadow: none; }
+
+  /* do not lay out / paint sections until they are near the viewport */
+  #pricing, #team, #reviews, #faq, .cta-section, .footer {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 900px;
+  }
+
+  /* touch scrolling: no 300ms delay, no accidental double-tap zoom */
+  a, button, summary, [onclick] { touch-action: manipulation; }
+}

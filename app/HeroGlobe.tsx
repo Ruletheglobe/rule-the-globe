@@ -20,6 +20,12 @@ const TARGETS: [number, number, number, number][] = [
 const RED = 0xe25548;
 const LIME = 0x9ce860;
 
+// Phones get a lighter globe: no MSAA, lower pixel ratio, fewer dots and
+// sphere segments, and a 30fps cap.
+const MOBILE =
+  typeof window !== "undefined" &&
+  window.matchMedia("(max-width: 820px), (hover: none) and (pointer: coarse)").matches;
+
 export default function HeroGlobe() {
   useEffect(() => {
     const container = document.querySelector<HTMLElement>(".hero .v4-globe");
@@ -40,11 +46,15 @@ export default function HeroGlobe() {
       // ---------- renderer ----------
       let renderer: InstanceType<typeof THREE.WebGLRenderer>;
       try {
-        renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer = new THREE.WebGLRenderer({
+          antialias: !MOBILE,
+          alpha: true,
+          powerPreference: MOBILE ? "low-power" : "high-performance",
+        });
       } catch {
         return; // no WebGL: keep the image
       }
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, MOBILE ? 1.25 : 1.75));
       renderer.toneMapping = THREE.ACESFilmicToneMapping;
       renderer.toneMappingExposure = 1.05;
       const canvas = renderer.domElement;
@@ -170,7 +180,7 @@ export default function HeroGlobe() {
         return maskData[(y * MW + x) * 4] > 128;
       };
 
-      const STEP = 0.42;
+      const STEP = MOBILE ? 0.68 : 0.42;
       const positions: number[] = [];
       for (let lat = -58; lat <= 84; lat += STEP) {
         const n = Math.max(1, Math.floor((360 * Math.cos((lat * Math.PI) / 180)) / STEP));
@@ -218,7 +228,7 @@ export default function HeroGlobe() {
       const landTex = new THREE.CanvasTexture(mask);
       landTex.colorSpace = THREE.NoColorSpace;
       const landFill = new THREE.Mesh(
-        new THREE.SphereGeometry(0.999, 128, 96),
+        new THREE.SphereGeometry(0.999, MOBILE ? 48 : 128, MOBILE ? 36 : 96),
         new THREE.ShaderMaterial({
           transparent: true,
           depthWrite: false,
@@ -272,7 +282,7 @@ export default function HeroGlobe() {
 
       // dims the back half of the rings so the front reads clearly
       const dimmer = new THREE.Mesh(
-        new THREE.SphereGeometry(0.998, 64, 48),
+        new THREE.SphereGeometry(0.998, MOBILE ? 40 : 64, MOBILE ? 30 : 48),
         new THREE.MeshBasicMaterial({ color: 0x040404, transparent: true, opacity: 0.72, depthWrite: false })
       );
       dimmer.renderOrder = 1;
@@ -389,7 +399,7 @@ export default function HeroGlobe() {
 
       // ---------- glass shell ----------
       const shell = new THREE.Mesh(
-        new THREE.SphereGeometry(1.018, 96, 64),
+        new THREE.SphereGeometry(1.018, MOBILE ? 40 : 96, MOBILE ? 28 : 64),
         new THREE.ShaderMaterial({
           transparent: true,
           depthWrite: false,
@@ -488,9 +498,14 @@ export default function HeroGlobe() {
         renderer.render(scene, camera);
       };
 
-      const loop = () => {
+      let last = 0;
+      const frameGap = MOBILE ? 1000 / 30 : 0;
+      const loop = (now = 0) => {
         raf = requestAnimationFrame(loop);
-        if (visible) render();
+        if (!visible || document.hidden) return;
+        if (frameGap && now - last < frameGap - 1) return;
+        last = now;
+        render();
       };
       const io = new IntersectionObserver(([e]) => (visible = e.isIntersecting), { threshold: 0 });
       io.observe(container);
