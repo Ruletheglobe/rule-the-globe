@@ -12,6 +12,8 @@ import { gsap } from "gsap";
 export default function Interactions() {
   useEffect(() => {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // Pointer effects (magnetic buttons, tilt, spotlight) are meaningless on touch: skip on phones
+    if (window.matchMedia("(max-width: 820px), (hover: none) and (pointer: coarse)").matches) return;
     const fine = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
     const offs: (() => void)[] = [];
     const on = <K extends keyof HTMLElementEventMap>(

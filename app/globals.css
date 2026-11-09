@@ -6428,3 +6428,47 @@ html::-webkit-scrollbar-thumb { background: linear-gradient(180deg, rgba(156,232
   /* touch scrolling: no 300ms delay, no accidental double-tap zoom */
   a, button, summary, [onclick] { touch-action: manipulation; }
 }
+
+/* =====================================================
+   Phone lite mode, round 2 (The System crashed on iOS in-app browsers)
+   ===================================================== */
+@media (max-width: 820px), (hover: none) and (pointer: coarse) {
+  /* gradient "ring" borders use mask-composite, very heavy and leaky on iOS; the 1px border stays */
+  .how-card::after, .proof-card::after, .review-card::after, .svc-card::after,
+  .ww-modal::after, .cta-band::after, .faq-item::after { display: none !important; }
+  .how-card::before { display: none; }
+
+  /* cards: cheap, specific transitions instead of `transition: all` */
+  .how-card, .proof-card, .review-card, .svc-card {
+    transition: opacity 350ms ease, transform 350ms ease !important;
+    box-shadow: none !important;
+    will-change: auto !important;
+  }
+  /* reveal without waiting on JS observers/animations */
+  .how-card { opacity: 1 !important; transform: none !important; }
+
+  /* The System art: static, sharp, no filters, no floating, no blend modes */
+  .sys-art-wrap, .sys-panel .sys-art-wrap {
+    filter: none !important; opacity: 1 !important; transition: none !important;
+    will-change: auto !important; transform: none !important;
+  }
+  .sys-art-wrap .sys-art, .sys-art { animation: none !important; mix-blend-mode: normal !important; filter: none !important; }
+  .sys-panel.open .sys-art { filter: none !important; }
+  .sys-art-wrap { width: 150px !important; height: 150px !important; margin: 12px auto 0 !important; }
+
+  /* hero globe image: no blend-mode sweeps, orbits, pings or floating */
+  .hero .v4-globe, .hero .v4-globe *, .gl-globe, .gl-globe * { animation: none !important; }
+  .gl-sweep, .gl-orbit { display: none !important; }
+  .gl-globe img { mix-blend-mode: normal !important; }
+
+  /* nothing should be promoted to its own GPU layer without a reason */
+  .ba-before, .ba-handle, .ba-hint, #grain, .fx-aura { will-change: auto !important; }
+  .ba-before { transform: none; }
+
+  /* gradient headline words: static (no background-position animation, no filter) */
+  .section-title em, .cta-band-title em { animation: none !important; filter: none !important; }
+
+  /* drop remaining heavy shadows on big surfaces */
+  .pr-shell, .cta-band, .faq-item, .team-card, .ba-info { box-shadow: none !important; }
+  .team-card:hover { transform: none; }
+}
