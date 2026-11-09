@@ -582,7 +582,7 @@ function initRotatingWord() {
 
 // ==================== SPLIT LAYOUT: WORK ====================
 const workShowcase = [
-  { key: 'frankies', short: 'Frankies', name: 'Frankies Wraps & Sips', type: 'Website design & build · Lekki', live: true,
+  { key: 'frankies', url: 'https://ruletheglobe.github.io/frankieslagos/', short: 'Frankies', name: 'Frankies Wraps & Sips', type: 'Website design & build · Lekki', live: true,
     shot: 'linear-gradient(135deg, #ff8a3d 0%, #7a1f05 55%, #1a0601 100%)',
     accent: '#ef4a14', hero: 'linear-gradient(135deg, #ff7a2f 0%, #e5341b 100%)', bg: '#fff7f1',
     nav: ['Menu', 'Delivery', 'About'], cta: 'Order', h: 'Wraps made fresh in 8 minutes.',
@@ -661,7 +661,31 @@ const workArt = {
     <div class="nm-sched"><small>Today · rooftop</small><div><b>06:00</b><span>Sunrise yoga</span></div><div><b>12:30</b><span>Lunch HIIT</span></div><div><b>18:00</b><span>Strength club</span></div></div>`
 };
 
+// Fit the 1280px-wide live iframe into whatever width the mock has
+const liveRO = 'ResizeObserver' in window
+  ? new ResizeObserver(es => es.forEach(en => fitOne(en.target)))
+  : null;
+function fitOne(m) {
+  const w = m.clientWidth;
+  if (!w) return;
+  // slight overscan so sub-pixel rounding never leaves a gap at the edges
+  m.style.setProperty('--live-s', ((w / 1297) * 1.004).toFixed(4));
+}
+function fitLive() {
+  document.querySelectorAll('.mk-live').forEach(m => {
+    fitOne(m);
+    if (liveRO) liveRO.observe(m);
+  });
+}
+window.addEventListener('resize', fitLive);
+
 function workAfterHTML(w) {
+  if (w.url) {
+    const host = w.url.replace(/^https?:\/\//, '').replace(/\/$/, '');
+    return `<div class="mock mk-live">
+      <div class="mk-live-view"><iframe src="${w.url}" title="${esc(w.name)} live site" loading="lazy" tabindex="-1"></iframe></div>
+    </div>`;
+  }
   const p = proofData[w.key];
   const ms = p ? p.metrics : null;
   const x = workAfterExtra[w.key] || { badge: '', feats: [] };
@@ -730,6 +754,7 @@ function selectWork(i, first) {
     stage.style.background = w.shot;
     document.getElementById('baAfter').innerHTML = workAfterHTML(w);
     document.getElementById('baBefore').innerHTML = workBeforeHTML(w);
+    fitLive();
     const p = proofData[w.key];
     const stats = p ? p.metrics.map(m => {
       const mult = m.before === 0 ? 'new' : (m.after / m.before).toFixed(1) + 'x';
@@ -738,8 +763,7 @@ function selectWork(i, first) {
     document.getElementById('baInfo').innerHTML = `
       <div class="ba-who">
         <div class="ba-name">${esc(w.name)} <span class="live-pill ${w.live ? '' : 'work-pill-build'}">${w.live ? 'LIVE' : 'IN BUILD'}</span></div>
-        <div class="ba-type">${esc(w.type)}</div>
-      </div>
+        <div class="ba-type">${esc(w.type)}</div>      </div>
       <div class="ba-stats">${stats}</div>`;
     document.querySelectorAll('.ba-thumb').forEach(t => {
       const on = +t.dataset.i === workIdx;
@@ -756,13 +780,34 @@ function selectWork(i, first) {
   setTimeout(() => { paint(); stage.classList.remove('swap'); }, 220);
 }
 
-function setBA(pct) {
-  baPos = Math.max(0, Math.min(100, pct));
-  const stage = document.getElementById('baStage');
-  const h = document.getElementById('baHandle');
-  if (!stage) return;
-  stage.style.setProperty('--pos', baPos + '%');
-  if (h) h.setAttribute('aria-valuenow', Math.round(baPos));
+// Slider state. baPos is what is on screen, baTarget is where it is heading.
+// Input only sets the target; one rAF loop eases baPos toward it and writes
+// two CSS variables (--pos for the clip, --px for the transform-moved handle).
+let baTarget = 50, baW = 0, baRaf = 0, baEase = 0.34, baShown = -1, baStageEl = null, baHandleEl = null;
+const baReduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function baApply() {
+  if (!baStageEl) return;
+  baStageEl.style.setProperty('--pos', baPos.toFixed(3) + '%');
+  baStageEl.style.setProperty('--px', (baPos / 100 * baW).toFixed(2) + 'px');
+  const r = Math.round(baPos);
+  if (baHandleEl && r !== baShown) { baShown = r; baHandleEl.setAttribute('aria-valuenow', r); }
+}
+
+function baTick() {
+  baRaf = 0;
+  const d = baTarget - baPos;
+  if (Math.abs(d) < 0.03) { baPos = baTarget; baApply(); return; }
+  baPos += d * baEase;
+  baApply();
+  baRaf = requestAnimationFrame(baTick);
+}
+
+function setBA(pct, opts) {
+  baTarget = Math.max(0, Math.min(100, pct));
+  baEase = (opts && opts.ease) || 0.34;
+  if (baReduce || (opts && opts.instant)) { baPos = baTarget; baApply(); return; }
+  if (!baRaf) baRaf = requestAnimationFrame(baTick);
 }
 
 function initBeforeAfter() {
@@ -770,30 +815,40 @@ function initBeforeAfter() {
   const handle = document.getElementById('baHandle');
   const hint = document.getElementById('baHint');
   if (!stage || !handle) return;
+  baStageEl = stage; baHandleEl = handle; baShown = -1;
   let dragging = false;
-  const fromEvent = e => {
-    const r = stage.getBoundingClientRect();
-    setBA(((e.clientX - r.left) / r.width) * 100);
-  };
+  // cache geometry once instead of reading layout on every pointer event
+  let rect = stage.getBoundingClientRect();
+  baW = rect.width;
+  baPos = baTarget = Math.max(0, Math.min(100, baPos));
+  baApply();
+  if ('ResizeObserver' in window) {
+    new ResizeObserver(() => { rect = stage.getBoundingClientRect(); baW = rect.width; baApply(); }).observe(stage);
+  }
+  let lastX = 0;
+  const fromX = x => setBA(((x - rect.left) / rect.width) * 100);
   const hideHint = () => hint && hint.classList.add('gone');
   stage.addEventListener('pointerdown', e => {
     if (e.target.closest('a,button:not(.ba-handle)')) return;
     dragging = true;
+    rect = stage.getBoundingClientRect();
+    baW = rect.width;
     stage.classList.add('dragging');
     stage.setPointerCapture(e.pointerId);
-    fromEvent(e);
+    lastX = e.clientX;
+    fromX(lastX);
     hideHint();
   });
-  stage.addEventListener('pointermove', e => { if (dragging) fromEvent(e); });
+  stage.addEventListener('pointermove', e => { if (dragging) { lastX = e.clientX; fromX(lastX); } }, { passive: true });
   const end = () => { dragging = false; stage.classList.remove('dragging'); };
   stage.addEventListener('pointerup', end);
   stage.addEventListener('pointercancel', end);
   handle.addEventListener('keydown', e => {
     const step = e.shiftKey ? 10 : 4;
-    if (e.key === 'ArrowLeft') { setBA(baPos - step); hideHint(); e.preventDefault(); }
-    if (e.key === 'ArrowRight') { setBA(baPos + step); hideHint(); e.preventDefault(); }
-    if (e.key === 'Home') { setBA(0); e.preventDefault(); }
-    if (e.key === 'End') { setBA(100); e.preventDefault(); }
+    if (e.key === 'ArrowLeft') { setBA(baTarget - step); hideHint(); e.preventDefault(); }
+    if (e.key === 'ArrowRight') { setBA(baTarget + step); hideHint(); e.preventDefault(); }
+    if (e.key === 'Home') { setBA(0, { ease: 0.2 }); e.preventDefault(); }
+    if (e.key === 'End') { setBA(100, { ease: 0.2 }); e.preventDefault(); }
   });
   const strip = document.getElementById('baStrip');
   if (strip) strip.addEventListener('keydown', e => {
@@ -806,9 +861,7 @@ function initBeforeAfter() {
     if (!entries.some(en => en.isIntersecting)) return;
     io.disconnect();
     const keys = [[0, 50], [700, 78], [1300, 22], [1900, 50]];
-    stage.classList.add('sweeping');
-    keys.forEach(([t, v]) => setTimeout(() => { if (!dragging) setBA(v); }, 400 + t));
-    setTimeout(() => stage.classList.remove('sweeping'), 2600);
+    keys.forEach(([t, v]) => setTimeout(() => { if (!dragging) setBA(v, { ease: 0.07 }); }, 400 + t));
   }, { threshold: 0.5 });
   io.observe(stage);
 }
