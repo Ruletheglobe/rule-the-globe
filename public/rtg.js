@@ -1105,7 +1105,8 @@ function syncPlanNote() {
 // Add a person: { name, role, photo: 'team/name.jpg' (in /public/team), tag: 'Short fun fact' }
 // Without a photo the card shows their initials on the brand gradient.
 const TEAM = [
-  { name: 'Xica', role: 'Founder', photo: 'team/xica.jpg', pos: '80% 82%', tag: '' }
+  { name: 'Xica', role: 'Founder', photo: 'team/xica.jpg', pos: '80% 82%', tag: '' },
+  { name: 'Benn', role: 'Web Developer', photo: 'team/benn.jpg', pos: '50% 80%', tag: '' }
 ];
 function renderTeam() {
   const t = document.getElementById('teamTrack');
