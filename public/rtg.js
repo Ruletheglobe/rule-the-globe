@@ -582,7 +582,7 @@ function initRotatingWord() {
 
 // ==================== SPLIT LAYOUT: WORK ====================
 const workShowcase = [
-  { key: 'frankies', url: 'https://ruletheglobe.github.io/frankieslagos/', short: 'Frankies', name: 'Frankies Wraps & Sips', type: 'Website design & build · Lekki', live: true,
+  { key: 'frankies', img: 'frankies.png', short: 'Frankies', name: 'Frankies Wraps & Sips', type: 'Website design & build · Lekki', live: true,
     shot: 'linear-gradient(135deg, #ff8a3d 0%, #7a1f05 55%, #1a0601 100%)',
     accent: '#ef4a14', hero: 'linear-gradient(135deg, #ff7a2f 0%, #e5341b 100%)', bg: '#fff7f1',
     nav: ['Menu', 'Delivery', 'About'], cta: 'Order', h: 'Wraps made fresh in 8 minutes.',
@@ -606,7 +606,7 @@ let baPos = 50;
 
 function workBeforeHTML(w) {
   // Frankies: the Before side shows the designed page (the After side is the live site)
-  if (w.url) return workDesignHTML(w);
+  if (w.img) return workDesignHTML(w);
   const b = workBefore[w.key] || {};
   if (b.parked) {
     return `<div class="old old-parked">
@@ -676,11 +676,8 @@ window.addEventListener('resize', fitLive);
 const baLiteMode = window.matchMedia('(max-width: 820px), (hover: none) and (pointer: coarse)').matches;
 
 function workAfterHTML(w) {
-  if (w.url && !baLiteMode) {
-    const host = w.url.replace(/^https?:\/\//, '').replace(/\/$/, '');
-    return `<div class="mock mk-live">
-      <div class="mk-live-view"><iframe src="${w.url}" title="${esc(w.name)} live site" loading="lazy" tabindex="-1"></iframe></div>
-    </div>`;
+  if (w.img) {
+    return `<div class="mock mk-shot"><img src="${w.img}" alt="${esc(w.name)} website" decoding="async" draggable="false" /></div>`;
   }
   return workDesignHTML(w);
 }

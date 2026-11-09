@@ -6514,3 +6514,17 @@ html::-webkit-scrollbar-thumb { background: linear-gradient(180deg, rgba(156,232
 
 /* Frankies design: no monthly-visits chip */
 .mk-v-frankies .mk-chip-a { display: none; }
+
+/* The System on tablets/phones: stacked cards must size to their content (later desktop rules had set flex: 1 1 0, collapsing them) */
+@media (max-width: 900px) {
+  .sys-acc { height: auto !important; flex-direction: column !important; }
+  .sys-acc .sys-panel, .sys-acc .sys-panel.open { flex: none !important; height: auto !important; min-height: 0; }
+  .sys-acc .sys-inner { position: relative !important; inset: auto !important; width: auto !important; opacity: 1 !important; transform: none !important; pointer-events: auto !important; padding: 18px 22px 26px; }
+  .sys-acc .sys-num { top: 18px; left: 22px; right: auto; font-size: 40px; }
+  .sys-acc .sys-text { width: auto; max-width: none; }
+  .sys-acc .sys-art-wrap { margin: 18px auto 6px !important; }
+}
+
+/* After side: screenshot of the real site */
+.mk-shot { position: relative; overflow: hidden; background: #fbeed8; }
+.mk-shot img { display: block; width: 101%; height: 100%; max-width: none; object-fit: cover; object-position: 50% 0; pointer-events: none; user-select: none; }
