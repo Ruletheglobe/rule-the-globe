@@ -641,20 +641,49 @@ function workBeforeHTML(w) {
   </div>`;
 }
 
+const workAfterExtra = {
+  frankies: { badge: 'Rated 4.9 by 1,200+ diners', feats: [['8 min', 'Fresh wraps, every time'], ['Free', 'Delivery across Lekki'], ['100%', 'Cold-pressed juice']] },
+  tooth: { badge: 'US-trained dental team', feats: [['Same day', 'Crowns and implants'], ['0%', 'Instalment plans'], ['Mon-Sat', 'Open late in VI']] },
+  glow: { badge: 'Certified aesthetician', feats: [['Organic', 'Skin-first facials'], ['30 sec', 'To book online'], ['Ikeja', 'Calm, private studio']] },
+  nomad: { badge: 'Opening soon in Yaba', feats: [['Rooftop', 'Sunrise yoga classes'], ['Pay', 'As you go, no contract'], ['Yaba', 'Steps from the tech hub']] }
+};
+
+const workArt = {
+  frankies: `<div class="fr-steam"><i></i><i></i><i></i></div>
+    <div class="fr-wrap"><i class="fr-tort"></i><i class="fr-fill"></i><i class="fr-foil"></i></div>
+    <div class="fr-cup"><i></i></div>
+    <div class="fr-timer"><b>08:00</b><small>avg. prep time</small></div>`,
+  tooth: `<div class="th-badge"><svg viewBox="0 0 24 24"><path d="M7.5 3C5 3 3 4.8 3 7.8c0 2.4 1 3.6 1.4 6C4.8 16.6 5.2 21 7 21c1.6 0 1.7-3.4 3-5 .6-.7 1.4-.7 2 0 1.3 1.6 1.4 5 3 5 1.8 0 2.2-4.4 2.6-7.2.4-2.4 1.4-3.6 1.4-6C21 4.8 19 3 16.5 3c-1.8 0-2.8.8-4.5.8S9.3 3 7.5 3z"/></svg><u class="th-sp th-sp1"></u><u class="th-sp th-sp2"></u><u class="th-sp th-sp3"></u></div>
+    <div class="th-book"><b>Book a visit</b><div class="th-slots"><span>9:00</span><span class="on">10:30</span><span>2:00</span><span>4:15</span></div><div class="th-go">Confirm slot</div></div>`,
+  glow: `<div class="gl-arch"><i class="gl-sun"></i><i class="gl-arch2"></i><i class="gl-p gl-p1"></i><i class="gl-p gl-p2"></i><i class="gl-p gl-p3"></i></div>
+    <div class="gl-menu"><small>Signature</small><b>Glow facial</b><span>60 min · from ₦25,000</span><em>&#9733;&#9733;&#9733;&#9733;&#9733; 4.9</em></div>`,
+  nomad: `<svg class="nm-rings" viewBox="0 0 120 120"><circle cx="60" cy="60" r="52"/><circle class="r1" cx="60" cy="60" r="52"/><circle cx="60" cy="60" r="38"/><circle class="r2" cx="60" cy="60" r="38"/><circle cx="60" cy="60" r="24"/><circle class="r3" cx="60" cy="60" r="24"/></svg>
+    <div class="nm-sched"><small>Today · rooftop</small><div><b>06:00</b><span>Sunrise yoga</span></div><div><b>12:30</b><span>Lunch HIIT</span></div><div><b>18:00</b><span>Strength club</span></div></div>`
+};
+
 function workAfterHTML(w) {
   const p = proofData[w.key];
   const ms = p ? p.metrics : null;
-  const heroStats = ms ? `<div class="mock-stats">
-      <div><strong>${ms[0].after.toLocaleString()}</strong><small>Monthly visits</small></div>
-      <div><strong>${ms[1].after}</strong><small>${esc(ms[1].title.split(' ')[0])}</small></div>
-    </div>` : '';
-  return `<div class="mock" style="--mock-bg:${w.bg};--mock-accent:${w.accent};--mock-hero:${w.hero}">
-    <div class="mock-nav"><span>${esc(w.short)}${w.nav.map(n => `<i>${n}</i>`).join('')}</span><b>${w.cta}</b></div>
-    <div class="mock-hero">
-      <div class="mock-h">${esc(w.h)}</div>
-      <div class="mock-sub">${esc(w.sub)}</div>
-      <div class="mock-btns"><span>${w.b1}</span><span>${w.b2}</span></div>
-      ${heroStats}
+  const x = workAfterExtra[w.key] || { badge: '', feats: [] };
+  const chips = ms ? `
+      <div class="mk-chip mk-chip-a"><small>Monthly visits</small><strong>${ms[0].after.toLocaleString()}</strong><em>${ms[0].before === 0 ? 'new' : '+' + Math.round(((ms[0].after - ms[0].before) / ms[0].before) * 100) + '%'}</em></div>
+      <div class="mk-chip mk-chip-b"><small>${esc(ms[1].title)}</small><strong>${ms[1].after}</strong><em>${ms[1].before === 0 ? 'new' : (ms[1].after / ms[1].before).toFixed(1) + 'x'}</em></div>` : `
+      <div class="mk-chip mk-chip-a"><small>Status</small><strong>In build</strong><em>soon</em></div>
+      <div class="mk-chip mk-chip-b"><small>Launch</small><strong>Q1</strong><em>on track</em></div>`;
+  return `<div class="mock mk-v-${w.key}" style="--mock-bg:${w.bg};--mock-accent:${w.accent};--mock-hero:${w.hero}">
+    <div class="mk-nav"><span class="mk-logo"><i></i>${esc(w.short)}</span><span class="mk-links">${w.nav.map(n => `<u>${n}</u>`).join('')}</span><b>${w.cta}</b></div>
+    <div class="mock-hero mk-hero">
+      <span class="mk-orb mk-orb-1"></span><span class="mk-orb mk-orb-2"></span><span class="mk-ring"></span>
+      <div class="mk-copy">
+        <span class="mk-badge"><i></i>${esc(x.badge)}</span>
+        <div class="mock-h mk-h">${esc(w.h)}</div>
+        <div class="mock-sub mk-sub">${esc(w.sub)}</div>
+        <div class="mock-btns mk-btns"><span>${w.b1}</span><span>${w.b2}</span></div>
+      </div>
+      <div class="mk-art">
+        ${workArt[w.key] || '<div class="mk-disc"><span class="mk-disc-in"></span></div>'}${chips}
+      </div>
+      <div class="mk-feats">${x.feats.map(f => `<div><strong>${esc(f[0])}</strong><span>${esc(f[1])}</span></div>`).join('')}</div>
     </div>
   </div>`;
 }

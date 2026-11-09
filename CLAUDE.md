@@ -41,7 +41,7 @@ Primary lime `#9ce860`, secondary coral `#e25548`. Blend them through warm white
 ## Deploy
 
 - GitHub Pages via `.github/workflows/deploy.yml`, served on the custom domain https://rtg.studio (DNS at Namecheap: four A records for @ to GitHub Pages, www CNAME to ruletheglobe.github.io). No base path. The old https://ruletheglobe.github.io/rule-the-globe/ redirects there.
-- Email: Namecheap Private Email on rtg.studio (hello@, xica@, sanel@). Webmail at privateemail.com.
+- Email: Namecheap Private Email on rtg.studio (hello@, xica@, benn@). Webmail at privateemail.com.
 - `netlify.toml` publishes `out/` for the Netlify site; no base path there either.
 - Because it is a static export there is no server: the contact form currently only shows a toast. A Discord webhook must live behind a server function (not in client code, since the repo is public) — put the URL in `DISCORD_WEBHOOK_URL`, see `.env.example`.
 
