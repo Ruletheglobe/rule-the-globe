@@ -582,12 +582,12 @@ function initRotatingWord() {
 
 // ==================== SPLIT LAYOUT: WORK ====================
 const workShowcase = [
-  { key: 'frankies', img: 'frankies.png', short: 'Frankies', name: 'Frankies Wraps & Sips', type: 'Website design & build · Lekki', live: true,
+  { key: 'frankies', img: 'frankies.png', beforeDesign: true, short: 'Frankies', name: 'Frankies Wraps & Sips', type: 'Website design & build · Lekki', live: true,
     shot: 'linear-gradient(135deg, #ff8a3d 0%, #7a1f05 55%, #1a0601 100%)',
     accent: '#ef4a14', hero: 'linear-gradient(135deg, #ff7a2f 0%, #e5341b 100%)', bg: '#fff7f1',
     nav: ['Menu', 'Delivery', 'About'], cta: 'Order', h: 'Wraps made fresh in 8 minutes.',
     sub: 'Lunch across Lekki. Cold-pressed juice. Zero preservatives.', b1: 'Order now', b2: 'See menu' },
-  { key: 'glow', short: 'Glow', name: 'Glow Skin Studio', type: 'Landing page & booking · Ikeja', live: true,
+  { key: 'glow', img: 'shine.jpg', short: 'Shine', name: 'Shine', type: 'Online store · Beauty', live: true,
     shot: 'linear-gradient(135deg, #2a0620 0%, #c2185b 55%, #ffc2d8 100%)',
     accent: '#c2185b', hero: 'linear-gradient(135deg, #f49ab9 0%, #a8306a 100%)', bg: '#fff5f8',
     nav: ['Facials', 'Products', 'Visit'], cta: 'Book', h: 'Skin that glows on its own.',
@@ -598,7 +598,7 @@ const workShowcase = [
 const workBefore = {
   frankies: { title: 'Welcome To Frankies Wraps!!!', tag: 'Best wraps in Lagos. Call us to order today.', links: ['Home', 'Menu', 'Contact Us', 'Gallery'], tone: '#8a5a2b', year: 2019 },
   tooth: { title: 'THE TOOTH BOOTH DENTAL CLINIC', tag: 'Quality dental care. Opening hours Mon to Sat.', links: ['Home', 'About Us', 'Services', 'Contact'], tone: '#2d4f7c', year: 2018 },
-  glow: { title: 'Glow Skin Studio ~ Beauty & Spa', tag: 'Facials, massage and more. DM us on Instagram to book.', links: ['Home', 'Price List', 'Gallery', 'Location'], tone: '#7c3a5c', year: 2020 },
+  glow: { title: 'Shine ~ Blush & Beauty', tag: 'Lip and cheek colour. DM us on Instagram to order.', links: ['Home', 'Price List', 'Gallery', 'Contact'], tone: '#7c3a5c', year: 2020 },
   nomad: { parked: true }
 };
 let workIdx = 0;
@@ -606,8 +606,7 @@ let baPos = 50;
 
 function workBeforeHTML(w) {
   // Frankies: the Before side shows the designed page (the After side is the live site)
-  if (w.img) return workDesignHTML(w);
-  const b = workBefore[w.key] || {};
+  if (w.beforeDesign) return workDesignHTML(w);  const b = workBefore[w.key] || {};
   if (b.parked) {
     return `<div class="old old-parked">
       <div class="old-bar"><i></i><i></i><i></i><span>riseupgames.net</span></div>
@@ -730,7 +729,9 @@ function renderWork() {
       <button class="ba-nav" aria-label="Previous project" onclick="selectWork(workIdx - 1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></button>
       <div class="ba-strip" id="baStrip" role="tablist">${workShowcase.map((w, k) => `
         <button class="ba-thumb" role="tab" data-i="${k}" onclick="selectWork(${k})" aria-label="${esc(w.name)}">
-          <span class="ba-thumb-shot" style="background:${w.shot}"><span class="ba-thumb-page" style="--mock-bg:${w.bg};--mock-hero:${w.hero}"><i></i></span></span>
+          ${w.img
+            ? `<span class="ba-thumb-shot ba-thumb-img"><img src="${w.img}" alt="" loading="lazy" decoding="async" draggable="false" /></span>`
+            : `<span class="ba-thumb-shot" style="background:${w.shot}"><span class="ba-thumb-page" style="--mock-bg:${w.bg};--mock-hero:${w.hero}"><i></i></span></span>`}
           <span class="ba-thumb-name">${esc(w.short)}</span>
           <span class="ba-thumb-num">${String(k + 1).padStart(2, '0')}</span>
         </button>`).join('')}

@@ -6577,3 +6577,7 @@ html::-webkit-scrollbar-thumb { background: linear-gradient(180deg, rgba(156,232
   /* the Instagram/Google in-app browsers handle smooth scroll poorly */
   html { scroll-behavior: auto; }
 }
+
+/* thumbnails show the real After screenshot */
+.ba-thumb-img { display: block; background: #111; }
+.ba-thumb-img img { display: block; width: 101%; height: 100%; max-width: none; object-fit: cover; object-position: 50% 0; pointer-events: none; user-select: none; }
