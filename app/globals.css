@@ -6581,3 +6581,10 @@ html::-webkit-scrollbar-thumb { background: linear-gradient(180deg, rgba(156,232
 /* thumbnails show the real After screenshot */
 .ba-thumb-img { display: block; background: #111; }
 .ba-thumb-img img { display: block; width: 101%; height: 100%; max-width: none; object-fit: cover; object-position: 50% 0; pointer-events: none; user-select: none; }
+
+/* ===== New RTG logos (Project RTG pack): mark in nav, globe lockup in footer ===== */
+.nav-logo-img { height: 30px; filter: drop-shadow(0 3px 10px rgba(0,0,0,0.5)); }
+.logo-fx:hover img, .nav-brand:hover .nav-logo-img { transform: rotate(-4deg) scale(1.08); }
+.footer-logo { height: 96px; }
+.admin-logo-img { height: 30px; }
+@media (max-width: 900px) { .nav-logo-img { height: 26px; } .footer-logo { height: 80px; } }
