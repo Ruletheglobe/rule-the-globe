@@ -6588,3 +6588,30 @@ html::-webkit-scrollbar-thumb { background: linear-gradient(180deg, rgba(156,232
 .footer-logo { height: 96px; }
 .admin-logo-img { height: 30px; }
 @media (max-width: 900px) { .nav-logo-img { height: 26px; } .footer-logo { height: 80px; } }
+
+/* ===== RTG Additional pack: star, globe, GLOBE wordmark ===== */
+/* Hero: GLOBE wordmark in place of the italic word */
+.v4-h1 .globe-it { display: inline-flex; align-items: flex-end; gap: 0.02em; }
+.globe-word {
+  height: 0.86em; width: auto; display: inline-block; vertical-align: baseline;
+  transform: translateY(0.08em);
+  filter: drop-shadow(0 0 18px rgba(255,255,255,0.22));
+}
+/* Twinkles become the RTG star */
+.glint::before, .glint::after {
+  clip-path: none;
+  background: #fff;
+  -webkit-mask: url(/rtg-star.png) center / contain no-repeat;
+  mask: url(/rtg-star.png) center / contain no-repeat;
+  filter: drop-shadow(0 0 6px rgba(255,255,255,0.85));
+}
+.glint::after { width: 0.3em; height: 0.32em; top: -0.04em; right: -0.18em; }
+.glint::before { width: 0.15em; height: 0.16em; top: 0.3em; right: -0.32em; }
+/* AI Training banner icon */
+.xs-star { width: 58%; height: auto; display: block; filter: drop-shadow(0 0 8px rgba(156,232,96,0.35)); }
+/* Footer tag: slow-spinning globe */
+.footer-tag { display: inline-flex; align-items: center; gap: 10px; }
+.footer-globe { width: 22px; height: auto; animation: globeSpinSlow 18s linear infinite; }
+@keyframes globeSpinSlow { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .footer-globe { animation: none; } }
+.xs-star { filter: none; }
