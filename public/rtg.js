@@ -587,17 +587,18 @@ const workShowcase = [
     accent: '#ef4a14', hero: 'linear-gradient(135deg, #ff7a2f 0%, #e5341b 100%)', bg: '#fff7f1',
     nav: ['Menu', 'Delivery', 'About'], cta: 'Order', h: 'Wraps made fresh in 8 minutes.',
     sub: 'Lunch across Lekki. Cold-pressed juice. Zero preservatives.', b1: 'Order now', b2: 'See menu' },
-  { key: 'glow', img: 'shine.jpg', short: 'Shine', name: 'Shine', type: 'Online store · Beauty', live: true,
-    shot: 'linear-gradient(135deg, #2a0620 0%, #c2185b 55%, #ffc2d8 100%)',
-    accent: '#c2185b', hero: 'linear-gradient(135deg, #f49ab9 0%, #a8306a 100%)', bg: '#fff5f8',
-    nav: ['Facials', 'Products', 'Visit'], cta: 'Book', h: 'Skin that glows on its own.',
-    sub: 'Organic facials by a certified aesthetician in Ikeja.', b1: 'Book facial', b2: 'Treatments' }
+  { key: 'traxis', img: 'traxis.jpg', short: 'Traxis', name: 'Traxis Global', type: 'Website design & build · Trade', live: true,
+    shot: 'linear-gradient(135deg, #0d120a 0%, #2b3a12 55%, #9be10a 100%)',
+    accent: '#9be10a', hero: 'linear-gradient(135deg, #1a2410 0%, #0d120a 100%)', bg: '#0d120a',
+    nav: ['About', 'Services', 'Stories'], cta: 'Apply', h: 'Connecting African businesses to global markets.',
+    sub: 'Trade facilitation for African businesses.', b1: 'Apply', b2: 'Why Traxis' }
 ];
 
 // Old-site look per client, for the "before" side of the slider
 const workBefore = {
   frankies: { title: 'Welcome To Frankies Wraps!!!', tag: 'Best wraps in Lagos. Call us to order today.', links: ['Home', 'Menu', 'Contact Us', 'Gallery'], tone: '#8a5a2b', year: 2019 },
   tooth: { title: 'THE TOOTH BOOTH DENTAL CLINIC', tag: 'Quality dental care. Opening hours Mon to Sat.', links: ['Home', 'About Us', 'Services', 'Contact'], tone: '#2d4f7c', year: 2018 },
+  traxis: { title: 'TRAXIS GLOBAL LIMITED', tag: 'Import, export and trade services. Contact us for enquiries.', links: ['Home', 'About Us', 'Services', 'Contact'], tone: '#3d5a1e', year: 2017 },
   glow: { title: 'Shine ~ Blush & Beauty', tag: 'Lip and cheek colour. DM us on Instagram to order.', links: ['Home', 'Price List', 'Gallery', 'Contact'], tone: '#7c3a5c', year: 2020 },
   nomad: { parked: true }
 };
