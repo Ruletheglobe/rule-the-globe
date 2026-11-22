@@ -6651,3 +6651,26 @@ html::-webkit-scrollbar-thumb { background: linear-gradient(180deg, rgba(156,232
 @media (max-width: 760px) { .ba-stats { gap: 26px; } .ba-info { gap: 14px; } }
 .ba-stats { display: flex !important; grid-template-columns: none !important; width: auto !important; }
 .ba-stat { flex: 0 0 auto !important; }
+
+/* ===== Hero fill: no stat strip or badges, content fills the first screen ===== */
+@media (min-width: 901px) {
+  .hero { min-height: min(100svh, 980px); align-items: stretch; }
+  .hero-left { justify-content: center; padding: 96px 32px 72px 80px; }
+  .v4-h1 { font-size: clamp(56px, 6.6vw, 112px) !important; }
+  .hero-sub { font-size: 17px; line-height: 1.7; max-width: 520px; margin-top: 26px; }
+  .hero-cta-row { margin-top: 40px; }
+  .hero-cta-row .btn-primary, .hero-cta-row .btn-secondary { height: 54px; padding: 0 30px; font-size: 16px; }
+  .trust { margin-top: 56px; }
+  .trust-label { font-size: 13px; }
+  .hero-badge { margin-bottom: 8px; }
+}
+@media (max-width: 900px) {
+  .v4-h1 { font-size: clamp(44px, 13vw, 60px) !important; }
+  .hero-sub { font-size: 15.5px; line-height: 1.7; }
+  .hero-cta-row { margin-top: 30px; }
+  .trust { margin-top: 40px; }
+}
+@media (min-width: 901px) {
+  .hero { grid-template-columns: 1.12fr 0.88fr; }
+  .v4-h1 { font-size: clamp(54px, 6vw, 100px) !important; }
+}
