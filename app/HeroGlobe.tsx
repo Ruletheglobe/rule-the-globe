@@ -18,7 +18,7 @@ const TARGETS: [number, number, number, number][] = [
   [28.61, 77.21, 0.24, 0], // Delhi
 ];
 const RED = 0xe25548;
-const LIME = 0x9ce860;
+const LIME = 0xf2877b;
 
 // Phones get a lighter globe: no MSAA, lower pixel ratio, fewer dots and
 // sphere segments, and a 30fps cap.

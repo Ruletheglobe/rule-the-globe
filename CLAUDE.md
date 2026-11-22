@@ -30,7 +30,7 @@ The site is a 1:1 port of a hand-written HTML page, so it is **not** idiomatic R
 
 ## Brand
 
-Primary lime `#9ce860`, secondary coral `#e25548`. Blend them through warm white, never directly (they go muddy). Fonts: Google Sans (headings), Geist / Geist Mono, Instrument Serif (italic accents). Google Sans tops out at weight 700.
+Accents: black, white and light red `#f2877b` (the old lime `#9ce860` was replaced in Nov 2026), with coral `#e25548` as the deeper red. Client mockups keep their own colors. Fonts: Google Sans (headings), Geist / Geist Mono, Instrument Serif (italic accents). Google Sans tops out at weight 700.
 
 ## Commands
 
