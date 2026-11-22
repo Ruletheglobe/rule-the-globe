@@ -6772,7 +6772,10 @@ html::-webkit-scrollbar-thumb { background: linear-gradient(180deg, rgba(242,135
 }
 @keyframes mHeroIn { from { opacity: 0; transform: translate3d(0, 22px, 0); } to { opacity: 1; transform: none; } }
 @keyframes mFade { from { opacity: 0; } to { opacity: 1; } }
+/* Reduce Motion: keep the fades, drop the movement */
+@keyframes mFadeOnly { from { opacity: 0; } to { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) {
-  .m-rev { opacity: 1 !important; transform: none !important; transition: none !important; }
-  .hero-left > *, .hero .hero-right { animation: none !important; }
+  .m-rev { transform: none !important; transition: opacity .6s ease !important; }
+  .m-rev.m-in { transform: none !important; }
+  .hero-left > * { animation: mFadeOnly .7s ease both !important; transform: none !important; }
 }

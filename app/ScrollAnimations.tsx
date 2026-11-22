@@ -10,12 +10,13 @@ const ease = "power3.out";
 
 export default function ScrollAnimations() {
   useEffect(() => {
+    if (window.matchMedia("(max-width: 820px), (hover: none) and (pointer: coarse)").matches) {
+      // phones: fades still run with Reduce Motion on (CSS drops the movement)
+      return mobileReveals();
+    }
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     // Phones: skip the GSAP reveals entirely (content simply shows). It removes dozens of
     // opacity/transform tweens and ScrollTriggers that were adding to lag and memory pressure.
-    if (window.matchMedia("(max-width: 820px), (hover: none) and (pointer: coarse)").matches) {
-      return mobileReveals();
-    }
 
     let ctx: gsap.Context | undefined;
     let tries = 0;
