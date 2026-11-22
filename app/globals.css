@@ -6726,3 +6726,11 @@ html::-webkit-scrollbar-thumb { background: linear-gradient(180deg, rgba(156,232
   }
   .v4-h1 { font-size: clamp(38px, 11.4vw, 58px) !important; }
 }
+@media (max-width: 900px) {
+  .hero-left { padding-bottom: clamp(110px, 21svh, 200px) !important; }
+  .hero-right::after {
+    background:
+      linear-gradient(180deg, rgba(10,10,10,0) 22%, rgba(10,10,10,0.55) 48%, rgba(10,10,10,0.9) 82%, rgba(10,10,10,0.97) 100%),
+      linear-gradient(90deg, rgba(10,10,10,0.7) 0%, rgba(10,10,10,0.15) 75%);
+  }
+}
