@@ -1860,3 +1860,15 @@ function initSysAcc() {
   });
 }
 if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initSysAcc); else initSysAcc();
+
+/* Hero globe style: 3D, flat white, flat red */
+function setGlobe(v){
+  if (['3d','white','red'].indexOf(v) < 0) v = '3d';
+  document.documentElement.dataset.globe = v;
+  document.querySelectorAll('.gl-flat img').forEach(function(im){
+    if (v !== '3d') { var src = im.getAttribute('data-src-' + v); if (im.getAttribute('src') !== src) im.setAttribute('src', src); }
+  });
+  document.querySelectorAll('.globe-switch button').forEach(function(b){ b.setAttribute('aria-checked', b.dataset.g === v ? 'true' : 'false'); });
+  try { localStorage.setItem('rtg-globe', v); } catch (e) {}
+}
+(function(){ var v = '3d'; try { v = localStorage.getItem('rtg-globe') || '3d'; } catch (e) {} setGlobe(v); })();

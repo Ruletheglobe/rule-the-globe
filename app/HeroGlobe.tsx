@@ -502,7 +502,7 @@ export default function HeroGlobe() {
       const frameGap = MOBILE ? 1000 / 30 : 0;
       const loop = (now = 0) => {
         raf = requestAnimationFrame(loop);
-        if (!visible || document.hidden) return;
+        if (!visible || document.hidden || document.documentElement.dataset.globe === "white" || document.documentElement.dataset.globe === "red") return;
         if (frameGap && now - last < frameGap - 1) return;
         last = now;
         render();
