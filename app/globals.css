@@ -6734,3 +6734,9 @@ html::-webkit-scrollbar-thumb { background: linear-gradient(180deg, rgba(156,232
       linear-gradient(90deg, rgba(10,10,10,0.7) 0%, rgba(10,10,10,0.15) 75%);
   }
 }
+/* Phone hero: no dead space under the client marquee */
+@media (max-width: 900px) {
+  .hero { min-height: 82svh !important; }
+  .hero-left { padding-bottom: 28px !important; }
+  .trust { margin-top: 40px; }
+}
