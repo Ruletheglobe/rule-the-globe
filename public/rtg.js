@@ -717,26 +717,18 @@ function renderWork() {
       <div class="ba-layer ba-after" id="baAfter"></div>
       <div class="ba-layer ba-before" id="baBefore"></div>
       <span class="ba-tag ba-tag-l">Before</span>
-      <span class="ba-tag ba-tag-r">After RTG</span>
+      <span class="ba-tag ba-tag-r">After</span>
       <div class="ba-handle" id="baHandle" role="slider" tabindex="0" aria-label="Drag to compare before and after" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${baPos}">
         <span class="ba-line"></span>
         <span class="ba-knob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7l-5 5 5 5M15 7l5 5-5 5"/></svg></span>
       </div>
-      <span class="ba-hint" id="baHint">Drag to compare</span>
     </div>
     <div class="ba-info" id="baInfo"></div>
-    <div class="ba-strip-wrap">
-      <button class="ba-nav" aria-label="Previous project" onclick="selectWork(workIdx - 1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></button>
-      <div class="ba-strip" id="baStrip" role="tablist">${workShowcase.map((w, k) => `
-        <button class="ba-thumb" role="tab" data-i="${k}" onclick="selectWork(${k})" aria-label="${esc(w.name)}">
-          ${w.img
-            ? `<span class="ba-thumb-shot ba-thumb-img"><img src="${w.img}" alt="" loading="lazy" decoding="async" draggable="false" /></span>`
-            : `<span class="ba-thumb-shot" style="background:${w.shot}"><span class="ba-thumb-page" style="--mock-bg:${w.bg};--mock-hero:${w.hero}"><i></i></span></span>`}
-          <span class="ba-thumb-name">${esc(w.short)}</span>
-          <span class="ba-thumb-num">${String(k + 1).padStart(2, '0')}</span>
-        </button>`).join('')}
-      </div>
-      <button class="ba-nav" aria-label="Next project" onclick="selectWork(workIdx + 1)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+    <div class="ba-tabs" id="baStrip" role="tablist">${workShowcase.map((w, k) => `
+      <button class="ba-tab" role="tab" data-i="${k}" onclick="selectWork(${k})">
+        ${w.img ? `<img src="${w.img}" alt="" loading="lazy" decoding="async" draggable="false" />` : `<i style="background:${w.shot}"></i>`}
+        <span>${esc(w.short)}</span>
+      </button>`).join('')}
     </div>
   </div>`;
   selectWork(0, true);
@@ -755,23 +747,17 @@ function selectWork(i, first) {
     document.getElementById('baBefore').innerHTML = workBeforeHTML(w);
     fitLive();
     const p = proofData[w.key];
-    const stats = p ? p.metrics.map(m => {
-      const mult = m.before === 0 ? 'new' : (m.after / m.before).toFixed(1) + 'x';
-      return `<div class="ba-stat"><span>${esc(m.label.toLowerCase())}</span><b>${m.before.toLocaleString()} <i>→</i> ${m.after.toLocaleString()}</b><em>${mult}</em></div>`;
-    }).join('') : `<div class="ba-stat ba-stat-wide"><span>status</span><b>${esc(w.status || 'In build')}</b></div>`;
+    // Two headline figures, multiplier plus one word
+    const words = { TRAFFIC: 'traffic', CONVERSIONS: 'orders' };
+    const stats = p ? p.metrics.filter(m => words[m.label]).map(m =>
+      `<div class="ba-stat"><b>${m.before === 0 ? 'New' : (m.after / m.before).toFixed(1) + '×'}</b><span>${words[m.label]}</span></div>`).join('') : '';
     document.getElementById('baInfo').innerHTML = `
-      <div class="ba-who">
-        <div class="ba-name">${esc(w.name)} <span class="live-pill ${w.live ? '' : 'work-pill-build'}">${w.live ? 'LIVE' : 'IN BUILD'}</span></div>
-        <div class="ba-type">${esc(w.type)}</div>      </div>
+      <div class="ba-name">${esc(w.name)} <span class="live-pill ${w.live ? '' : 'work-pill-build'}">${w.live ? 'LIVE' : 'IN BUILD'}</span></div>
       <div class="ba-stats">${stats}</div>`;
-    document.querySelectorAll('.ba-thumb').forEach(t => {
+    document.querySelectorAll('.ba-tab').forEach(t => {
       const on = +t.dataset.i === workIdx;
       t.classList.toggle('on', on);
       t.setAttribute('aria-selected', on);
-      if (on && !first) {
-        const strip = t.parentElement;
-        strip.scrollTo({ left: t.offsetLeft - (strip.clientWidth - t.offsetWidth) / 2, behavior: 'smooth' });
-      }
     });
   };
   if (first) { paint(); return; }
