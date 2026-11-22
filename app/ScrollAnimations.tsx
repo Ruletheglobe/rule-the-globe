@@ -13,7 +13,9 @@ export default function ScrollAnimations() {
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     // Phones: skip the GSAP reveals entirely (content simply shows). It removes dozens of
     // opacity/transform tweens and ScrollTriggers that were adding to lag and memory pressure.
-    if (window.matchMedia("(max-width: 820px), (hover: none) and (pointer: coarse)").matches) return;
+    if (window.matchMedia("(max-width: 820px), (hover: none) and (pointer: coarse)").matches) {
+      return mobileReveals();
+    }
 
     let ctx: gsap.Context | undefined;
     let tries = 0;
@@ -96,4 +98,54 @@ export default function ScrollAnimations() {
   }, []);
 
   return null;
+}
+
+/**
+ * Phones: a light reveal system instead of GSAP. One IntersectionObserver adds a
+ * class, CSS runs an opacity/transform transition (compositor only), then the
+ * element is unobserved. rtg.js builds some blocks after load, so it rescans briefly.
+ */
+const MOBILE_TARGETS = [
+  ".section-label", ".section-title", ".section-subtitle",
+  ".ba-stage", ".ba-info", ".ba-tabs",
+  ".sys-acc > *", ".pr-shell", ".xs-card", ".results-stats .result-stat",
+  ".team-card", ".faq-list > *", ".faq-art", ".cta-band", ".footer-grid > *",
+].join(",");
+
+function mobileReveals() {
+  const io = new IntersectionObserver(
+    (entries) => {
+      for (const e of entries) {
+        if (!e.isIntersecting) continue;
+        e.target.classList.add("m-in");
+        io.unobserve(e.target);
+      }
+    },
+    { rootMargin: "0px 0px -8% 0px", threshold: 0.08 }
+  );
+  const seen = new WeakSet<Element>();
+  const scan = () => {
+    const vh = window.innerHeight;
+    document.querySelectorAll<HTMLElement>(MOBILE_TARGETS).forEach((el) => {
+      if (seen.has(el) || el.closest(".hero")) return;
+      seen.add(el);
+      // anything already on screen stays put: no flash
+      if (el.getBoundingClientRect().top < vh * 0.9) return;
+      const sibs = el.parentElement ? Array.from(el.parentElement.children) : [];
+      const i = Math.min(sibs.indexOf(el), 4);
+      if (i > 0) el.style.transitionDelay = `${i * 70}ms`;
+      el.classList.add("m-rev");
+      io.observe(el);
+    });
+  };
+  scan();
+  let n = 0;
+  const timer = window.setInterval(() => {
+    scan();
+    if (++n > 15) window.clearInterval(timer);
+  }, 200);
+  return () => {
+    window.clearInterval(timer);
+    io.disconnect();
+  };
 }
