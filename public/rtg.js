@@ -881,7 +881,7 @@ const faqs = [
   ["What if I don't have a brief?", 'Send a few lines or book a call. RTG turns it into a plan.'],
   ['How long does a build take?', 'Most sites go live within 48 hours of kickoff. Bigger builds take one to two weeks.'],
   ['How much does it cost?', 'It depends on what your brand needs. Book a call or send a message and RTG sends a plan and quote shaped around your business.'],
-  ['What do you offer?', 'Websites, SEO and AI search, UGC and AI content, AI model shoots, image and film ads run on Meta and Google, and AI tools training. Take one or combine them.'],
+  ['What do you offer?', 'Three things. AI tools training for your team. Websites, including SEO and AI search. Ads, including UGC, AI content, AI model shoots and campaigns on Meta and Google. Take one or combine them.'],
   ['Does my ad budget go to you?', 'No. Your ad spend stays in your own Meta or Google account. The plan covers RTG running it for you.'],
   ['What happens after launch?', 'RTG keeps the site fast, ranked and updated, with a weekly report on what to fix next.']
 ];
