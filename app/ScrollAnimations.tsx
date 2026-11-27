@@ -74,7 +74,7 @@ export default function ScrollAnimations() {
 
         // Larger blocks: gentle rise + scale
         gsap.utils
-          .toArray<HTMLElement>(".pr-shell, .cta-band, .footer")
+          .toArray<HTMLElement>(".of-card, .of-cta, .cta-band, .footer")
           .forEach((el) => {
             gsap.from(el, {
               y: 60,
@@ -109,7 +109,7 @@ export default function ScrollAnimations() {
 const MOBILE_TARGETS = [
   ".section-label", ".section-title", ".section-subtitle",
   ".ba-stage", ".ba-info", ".ba-tabs",
-  ".sys-acc > *", ".pr-shell", ".xs-card", ".results-stats .result-stat",
+  ".sys-acc > *", ".of-card", ".of-cta", ".results-stats .result-stat",
   ".team-card", ".faq-list > *", ".faq-art", ".cta-band", ".footer-grid > *",
 ].join(",");
 

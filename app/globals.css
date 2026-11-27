@@ -6779,3 +6779,65 @@ html::-webkit-scrollbar-thumb { background: linear-gradient(180deg, rgba(242,135
   .m-rev.m-in { transform: none !important; }
   .hero-left > * { animation: mFadeOnly .7s ease both !important; transform: none !important; }
 }
+
+/* =====================================================
+   SERVICES (replaces pricing): what we offer, no prices
+   ===================================================== */
+.of-grid {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px;
+  margin-top: 48px;
+}
+.of-card {
+  position: relative; display: flex; flex-direction: column; gap: 12px;
+  padding: 28px 26px 24px; border-radius: 22px; cursor: pointer;
+  background: linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.015));
+  border: 1px solid rgba(255,255,255,.08);
+  transition: transform .3s cubic-bezier(.2,.7,.2,1), border-color .3s, background .3s;
+}
+.of-card:hover, .of-card:focus-visible { transform: translateY(-4px); border-color: rgba(242,135,123,.45); outline: none; }
+.of-icon {
+  width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center;
+  color: #f2877b; background: rgba(242,135,123,.1); border: 1px solid rgba(242,135,123,.22);
+}
+.of-icon svg { width: 22px; height: 22px; }
+.of-title { font-family: "Google Sans", "Geist", sans-serif; font-size: 22px; font-weight: 700; color: #f4f1ea; margin: 6px 0 0; letter-spacing: -.01em; }
+.of-copy { font-size: 15px; line-height: 1.55; color: rgba(244,241,234,.62); margin: 0; }
+.of-list { list-style: none; padding: 0; margin: 4px 0 0; display: grid; gap: 8px; }
+.of-list li { display: flex; align-items: center; gap: 9px; font-size: 14px; color: rgba(244,241,234,.82); }
+.of-list svg { width: 15px; height: 15px; flex: none; color: #f2877b; }
+.of-ask {
+  margin-top: auto; padding-top: 14px; display: inline-flex; align-items: center; gap: 6px;
+  font: 500 12px/1 "Geist Mono", ui-monospace, monospace; letter-spacing: .08em; text-transform: uppercase;
+  color: rgba(244,241,234,.55); transition: color .25s, gap .25s;
+}
+.of-card:hover .of-ask { color: #f2877b; gap: 10px; }
+
+.of-cta {
+  margin-top: 20px; display: flex; align-items: center; justify-content: space-between; gap: 28px;
+  padding: 34px 36px; border-radius: 24px;
+  background: radial-gradient(120% 140% at 100% 0%, rgba(242,135,123,.16), transparent 55%), rgba(255,255,255,.03);
+  border: 1px solid rgba(242,135,123,.25);
+}
+.of-cta-text h3 { font-family: "Google Sans", "Geist", sans-serif; font-size: clamp(24px, 2.4vw, 32px); font-weight: 700; color: #f4f1ea; margin: 0; letter-spacing: -.015em; }
+.of-cta-text p { margin: 8px 0 0; color: rgba(244,241,234,.62); font-size: 15px; }
+.of-cta-btns { display: flex; gap: 12px; flex: none; }
+.of-cta-btns .btn-primary, .of-cta-btns .btn-secondary { height: 56px; padding: 0 30px; font-size: 16px; }
+
+@media (max-width: 1000px) { .of-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 700px) {
+  .of-grid { grid-template-columns: 1fr; gap: 12px; margin-top: 32px; }
+  .of-card { padding: 22px 20px 20px; }
+  .of-cta { flex-direction: column; align-items: stretch; padding: 26px 20px; text-align: center; }
+  .of-cta-btns { flex-direction: column; }
+  .of-cta-btns .btn-primary, .of-cta-btns .btn-secondary { width: 100%; justify-content: center; }
+}
+/* Services on phone: compact 2-column tiles so the call/message box stays close */
+@media (max-width: 700px) {
+  .of-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .of-card { padding: 18px 16px; gap: 8px; border-radius: 18px; }
+  .of-icon { width: 38px; height: 38px; border-radius: 12px; }
+  .of-icon svg { width: 19px; height: 19px; }
+  .of-title { font-size: 17px; margin-top: 4px; }
+  .of-copy { font-size: 13px; line-height: 1.45; }
+  .of-list, .of-ask { display: none; }
+}

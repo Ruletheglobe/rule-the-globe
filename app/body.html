@@ -19,7 +19,7 @@
   <div class="nav-center">
     <a class="nav-link" href="#work">Work</a>
     <a class="nav-link" href="#how-it-works">System</a>
-    <a class="nav-link" href="#pricing">Pricing</a>
+    <a class="nav-link" href="#services">Services</a>
     <a class="nav-link" href="#faq">FAQ</a>
   </div>
   <div class="nav-right">
@@ -32,7 +32,7 @@
 <div class="nav-mobile-panel" id="navMobile">
   <a class="nav-link" onclick="scrollToEl('work')">Work</a>
   <a class="nav-link" onclick="scrollToEl('how-it-works')">System</a>
-  <a class="nav-link" onclick="scrollToEl('pricing')">Pricing</a>
+  <a class="nav-link" onclick="scrollToEl('services')">Services</a>
   <a class="nav-link" onclick="scrollToEl('faq')">FAQ</a>
   <button class="btn-primary" style="justify-content:center" onclick="openWW('project')">Work with us</button>
 </div>
@@ -50,8 +50,8 @@
       <span class="hl">rule the</span> <span class="it globe-it"><img class="globe-word" src="rtg-globe-word.png" alt="" width="596" height="220" /><span class="period">.</span></span>
     </h1>
     <div class="hero-cta-row">
-      <button class="btn-primary" onclick="openWW('project')">Start a project <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg></button>
-      <button class="btn-secondary" onclick="scrollToEl('pricing')">See pricing</button>
+      <button class="btn-primary" onclick="openWW('call')">Book a call <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg></button>
+      <button class="btn-secondary" onclick="openWW('message')">Send a message</button>
     </div>
     <div class="trust">
       <div class="marquee">
@@ -126,97 +126,67 @@
   </div>
 </section>
 
-<!-- PRICING -->
-<section class="section" id="pricing">
+<!-- SERVICES -->
+<section class="section" id="services">
   <div class="v4-head">
     <div>
-      <div class="section-label">PRICING</div>
-      <h2 class="section-title">Three plans. <em>Everything included.</em></h2>
+      <div class="section-label">WHAT WE OFFER</div>
+      <h2 class="section-title">Built, ranked <em>and marketed.</em></h2>
     </div>
-    <p class="section-subtitle">Try any plan for a month with one payment. Like the results? Keep going monthly and cancel anytime.</p>
+    <p class="section-subtitle">No fixed packages. Tell us what you need and we shape the plan around your business.</p>
   </div>
-
-  <div class="pr-shell pb pb-simple">
-    <div class="pr-controls">
-      <div class="pr-tabs" role="tablist" id="prTabs">
-        <span class="pr-ind" id="prInd"></span>
-        <button class="pr-tab active" data-plan="foundation" onclick="setPlan('foundation')"><span class="pt-n">Foundation</span><span class="pt-p" data-p="foundation"></span></button>
-        <button class="pr-tab" data-plan="growth" onclick="setPlan('growth')"><span class="pt-n">Growth</span><span class="pt-p" data-p="growth"></span></button>
-        <button class="pr-tab" data-plan="dominance" onclick="setPlan('dominance')"><span class="pt-n">Dominance</span><span class="pt-p" data-p="dominance"></span></button>
-      </div>
-      <div class="pb-bill" id="pbBill" role="radiogroup" aria-label="How you pay">
-        <span class="pb-bill-ind" id="pbBillInd"></span>
-        <button data-v="trial" role="radio" onclick="pbSetMode('trial')"><b>Try 1 month</b><small>One-time</small></button>
-        <button data-v="monthly" role="radio" onclick="pbSetMode('monthly')"><b>Monthly</b><small>Save 15%</small></button>
-      </div>
+  <div class="of-grid">
+    <article class="of-card" onclick="bookCall('website')" tabindex="0" onkeydown="if(event.key==='Enter')bookCall('website')">
+      <span class="of-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3z"/><path d="M3 9h18"/><circle cx="6" cy="7" r=".6" fill="currentColor"/></svg></span>
+      <h3 class="of-title">Websites</h3>
+      <p class="of-copy">Fast sites built to turn visitors into customers.</p>
+      <ul class="of-list"><li><svg viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Design and build</li><li><svg viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Hosting, SSL and updates</li><li><svg viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Booking, menus and checkout</li></ul>
+      <span class="of-ask">Ask about this <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg></span>
+    </article>
+    <article class="of-card" onclick="bookCall('website')" tabindex="0" onkeydown="if(event.key==='Enter')bookCall('website')">
+      <span class="of-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/></svg></span>
+      <h3 class="of-title">SEO + AI search</h3>
+      <p class="of-copy">Get found on Google and quoted by ChatGPT, Perplexity and Gemini.</p>
+      <ul class="of-list"><li><svg viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Search and AI search setup</li><li><svg viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Monthly results report</li></ul>
+      <span class="of-ask">Ask about this <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg></span>
+    </article>
+    <article class="of-card" onclick="bookCall('ads')" tabindex="0" onkeydown="if(event.key==='Enter')bookCall('ads')">
+      <span class="of-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="3" width="12" height="18" rx="2.5"/><path d="M10.5 9.5v5l4-2.5z"/></svg></span>
+      <h3 class="of-title">UGC + AI content</h3>
+      <p class="of-copy">Videos and posts made for your feed every month.</p>
+      <ul class="of-list"><li><svg viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>UGC videos</li><li><svg viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>AI content posts</li><li><svg viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Captions and scheduling</li></ul>
+      <span class="of-ask">Ask about this <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg></span>
+    </article>
+    <article class="of-card" onclick="bookCall('ads')" tabindex="0" onkeydown="if(event.key==='Enter')bookCall('ads')">
+      <span class="of-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l1.5-2h7L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg></span>
+      <h3 class="of-title">AI model shoots</h3>
+      <p class="of-copy">Photo and video shoots with AI models, no studio day.</p>
+      <ul class="of-list"><li><svg viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Product and lifestyle shots</li><li><svg viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Ready for ads and socials</li></ul>
+      <span class="of-ask">Ask about this <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg></span>
+    </article>
+    <article class="of-card" onclick="bookCall('ads')" tabindex="0" onkeydown="if(event.key==='Enter')bookCall('ads')">
+      <span class="of-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10v4h3l6 4V6L7 10z"/><path d="M17 9a4 4 0 0 1 0 6"/></svg></span>
+      <h3 class="of-title">Ads</h3>
+      <p class="of-copy">Static image ads, film ads and campaigns run for you.</p>
+      <ul class="of-list"><li><svg viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Image ads and film ads</li><li><svg viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Meta and Google, on your budget</li><li><svg viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Your spend stays in your account</li></ul>
+      <span class="of-ask">Ask about this <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg></span>
+    </article>
+    <article class="of-card" onclick="bookCall('training')" tabindex="0" onkeydown="if(event.key==='Enter')bookCall('training')">
+      <span class="of-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.6 4.8L18.5 9l-4.9 1.4L12 15l-1.6-4.6L5.5 9l4.9-1.2z"/><path d="M18 15l.7 2 2 .7-2 .7-.7 2-.7-2-2-.7 2-.7z"/></svg></span>
+      <h3 class="of-title">AI tools training</h3>
+      <p class="of-copy">Learn the AI tools RTG uses, on your own work.</p>
+      <ul class="of-list"><li><svg viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Picked for your business</li><li><svg viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Prompts and workflows you keep</li></ul>
+      <span class="of-ask">Ask about this <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg></span>
+    </article>
+  </div>
+  <div class="of-cta">
+    <div class="of-cta-text">
+      <h3>Let's talk about your brand.</h3>
+      <p>Book a 20 minute call or send a message. RTG replies within 24 hours.</p>
     </div>
-
-    <div class="pr-card">
-      <div class="pr-left">
-        <div class="pr-title-row">
-          <span class="pr-name" id="prName">Foundation</span>
-        </div>
-        <p class="pr-for" id="prFor"></p>
-        <div class="pr-inherit" id="prInherit"></div>
-        <ul class="pr-feats" id="prFeats"></ul>
-      </div>
-
-      <div class="pr-right">
-        <div class="pr-stage" id="prStage">
-          <div class="pr-metal" id="prMetal" data-tier="foundation">
-            <span class="pm-skin sk-foundation"></span><span class="pm-skin sk-growth"></span><span class="pm-skin sk-dominance"></span>
-            <span class="pr-light"></span>
-            <div class="pm-top">
-              <span class="pm-logo">RTG</span>
-              <span class="pr-pop" id="prPop">MOST POPULAR</span>
-              <svg class="pm-nfc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8.5 7.5a6.5 6.5 0 0 1 0 9M12 5a10 10 0 0 1 0 14M15.5 2.5a13.5 13.5 0 0 1 0 19"/></svg>
-            </div>
-            <div class="pm-chip"><i></i><i></i><i></i></div>
-            <div class="pm-bottom">
-              <div>
-                <div class="pr-metal-label" id="prMetalLabel">FOUNDATION PLAN</div>
-                <div class="pr-price"><span id="prPrice">$0</span><small id="prPer">/mo</small></div>
-                <div class="pr-alt" id="prAlt"></div>
-              </div>
-              <div class="pm-member">
-                <span>MEMBER SINCE</span>
-                <b id="prSince">12 / 26</b>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="pr-btns">
-          <button class="gl-cta pr-go" id="pbGo" onclick="startPlan()"><span id="prGoName">Start Foundation</span> <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg></button>
-          <button class="gl-ghost pr-msg" onclick="openWW('message')">Send a message</button>
-        </div>
-        <p class="pr-note" id="prNote"></p>
-      </div>
-    </div>
-
-    <div class="xs-head">
-      <span class="section-label">ALSO FROM RTG</span>
-    </div>
-    <div class="xs-grid xs-grid-1" id="services">
-      <article class="xs-card xs-call xs-wide">
-        <div class="xs-wide-l">
-          <div class="xs-top">
-            <span class="xs-icon"><img class="xs-star" src="rtg-star-black.png" alt="" width="150" height="160" /></span>
-            <span class="xs-tag xs-tag-red">BY CALL ONLY</span>
-          </div>
-          <h3 class="xs-title">AI Tools Training</h3>
-          <p class="xs-copy">Learn the AI tools RTG uses to build, write and market. Every session is shaped around your team and your goals.</p>
-        </div>
-        <div class="xs-wide-r">
-          <ul class="xs-list">
-            <li><svg viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Pick the right AI tools for your business</li>
-            <li><svg viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Hands-on walkthroughs on your own work</li>
-            <li><svg viewBox="0 0 16 16" fill="none"><path d="M3.5 8.5l3 3 6-7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>Prompts and workflows your team keeps</li>
-          </ul>
-          <div class="xs-btns xs-btns-1">
-            <button class="gl-cta" onclick="bookCall('training')">Book a call <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg></button>
-          </div>
-        </div>
-      </article>
+    <div class="of-cta-btns">
+      <button class="btn-primary" onclick="openWW('call')">Book a call <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg></button>
+      <button class="btn-secondary" onclick="openWW('message')">Send a message</button>
     </div>
   </div>
 </section>
@@ -230,7 +200,7 @@
     <div class="result-divider-v"></div>
     <div class="result-stat"><div class="result-value">48hr</div><div class="result-label">average delivery after setup</div></div>
     <div class="result-divider-v"></div>
-    <div class="result-stat"><div class="result-value">$0</div><div class="result-label">extra for AIO on every plan</div></div>
+    <div class="result-stat"><div class="result-value">24hr</div><div class="result-label">reply to every message</div></div>
   </div>
 </section>
 
@@ -330,8 +300,8 @@
     <h2 class="cta-band-title" style="margin-top:14px">Let's build <em class="glint glint-glow-only">the next one.</em></h2>
     <p class="cta-band-sub">Four fields. Reply within 24 hours.</p>
     <div class="cta-btns">
-      <button class="btn-primary" onclick="openWW('project')">Start a project <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg></button>
-      <button class="btn-secondary" onclick="openWW('call')">Book a call</button>
+      <button class="btn-primary" onclick="openWW('call')">Book a call <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M9 6l6 6-6 6"/></svg></button>
+      <button class="btn-secondary" onclick="openWW('message')">Send a message</button>
     </div>
     <div><div class="cta-email">Or email
       <button class="copy-btn" onclick="copyText(RTG_CONFIG.email, 'Email copied')"><span class="rtg-email">hello@rtg.studio</span>
@@ -351,7 +321,7 @@
       <h4>Navigate</h4>
       <div class="footer-nav">
         <a onclick="scrollToEl('work')">Work</a>
-        <a onclick="scrollToEl('pricing')">Pricing</a>
+        <a onclick="scrollToEl('services')">Services</a>
         <a onclick="scrollToEl('faq')">FAQ</a>
       </div>
     </div>
@@ -411,15 +381,8 @@
             <label class="ww-field"><span class="ww-label">Email</span>
               <input class="ww-input" name="email" type="email" placeholder="you@yourbrand.com" autocomplete="email" /></label>
           </div>
-          <div class="ww-field"><span class="ww-label">Your plan <a class="ww-edit" onclick="closeWW();scrollToEl('pricing')">Edit</a></span>
-            <div class="ww-plan" id="wwPlan"></div></div>
           <label class="ww-field"><span class="ww-label">What are you building?</span>
             <textarea class="ww-textarea" name="message" placeholder="A few lines is enough."></textarea></label>
-          <label class="ww-check">
-            <input type="checkbox" name="commit" />
-            <span class="ww-box"></span>
-            <span id="wwCommitText">I'm ready to start at $300/mo plus the $250 setup.</span>
-          </label>
           <div class="ww-foot">
             <div class="ww-sla"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>Reply within 24h</div>
             <button type="submit" class="ww-send">Send message</button>
@@ -434,7 +397,7 @@
           <div class="ww-tz">WAT (LAGOS) · 20 MIN</div>
           <label class="ww-field"><span class="ww-label">What's the call about?</span>
             <select class="ww-select" name="topic">
-              <option value="website">Website plan</option>
+              <option value="website">Website, SEO + AI search</option>
               <option value="ads">Ads &amp; growth (AI UGC, Meta, Google, SEO)</option>
               <option value="training">AI tools training</option>
               <option value="unsure">Not sure yet</option>

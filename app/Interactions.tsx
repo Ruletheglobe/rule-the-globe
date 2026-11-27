@@ -128,7 +128,7 @@ export default function Interactions() {
         });
 
         // ---- spotlight: cards light up toward the cursor ----
-        const spotSel = ".how-card, .review-card, .svc-card, .proof-card, .pr-shell, .faq-item";
+        const spotSel = ".how-card, .review-card, .svc-card, .proof-card, .of-card, .faq-item";
         on(document, "pointermove", (e) => {
           const el = (e.target as HTMLElement | null)?.closest?.(spotSel) as HTMLElement | null;
           if (!el) return;

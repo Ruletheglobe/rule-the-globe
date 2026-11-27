@@ -880,10 +880,9 @@ const faqs = [
   ['Who do you work with?', 'Restaurants, clinics, beauty, fitness, retail and gaming studios. Any business that needs its website to bring in customers.'],
   ["What if I don't have a brief?", 'Send a few lines or book a call. RTG turns it into a plan.'],
   ['How long does a build take?', 'Most sites go live within 48 hours of kickoff. Bigger builds take one to two weeks.'],
-  ['How much does it cost?', 'Foundation is $300, Growth $800 and Dominance $1,500. Try any plan for one month with a single payment, or go monthly for 15% less and cancel anytime.'],
-  ['What is in each plan?', 'Foundation is your website with SEO and AI search. Every plan gets image ads, plus a film ad on the trial. Growth adds UGC videos, AI content, 2 film ads a month and ads run on Meta and Google. Dominance adds AI model shoots, longer film ads and AI tools training. Anyone can book an AI training call on its own.'],
+  ['How much does it cost?', 'It depends on what your brand needs. Book a call or send a message and RTG sends a plan and quote shaped around your business.'],
+  ['What do you offer?', 'Websites, SEO and AI search, UGC and AI content, AI model shoots, image and film ads run on Meta and Google, and AI tools training. Take one or combine them.'],
   ['Does my ad budget go to you?', 'No. Your ad spend stays in your own Meta or Google account. The plan covers RTG running it for you.'],
-  ['Why do you show prices?', 'So you know before the first call. It saves both of us time and keeps the focus on your build.'],
   ['What happens after launch?', 'RTG keeps the site fast, ranked and updated, with a weekly report on what to fix next.']
 ];
 function renderFAQ() {
@@ -1240,26 +1239,19 @@ function wwSuccess(title, sub) {
 async function submitProject() {
   const f = document.querySelector('.ww-panel[data-panel="project"]');
   const ok = wwValid(f, ['brand', 'email', 'message']);
-  const commit = f.querySelector('[name="commit"]');
-  const lab = commit.closest('.ww-check');
-  lab.classList.toggle('error', !commit.checked);
-  if (!commit.checked) commit.addEventListener('change', () => lab.classList.remove('error'), { once: true });
-  if (!ok || !commit.checked) return;
+  if (!ok) return;
   const btn = f.querySelector('.ww-send');
   btn.disabled = true; btn.textContent = 'Sending';
   const get = n => f.querySelector(`[name="${n}"]`).value.trim();
-  const sm = pbSummary();
   const payload = {
     id: 's' + Date.now(), type: 'project',
     businessName: get('brand'), fullName: '', email: get('email'),
-    plan: 'custom', committed: true, order: sm,
-    billing: sm.mode === 'monthly' ? 'Monthly' : 'Trial',
     message: get('message'), submittedAt: new Date().toISOString()
   };
   await deliver(payload);
   btn.disabled = false; btn.textContent = 'Send message';
-  f.reset(); syncPlanNote();
-  wwSuccess('Project received.', `${sm.text}. RTG replies to ${payload.email} within 24 hours with your payment link and kickoff steps.`);
+  f.reset();
+  wwSuccess('Project received.', `RTG replies to ${payload.email} within 24 hours with next steps.`);
 }
 
 async function submitCall() {
@@ -1787,11 +1779,10 @@ function animateCounters(container) {
   renderWork();
   renderFAQ();
   renderTeam();
-  renderPricing();
+  if (document.getElementById('prTabs')) renderPricing();
   (function(){ const h = document.getElementById('heroGlobeImg'), c = document.getElementById('ctaGlobeImg'); if (h && c) c.src = h.src; })();
   renderSvcs();
-  initPricingCard();
-  syncPlanNote();
+  if (document.getElementById('prTabs')) { initPricingCard(); syncPlanNote(); }
   initSectionSpy();
   renderTestimonial(0);
   restartQuotes();
