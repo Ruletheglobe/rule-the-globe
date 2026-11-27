@@ -42,7 +42,7 @@ export default function Privacy() {
       <p>Enquiries are kept as long as needed to deal with them and for a reasonable period after, usually no more than 24 months. Client records are kept for as long as the law requires. Published reviews stay until you ask us to remove them.</p>
 
       <h2>6. Your rights</h2>
-      <p>Under the Nigeria Data Protection Act 2023 and, where it applies to you, the GDPR, you may ask to access, correct or delete your personal data, object to or restrict how we use it, and withdraw consent at any time. Email <a href="mailto:hello@rtg.studio">hello@rtg.studio</a> and we will respond within 30 days. You can also complain to the Nigeria Data Protection Commission or your local regulator.</p>
+      <p>Under the Nigeria Data Protection Act 2023 and, where it applies to you, the GDPR, you may ask to access, correct or delete your personal data, object to or restrict how we use it, and withdraw consent at any time. Email <a href="mailto:xica@rtg.studio">xica@rtg.studio</a> and we will respond within 30 days. You can also complain to the Nigeria Data Protection Commission or your local regulator.</p>
 
       <h2>7. Security</h2>
       <p>We use HTTPS and limit who can see enquiries. No method of transmission is perfectly secure, so please avoid sending sensitive information such as passwords or card numbers by email or form.</p>
@@ -54,7 +54,7 @@ export default function Privacy() {
       <p>We may update this policy. The date at the top shows when it last changed. If the changes are significant we will ask for your cookie choice again.</p>
 
       <h2>10. Contact</h2>
-      <p>RTG Agency, Lagos, Nigeria · <a href="mailto:hello@rtg.studio">hello@rtg.studio</a></p>
+      <p>RTG Agency, Lagos, Nigeria · <a href="mailto:xica@rtg.studio">xica@rtg.studio</a></p>
     </LegalPage>
   );
 }

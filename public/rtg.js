@@ -529,7 +529,7 @@ function updateReviewBadge() {
 // formEndpoint: paste a Formspree / Web3Forms / Getform URL to receive every
 // message in your inbox. Left empty, messages save to the admin inbox only.
 const RTG_CONFIG = {
-  email: 'hello@rtg.studio',
+  email: 'xica@rtg.studio',
   // Review links point at wherever the site is open (rtg.studio, GitHub Pages or Netlify)
   siteUrl: () => location.origin + location.pathname.replace(/index\.html$/, ''),
   formEndpoint: ''

@@ -25,7 +25,7 @@ export default function LegalPage({
         <div className="legal-foot">
           <a href="/privacy">Privacy</a>
           <a href="/terms">Terms</a>
-          <a href="mailto:hello@rtg.studio">hello@rtg.studio</a>
+          <a href="mailto:xica@rtg.studio">xica@rtg.studio</a>
         </div>
       </div>
     </main>

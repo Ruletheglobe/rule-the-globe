@@ -48,7 +48,7 @@ export default function Terms() {
       <p>These terms are governed by the laws of the Federal Republic of Nigeria, and the courts of Lagos State have jurisdiction, unless a signed project agreement says otherwise.</p>
 
       <h2>12. Changes and contact</h2>
-      <p>We may update these terms; the date above shows the latest version. Questions: <a href="mailto:hello@rtg.studio">hello@rtg.studio</a>.</p>
+      <p>We may update these terms; the date above shows the latest version. Questions: <a href="mailto:xica@rtg.studio">xica@rtg.studio</a>.</p>
     </LegalPage>
   );
 }
